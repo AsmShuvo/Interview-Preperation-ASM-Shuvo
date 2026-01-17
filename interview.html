@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interview Questions - Study Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <svg
+        height="32"
+        viewBox="0 0 16 16"
+        version="1.1"
+        width="32"
+        aria-hidden="true"
+        fill="white"
+      >
+        <path
+          d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.27-1.48-.55-1.94 2.7-.3 5.5-1.32 5.5-5.92 0-1.31-.46-2.38-1.23-3.26.12-.32.53-1.52-.12-3.26 0 0-1.01-.32-3.3 1.23A11.52 11.52 0 0 0 8 2.3c-1.01 0-2.01.14-2.85.41-2.29-1.55-3.3-1.23-3.3-1.23-.65 1.74-.24 2.94-.12 3.26-.77.88-1.23 1.95-1.23 3.26 0 4.58 2.8 5.62 5.5 5.92-.27.46-.55 1.17-.55 1.94 0 1.25.01 2.37.01 2.54 0 .21-.15.46-.55.38A8.013 8.013 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
+        ></path>
+      </svg>
+      <h1>My Study Progress</h1>
+    </header>
+    <div class="container">
+      <a href="index.html" class="back-link">&larr; Back into Overview</a>
+      <div class="page-header">
+        <h1 style="color: var(--color-text)">Interview Questions</h1>
+      </div>
+      <div class="split-layout">
+        <div class="sidebar">
+          <button class="tab-btn active" onclick="openTab(event, 'overview')">
+            Overview
+          </button>
+          <button class="tab-btn" onclick="openTab(event, 'samsung')">
+            Samsung
+          </button>
+        </div>
+
+        <div class="tab-content-container">
+          <div id="overview" class="tab-content active">
+            <div class="content-area">
+              <p style="color: var(--color-text-secondary)">
+                Your notes for Interview Questions will go here. Edit this file
+                to add content.
+              </p>
+              <ul style="margin-top: 20px; color: var(--color-text)">
+                <li>Technical Concepts (OS, DBMS)</li>
+                <li>System Design Basics</li>
+                <li>Behavioral Questions (STAR Method)</li>
+                <li>Mock Interview Feedback</li>
+              </ul>
+            </div>
+          </div>
+
+          <div id="samsung" class="tab-content">
+            <div class="content-area">
+              <h1>Samsung Problems</h1>
+              
+              <!-- Problem 1 -->
+              <div class="problem-block" id="problem-1">
+                 <h2>Problem 1: Bipartite Graph Coloring</h2>
+                 <p><strong>Description:</strong> Given an undirected graph, determine if it is bipartite. If it is bipartite, print one of the two sets of vertices that form the bipartition. If the graph is not bipartite, print "-1".</p>
+                 <h3>Code (C++)</h3>
+                 <pre><code>
+                  #include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+bool ok = true;
+
+// Time: O(v+e) Space: O(v+e)
+void dfs(vector&lt;vector&lt;int&gt;&gt; &g, vector&lt;bool&gt; &vis, vector&lt;int&gt; &color, int v, int p)
+{
+    if (!ok)
+        return;
+    vis[v] = true;
+    if (p &gt;= 0)
+        color[v] = !color[p];
+    for (auto u : g[v])
+    {
+        if (vis[u] && u != p && color[u] == color[v])
+        {
+            ok = false;
+            return;
+        }
+        if (!vis[u])
+        {
+            dfs(g, vis, color, u, v);
+        }
+    }
+}
+
+int main()
+{
+    int t;
+    cin &gt;&gt; t;
+    while (t--)
+    {
+        ok = true;
+        int v, e;
+        cin &gt;&gt; v &gt;&gt; e;
+        vector&lt;vector&lt;int&gt;&gt; g(v + 1);
+        vector&lt;bool&gt; vis(v + 1, false);
+        vector&lt;int&gt; color(v + 1);
+        for (int i = 0; i &lt; e; i++)
+        {
+            int u, v;
+            cin &gt;&gt; u &gt;&gt; v;
+            g[u].push_back(v);
+            g[v].push_back(u);
+        }
+        for (int i = 1; i &lt;= v; i++)
+        {
+            if (!vis[i])
+                dfs(g, vis, color, i, -1);
+        }
+        if (!ok)
+        {
+            cout &lt;&lt; -1 &lt;&lt; endl;
+        }
+        else
+        {
+            for (int i = 1; i &lt;= v; i++)
+            {
+                if (color[i])
+                    cout &lt;&lt; i &lt;&lt; " ";
+            }
+            cout &lt;&lt; endl;
+        }
+    }
+    return 0;
+}</code></pre>
+              </div>
+
+              <hr>
+
+              <!-- Problem 2 -->
+              <div class="problem-block" id="problem-2">
+                 <h2>Problem 2: Balloon Bursting</h2>
+                 <p><strong>Description:</strong> There are n balloons and n bullets. Each balloon is assigned a particular number of points. whenever a particular balloon is shot the no of points increases by 1.the multiplication of point assigned to balloon on left and that of right side. 2. point assigned to left if no right exists. 3. point assigned to right if no left exists. 4. the point assigned to itself if no other balloon exists. You have to find the sequence of bursting balloons that maximizes the total points obtained.</p>
+                 <h3>Code</h3>
+                 <p><em></em></p>
+              </div>
+
+              <hr>
+
+              <!-- Problem 3 -->
+              <div class="problem-block" id="problem-3">
+                 <h2>Problem 3: Catch the Stationary Piece (Knight's Move)</h2>
+                 <p><strong>Description:</strong> There is a mobile piece and a stationary piece on an N x M chessboard. You need to capture the stationary piece by moving the mobile piece with the minimum number of moves. The mobile piece moves like a Knight.</p>
+                 <h3>Code (cpp)</h3>
+                 <pre>
+<code>
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+int n, m;
+int sr, sc, dr, dc;
+vector&lt;int&gt; dx = {2, 2, -2, -2, 1, -1, 1, -1};
+vector&lt;int&gt; dy = {-1, 1, -1, 1, -2, -2, 2, 2};
+
+int bfs()
+{
+    vector&lt;vector&lt;int&gt;&gt; vis(n + 1, vector&lt;int&gt;(m + 1));
+    vis[sr][sc] = 1;
+    queue&lt;vector&lt;int&gt;&gt; q;
+    // r c step
+    q.push({sr, sc, 0});
+    while (!q.empty())
+    {
+        auto cur = q.front();
+        q.pop();
+        int x = cur[0], y = cur[1], step = cur[2];
+        if (x == dr && y == dc)
+            return step; // found
+        for (int i = 0; i &lt; 8; i++)
+        {
+            int nx = x + dx[i];
+            int ny = y + dy[i];
+            if (nx &lt; 1 || nx &gt; n || ny &lt; 1 || ny &gt; m || vis[nx][ny])
+                continue;
+            vis[nx][ny] = 1;
+            q.push({nx, ny, step + 1});
+        }
+    }
+    return -1;
+}
+
+int main()
+{
+    int t;
+    cin &gt;&gt; t;
+    while (t--)
+    {
+        cin &gt;&gt; n &gt;&gt; m;
+        cin &gt;&gt; sr &gt;&gt; sc &gt;&gt; dr &gt;&gt; dc;
+        cout &lt;&lt; bfs() &lt;&lt; endl;
+    }
+}
+</code>
+</pre>
+              </div>
+
+              <hr>
+
+              <!-- Problem 4 -->
+              <div class="problem-block" id="problem-4">
+                 <h2>Problem 4: Convex Hull</h2>
+                 <p><strong>Description:</strong> Given a set of random points in a 2-D plane, construct a convex polygon with the minimum area of covering that encompasses all the given points (Convex Hull). Output the vertices of this polygon.</p>
+                 <h3>Code</h3>
+                 <p><em>No solution code available.</em></p>
+              </div>
+
+              <hr>
+
+              <!-- Problem 5 -->
+              <div class="problem-block" id="problem-5">
+                 <h2>Problem 5: Crow and Overflowing Pots</h2>
+                 <p><strong>Description:</strong> There are N pots. Every pot has some water in it and is associated with an overflow number O_i. The crow wants to overflow at least K pots. Find the minimum number of stones the crow needs to use to guarantee that K pots overflow in the worst-case scenario.</p>
+                 <h3>Code (C++)</h3>
+                 <pre><code>#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+int main()
+{
+    int tl;
+    if (!(cin &gt;&gt; tl)) return 0;
+    while (tl--)
+    {
+        int n, m, total_time;
+        cin &gt;&gt; n &gt;&gt; m &gt;&gt; total_time;
+        int steps = total_time / 10;
+        
+        vector&lt;vector&lt;pair&lt;int, double&gt;&gt;&gt; g(n + 1);
+        for (int i = 0; i &lt; m; i++)
+        {
+            int u, v;
+            double p;
+            cin &gt;&gt; u &gt;&gt; v &gt;&gt; p;
+            g[u].push_back({v, p});
+        }
+        
+        vector&lt;double&gt; prob(n + 1, 0.0);
+        prob[1] = 1.0;
+
+        for (int s = 0; s &lt; steps; s++)
+        {
+            vector&lt;double&gt; nextProb(n + 1, 0.0);
+            for (int u = 1; u &lt;= n; u++)
+            {
+                if (prob[u] &gt; 0)
+                {
+                    for (auto &e : g[u])
+                    {
+                        int v = e.first;
+                        double pb = e.second; 
+                        nextProb[v] += prob[u] * pb;
+                    }
+                }
+            }
+            prob = nextProb;
+        }
+
+        int lastNode = -1;
+        double mxProb = -1.0; 
+
+        for (int i = 1; i &lt;= n; i++)
+        {
+            if (prob[i] &gt; mxProb)
+            {
+                mxProb = prob[i];
+                lastNode = i;
+            }
+        }
+
+        if (lastNode == -1 || mxProb &lt;= 0.0)
+            cout &lt;&lt; "impossible" &lt;&lt; endl;
+        else
+            cout &lt;&lt; lastNode &lt;&lt; " " &lt;&lt; fixed &lt;&lt; setprecision(6) &lt;&lt; mxProb &lt;&lt; endl;
+    }
+    return 0;
+}</code></pre>
+              </div>
+
+              <hr>
+
+              <!-- Problem 6 -->
+              <div class="problem-block" id="problem-6">
+                 <h2>Problem 6: Doctor Probability</h2>
+                 <p><strong>Description:</strong> A Doctor travels between divisions (nodes) in a directed graph where edge weights are probabilities. He stays 10 mins at each division. Given time T, find the division with the highest probability where he will be staying.</p>
+                 <h3>Code (C++)</h3>
+                 <pre><code>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;iomanip&gt;
+
+using namespace std;
+
+void solve() {
+    int N, E, T;
+    cin &gt;&gt; N &gt;&gt; E &gt;&gt; T;
+    
+    // Adjacency list: u -&gt; {v, prob}
+    vector&lt;vector&lt;pair&lt;int, double&gt;&gt;&gt; adj(N + 1);
+    for (int i = 0; i &lt; E; ++i) {
+        int u, v;
+        double p;
+        cin &gt;&gt; u &gt;&gt; v &gt;&gt; p;
+        adj[u].push_back({v, p});
+    }
+
+    // Probability array
+    vector&lt;double&gt; prob(N + 1, 0.0);
+    prob[1] = 1.0; // Assume start at node 1
+
+    int steps = T / 10;
+    
+    for (int s = 0; s &lt; steps; ++s) {
+        vector&lt;double&gt; next_prob(N + 1, 0.0);
+        bool any_move = false;
+        for (int u = 1; u &lt;= N; ++u) {
+            if (prob[u] &gt; 0) {
+                if (!adj[u].empty()) {
+                    for (auto& edge : adj[u]) {
+                        int v = edge.first;
+                        double p = edge.second;
+                        next_prob[v] += prob[u] * p;
+                    }
+                    any_move = true; 
+                } 
+            }
+        }
+        prob = next_prob;
+    }
+
+    int result_node = 0;
+    double max_p = -1.0;
+    
+    for (int i = 1; i &lt;= N; ++i) {
+        if (prob[i] &gt; max_p) {
+            max_p = prob[i];
+            result_node = i;
+        }
+    }
+    
+    cout &lt;&lt; result_node &lt;&lt; " " &lt;&lt; fixed &lt;&lt; setprecision(6) &lt;&lt; max_p &lt;&lt; endl;
+}
+
+int main() {
+    int t;
+    cin &gt;&gt; t;
+    while(t--) {
+        solve();
+    }
+    return 0;
+}</code></pre>
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        function openTab(evt, tabName) {
+          var i, tabcontent, tablinks;
+          tabcontent = document.getElementsByClassName("tab-content");
+          for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].classList.remove("active");
+          }
+          tablinks = document.getElementsByClassName("tab-btn");
+          for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+          }
+          document.getElementById(tabName).classList.add("active");
+          evt.currentTarget.classList.add("active");
+        }
+
+        // Syntax Highlighting for Comments
+        document.addEventListener("DOMContentLoaded", function() {
+          const codeBlocks = document.querySelectorAll('pre code');
+          codeBlocks.forEach(block => {
+            let html = block.innerHTML;
+            // Regex to capture // comments
+            html = html.replace(/(\/\/[^\n]*)/g, '<span class="comment">$1</span>');
+            block.innerHTML = html;
+          });
+        });
+      </script>
+    </div>
+    <footer>&copy; 2026 Study Tracker.</footer>
+  </body>
+</html>

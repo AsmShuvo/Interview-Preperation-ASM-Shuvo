@@ -1,0 +1,1899 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DBMS - Study Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <svg
+        height="32"
+        viewBox="0 0 16 16"
+        version="1.1"
+        width="32"
+        aria-hidden="true"
+        fill="white"
+      >
+        <path
+          d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.27-1.48-.55-1.94 2.7-.3 5.5-1.32 5.5-5.92 0-1.31-.46-2.38-1.23-3.26.12-.32.53-1.52-.12-3.26 0 0-1.01-.32-3.3 1.23A11.52 11.52 0 0 0 8 2.3c-1.01 0-2.01.14-2.85.41-2.29-1.55-3.3-1.23-3.3-1.23-.65 1.74-.24 2.94-.12 3.26-.77.88-1.23 1.95-1.23 3.26 0 4.58 2.8 5.62 5.5 5.92-.27.46-.55 1.17-.55 1.94 0 1.25.01 2.37.01 2.54 0 .21-.15.46-.55.38A8.013 8.013 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
+        ></path>
+      </svg>
+      <h1>My Study Progress</h1>
+    </header>
+    <div class="container">
+      <a href="index.html" class="back-link">&larr; Back into Overview</a>
+
+      <div class="split-layout">
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <button class="tab-btn active" onclick="openTab(event, 'keys')">
+            Keys
+          </button>
+          <button class="tab-btn" onclick="openTab(event, 'er-model')">
+            ER Model
+          </button>
+          <button class="tab-btn" onclick="openTab(event, 'normalization')">
+            Normalization
+          </button>
+        </div>
+
+        <!-- Content Area -->
+        <div class="tab-content-container">
+          <!-- Tab 1: Keys -->
+          <div id="keys" class="tab-content active">
+            <h1 style="margin-top: 0">Keys in DBMS</h1>
+
+            <h2>Super Key (DBMS)</h2>
+            <p>
+              A <strong>super key</strong> is a set of one or more attributes
+              that uniquely identifies each tuple in a relation.
+            </p>
+
+            <h2>Candidate Key (DBMS)</h2>
+            <p>
+              A <strong>candidate key</strong> is a minimal set of attributes
+              that uniquely identifies each tuple/row within a table. Tables can
+              have multiple candidate keys, but only one is chosen as the
+              <strong>Primary Key</strong>, with the rest becoming
+              <strong>Alternate Keys</strong>.
+            </p>
+
+            <div class="note-block">
+              <strong>Example:</strong><br />
+              CK: AB, AC<br />
+              SK: AB, AC, ABC, ACF, ABD, …
+            </div>
+
+            <div class="note-block">
+              <strong>Question:</strong><br />
+              If a relation R has <em>n</em> attributes, and candidate key has
+              <em>m</em> attributes, how many super keys possible?<br />
+              <strong>Ans:</strong> 2<sup>(n-m)</sup>
+            </div>
+          </div>
+
+          <!-- Tab 2: ER Model -->
+          <div id="er-model" class="tab-content">
+            <h1 style="margin-top: 0">Entity-Relationship (ER) Model</h1>
+
+            <h2>Types of Attributes in ER Model</h2>
+            <p>
+              Attributes are the properties that define an entity. In an ER
+              diagram, different types of attributes are represented by specific
+              shapes.
+            </p>
+
+            <div
+              class="grid"
+              style="
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 24px;
+              "
+            >
+              <!-- Simple Attribute -->
+              <div class="card" style="padding: 16px">
+                <h3>1. Simple Attribute</h3>
+                <p>
+                  An attribute that cannot be further divided into sub-parts.
+                  Example: Roll Number, Gender.
+                </p>
+                <img
+                  src="C:/Users/LENOVO/.gemini/antigravity/brain/0db21d71-1739-4f15-8d55-34af7d7398c8/simple_attribute_er_1768335154438.png"
+                  alt="Simple Attribute"
+                  style="
+                    width: 100%;
+                    border-radius: 6px;
+                    margin-top: 12px;
+                    border: 1px solid var(--color-border);
+                  "
+                />
+              </div>
+
+              <!-- Composite Attribute -->
+              <div class="card" style="padding: 16px">
+                <h3>2. Composite Attribute</h3>
+                <p>
+                  An attribute that can be divided into smaller sub-attributes.
+                  Example: Name (First, Middle, Last) or Address.
+                </p>
+                <img
+                  src="C:/Users/LENOVO/.gemini/antigravity/brain/0db21d71-1739-4f15-8d55-34af7d7398c8/composite_attribute_er_1768335169978.png"
+                  alt="Composite Attribute"
+                  style="
+                    width: 100%;
+                    border-radius: 6px;
+                    margin-top: 12px;
+                    border: 1px solid var(--color-border);
+                  "
+                />
+              </div>
+
+              <!-- Multi-valued Attribute -->
+              <div class="card" style="padding: 16px">
+                <h3>3. Multi-valued Attribute</h3>
+                <p>
+                  An attribute that can have more than one value for a single
+                  entity instance. Example: Phone Number, Email.
+                </p>
+                <img
+                  src="C:/Users/LENOVO/.gemini/antigravity/brain/0db21d71-1739-4f15-8d55-34af7d7398c8/multivalued_attribute_er_1768335183789.png"
+                  alt="Multi-valued Attribute"
+                  style="
+                    width: 100%;
+                    border-radius: 6px;
+                    margin-top: 12px;
+                    border: 1px solid var(--color-border);
+                  "
+                />
+              </div>
+
+              <!-- Derived Attribute -->
+              <div class="card" style="padding: 16px">
+                <h3>4. Derived Attribute</h3>
+                <p>
+                  An attribute whose value is calculated from other attributes.
+                  Example: Age (derived from Date of Birth).
+                </p>
+                <img
+                  src="C:/Users/LENOVO/.gemini/antigravity/brain/0db21d71-1739-4f15-8d55-34af7d7398c8/derived_attribute_er_1768335198553.png"
+                  alt="Derived Attribute"
+                  style="
+                    width: 100%;
+                    border-radius: 6px;
+                    margin-top: 12px;
+                    border: 1px solid var(--color-border);
+                  "
+                />
+              </div>
+
+              <!-- Key Attribute -->
+              <div class="card" style="padding: 16px">
+                <h3>5. Key Attribute</h3>
+                <p>
+                  An attribute that uniquely identifies an entity in an entity
+                  set. Example: Student ID, SSN.
+                </p>
+                <img
+                  src="C:/Users/LENOVO/.gemini/antigravity/brain/0db21d71-1739-4f15-8d55-34af7d7398c8/key_attribute_er_1768335214997.png"
+                  alt="Key Attribute"
+                  style="
+                    width: 100%;
+                    border-radius: 6px;
+                    margin-top: 12px;
+                    border: 1px solid var(--color-border);
+                  "
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 3: Normalization -->
+          <div id="normalization" class="tab-content">
+            <h1 style="margin-top: 0">Normalization</h1>
+
+            <h2>Why Normalization is Needed</h2>
+            <p>
+              Normalization is a database design technique used to organize
+              tables in a way that reduces redundancy and dependency of data. It
+              primarily aims to remove
+              <strong>column-level duplicacy</strong> and prevent data
+              anomalies.
+            </p>
+
+            <h3>Data Anomalies</h3>
+            <div class="note-block">
+              <strong>1. Insertion Anomaly:</strong> Occurs when we cannot
+              insert data into the database because some other data is absent.
+              <br /><em>Example:</em> You cannot add a new course unless at
+              least one student enrolls in it.
+            </div>
+            <div class="note-block">
+              <strong>2. Deletion Anomaly:</strong> Occurs when the deletion of
+              a record results in the unintentional loss of other important
+              data. <br /><em>Example:</em> If you delete the only student
+              enrolled in a course, the course information itself might be lost.
+            </div>
+            <div class="note-block">
+              <strong>3. Update Anomaly:</strong> Occurs when a single data
+              value update requires multiple rows to be changed. <br /><em
+                >Example:</em
+              >
+              If a student changes their address, you must update the address in
+              every row where that student appears.
+            </div>
+
+            <h3>Closure Method & Candidate Keys</h3>
+            <p>
+              The closure method is used to find the
+              <strong>Candidate Keys (CK)</strong> and
+              <strong>Super Keys (SK)</strong> of a relation based on its
+              Functional Dependencies (FD).
+            </p>
+
+            <div class="note-block">
+              <strong>Notations:</strong><br />
+              • <strong>CK (Candidate Key):</strong> A minimal set of attributes
+              that can uniquely identify all attributes in a relation.<br />
+              • <strong>SK (Super Key):</strong> Any set of attributes that can
+              uniquely identify all attributes. (A Candidate Key is a minimal
+              Super Key).
+            </div>
+
+            <h4>Example 1: Basic Closure</h4>
+            <p>
+              <strong>Relation:</strong> R(A, B, C, D) |
+              <strong>FDs:</strong> {A &rarr; B, B &rarr; C, C &rarr; D}
+            </p>
+            <pre><code>A+ = {A, B, C, D}  (Finds all unique attributes)
+B+ = {B, C, D}
+C+ = {C, D}
+D+ = {D}</code></pre>
+            <p>
+              Since <strong>A</strong> is the only single attribute that can
+              find all attributes, <strong>Candidate Key = A</strong>.
+            </p>
+            <div class="note-block">
+              <strong>Note:</strong> AB+ = {A, B, C, D}. So
+              <strong>AB</strong> is a Super Key (SK), but it is
+              <strong>not</strong> a Candidate Key (CK) because it is not
+              minimal (A alone is enough).
+            </div>
+
+            <h4>Example 2: Complex Relation & Tips</h4>
+            <p>
+              <strong>Relation:</strong> R(A, B, C, D, E) |
+              <strong>FDs:</strong> {A &rarr; B, BC &rarr; D, E &rarr; C, D
+              &rarr; A}
+            </p>
+
+            <div
+              class="note-block"
+              style="
+                border-left-color: #ffab70;
+                background: rgba(255, 171, 112, 0.05);
+              "
+            >
+              <strong>💡 Pro Tip:</strong> Look for attributes that
+              <strong>never appear on the right side</strong> of any FD. These
+              attributes <strong>must</strong> be part of every Candidate Key.
+            </div>
+
+            <p>
+              In this case, <strong>E</strong> is not on the right side of any
+              dependency. Let's start with E:
+            </p>
+            <pre><code>E+ = {E, C} (Not all attributes)
+AE+ = {A, E, C, B, D} (CK found!)
+DE+ = {D, E, C, A, B} (CK found! - Since D &rarr; A)
+BE+ = {B, E, C, D, A} (CK found! - Since BC &rarr; D and E &rarr; C)</code></pre>
+            <p><strong>Candidate Keys:</strong> {AE, BE, DE}</p>
+            <div class="note-block">
+              <strong>Note:</strong> While BCE+ = {A, B, C, D, E},
+              <strong>BCE</strong> is a Super Key (SK) but not a CK because its
+              subset BE is already a CK.
+            </div>
+
+            <h4>Transitive Property</h4>
+            <div class="note-block">
+              If <strong>A &rarr; B</strong> and <strong>B &rarr; C</strong>,
+              then <strong>A &rarr; C</strong> (internally). This is known as
+              the Transitive Property of Functional Dependencies.
+            </div>
+
+            <h2>First Normal Form (1NF)</h2>
+            <p>
+              A relation is in 1NF if every attribute contains only
+              <strong>atomic (indivisible)</strong> values. In other words, a
+              table should not contain <strong>multi-valued attributes</strong>.
+            </p>
+
+            <h3>The Problem: Multi-valued Attributes</h3>
+            <p>
+              Consider the following table where a single "course" field
+              contains multiple values:
+            </p>
+            <table
+              style="
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 16px;
+              "
+            >
+              <thead>
+                <tr style="background: var(--color-hover)">
+                  <th
+                    style="
+                      padding: 12px;
+                      border: 1px solid var(--color-border);
+                      text-align: left;
+                    "
+                  >
+                    Roll
+                  </th>
+                  <th
+                    style="
+                      padding: 12px;
+                      border: 1px solid var(--color-border);
+                      text-align: left;
+                    "
+                  >
+                    Name
+                  </th>
+                  <th
+                    style="
+                      padding: 12px;
+                      border: 1px solid var(--color-border);
+                      text-align: left;
+                    "
+                  >
+                    Course
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td
+                    style="padding: 12px; border: 1px solid var(--color-border)"
+                  >
+                    1
+                  </td>
+                  <td
+                    style="padding: 12px; border: 1px solid var(--color-border)"
+                  >
+                    Messi
+                  </td>
+                  <td
+                    style="padding: 12px; border: 1px solid var(--color-border)"
+                  >
+                    c++, c
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style="padding: 12px; border: 1px solid var(--color-border)"
+                  >
+                    2
+                  </td>
+                  <td
+                    style="padding: 12px; border: 1px solid var(--color-border)"
+                  >
+                    Ronaldo
+                  </td>
+                  <td
+                    style="padding: 12px; border: 1px solid var(--color-border)"
+                  >
+                    java
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Poor Solution: Multiple Columns with NULLs</h3>
+            <p>
+              One might try to add columns like <code>course1</code>,
+              <code>course2</code>, etc. However, we shouldn't put
+              <code>NULL</code> in the database unnecessarily, and it limits the
+              number of courses a student can take.
+            </p>
+
+            <h3 style="color: var(--color-accent)">
+              Best Practice: Decomposition
+            </h3>
+            <p>
+              Divide the original table into two separate tables to achieve 1NF.
+              This ensures atomicity and better data integrity.
+            </p>
+
+            <div class="split-layout" style="gap: 20px">
+              <div style="flex: 1">
+                <h4>Table: Names</h4>
+                <table style="width: 100%; border-collapse: collapse">
+                  <thead>
+                    <tr style="background: var(--color-hover)">
+                      <th
+                        style="
+                          padding: 8px;
+                          border: 1px solid var(--color-border);
+                          text-align: left;
+                        "
+                      >
+                        Roll (PK)
+                      </th>
+                      <th
+                        style="
+                          padding: 8px;
+                          border: 1px solid var(--color-border);
+                          text-align: left;
+                        "
+                      >
+                        Name
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td
+                        style="
+                          padding: 8px;
+                          border: 1px solid var(--color-border);
+                        "
+                      >
+                        1
+                      </td>
+                      <td
+                        style="
+                          padding: 8px;
+                          border: 1px solid var(--color-border);
+                        "
+                      >
+                        Messi
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style="
+                          padding: 8px;
+                          border: 1px solid var(--color-border);
+                        "
+                      >
+                        2
+                      </td>
+                      <td
+                        style="
+                          padding: 8px;
+                          border: 1px solid var(--color-border);
+                        "
+                      >
+                        Ronaldo
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div style="flex: 1">
+                <h4>Table: Courses</h4>
+                <table style="width: 100%; border-collapse: collapse">
+                  <thead>
+                    <tr style="background: var(--color-hover)">
+                      <th
+                        style="
+                          padding: 8px;
+                          border: 1px solid var(--color-border);
+                          text-align: left;
+                        "
+                      >
+                        Roll (FK)
+                      </th>
+                      <th
+                        style="
+                          padding: 8px;
+                          border: 1px solid var(--color-border);
+                          text-align: left;
+                        "
+                      >
+                        Course
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td
+                        style="
+                          padding: 8px;
+                          border: 1px solid var(--color-border);
+                        "
+                      >
+                        1
+                      </td>
+                      <td
+                        style="
+                          padding: 8px;
+                          border: 1px solid var(--color-border);
+                        "
+                      >
+                        c++
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style="
+                          padding: 8px;
+                          border: 1px solid var(--color-border);
+                        "
+                      >
+                        1
+                      </td>
+                      <td
+                        style="
+                          padding: 8px;
+                          border: 1px solid var(--color-border);
+                        "
+                      >
+                        c
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style="
+                          padding: 8px;
+                          border: 1px solid var(--color-border);
+                        "
+                      >
+                        2
+                      </td>
+                      <td
+                        style="
+                          padding: 8px;
+                          border: 1px solid var(--color-border);
+                        "
+                      >
+                        java
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p style="font-size: 0.9em; margin-top: 8px">
+                  <em>Primary Key: (Roll, Course)</em>
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="note-block"
+              style="
+                margin-top: 24px;
+                border-left-color: #7ee787;
+                background: rgba(126, 231, 135, 0.05);
+              "
+            >
+              <strong>Result:</strong> Both tables are now in
+              <strong>1NF</strong>. Data is atomized, and we have established a
+              clear relationship using a Foreign Key.
+            </div>
+
+            <h2>Second Normal Form (2NF)</h2>
+            <div class="note-block">
+              <strong>Conditions for 2NF:</strong><br />
+              1. Must be in <strong>1st Normal Form (1NF)</strong>.<br />
+              2. <strong>No Partial Dependency:</strong> All non-prime
+              attributes must depend on the <strong>whole</strong> Candidate
+              Key, not just a part of it.
+            </div>
+
+            <h3>Key Concepts: Prime vs. Non-prime</h3>
+            <ul>
+              <li>
+                <strong>Prime Attribute:</strong> An attribute that is a part of
+                any Candidate Key.
+              </li>
+              <li>
+                <strong>Non-prime Attribute:</strong> An attribute that is not
+                part of any Candidate Key.
+              </li>
+            </ul>
+
+            <h4>Example 1: Store Inventory</h4>
+            <p>Consider a table tracking items in stores:</p>
+            <table
+              style="
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 16px;
+              "
+            >
+              <thead>
+                <tr style="background: var(--color-hover)">
+                  <th
+                    style="
+                      padding: 12px;
+                      border: 1px solid var(--color-border);
+                      text-align: left;
+                    "
+                  >
+                    CId (Customer)
+                  </th>
+                  <th
+                    style="
+                      padding: 12px;
+                      border: 1px solid var(--color-border);
+                      text-align: left;
+                    "
+                  >
+                    StoreId
+                  </th>
+                  <th
+                    style="
+                      padding: 12px;
+                      border: 1px solid var(--color-border);
+                      text-align: left;
+                    "
+                  >
+                    Location
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td
+                    style="padding: 12px; border: 1px solid var(--color-border)"
+                  >
+                    1
+                  </td>
+                  <td
+                    style="padding: 12px; border: 1px solid var(--color-border)"
+                  >
+                    1
+                  </td>
+                  <td
+                    style="padding: 12px; border: 1px solid var(--color-border)"
+                  >
+                    Barcelona
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style="padding: 12px; border: 1px solid var(--color-border)"
+                  >
+                    1
+                  </td>
+                  <td
+                    style="padding: 12px; border: 1px solid var(--color-border)"
+                  >
+                    3
+                  </td>
+                  <td
+                    style="padding: 12px; border: 1px solid var(--color-border)"
+                  >
+                    Madrid
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style="padding: 12px; border: 1px solid var(--color-border)"
+                  >
+                    2
+                  </td>
+                  <td
+                    style="padding: 12px; border: 1px solid var(--color-border)"
+                  >
+                    1
+                  </td>
+                  <td
+                    style="padding: 12px; border: 1px solid var(--color-border)"
+                  >
+                    Barcelona
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <p>
+              <strong>CK:</strong> (CId, StoreId) |
+              <strong>Non-prime:</strong> Location
+            </p>
+            <div
+              class="note-block"
+              style="
+                border-left-color: #f85149;
+                background: rgba(248, 81, 73, 0.05);
+              "
+            >
+              <strong>Partial Dependency Found:</strong>
+              <code>StoreId &rarr; Location</code>. The location depends only on
+              <code>StoreId</code>, which is just a <em>part</em> of the
+              Candidate Key (CId, StoreId).
+            </div>
+
+            <h3 style="color: var(--color-accent)">
+              Solution: Decompose for 2NF
+            </h3>
+            <div class="split-layout" style="gap: 20px">
+              <div style="flex: 1">
+                <h4>Table: Customer_Store</h4>
+                <p>CK: (CId, StoreId)</p>
+                <table style="width: 100%; border-collapse: collapse">
+                  <tr style="background: var(--color-hover)">
+                    <th
+                      style="
+                        border: 1px solid var(--color-border);
+                        padding: 8px;
+                      "
+                    >
+                      CId
+                    </th>
+                    <th
+                      style="
+                        border: 1px solid var(--color-border);
+                        padding: 8px;
+                      "
+                    >
+                      StoreId
+                    </th>
+                  </tr>
+                  <tr>
+                    <td
+                      style="
+                        border: 1px solid var(--color-border);
+                        padding: 8px;
+                      "
+                    >
+                      1
+                    </td>
+                    <td
+                      style="
+                        border: 1px solid var(--color-border);
+                        padding: 8px;
+                      "
+                    >
+                      1
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div style="flex: 1">
+                <h4>Table: Store_Location</h4>
+                <p>CK: StoreId</p>
+                <table style="width: 100%; border-collapse: collapse">
+                  <tr style="background: var(--color-hover)">
+                    <th
+                      style="
+                        border: 1px solid var(--color-border);
+                        padding: 8px;
+                      "
+                    >
+                      StoreId
+                    </th>
+                    <th
+                      style="
+                        border: 1px solid var(--color-border);
+                        padding: 8px;
+                      "
+                    >
+                      Location
+                    </th>
+                  </tr>
+                  <tr>
+                    <td
+                      style="
+                        border: 1px solid var(--color-border);
+                        padding: 8px;
+                      "
+                    >
+                      1
+                    </td>
+                    <td
+                      style="
+                        border: 1px solid var(--color-border);
+                        padding: 8px;
+                      "
+                    >
+                      Barcelona
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+            <h4>Example 2: Verification by FD</h4>
+            <p>
+              <strong>Relation:</strong> R(A, B, C, D, E, F) |
+              <strong>FDs:</strong> {C &rarr; F, E &rarr; A, EC &rarr; D, A
+              &rarr; B}
+            </p>
+
+            <p>
+              <strong>Step 1: Find CK</strong><br />
+              Attributes not in RHS: <strong>C, E</strong>. Closure:
+              <code>CE+ = {C, E, F, A, D, B}</code>. <br />
+              So, <strong>CK = CE</strong>. Prime: {C, E} | Non-prime: {A, B, D,
+              F}
+            </p>
+
+            <p><strong>Step 2: Check for Partial Dependencies (PD)</strong></p>
+            <ul>
+              <li>
+                <strong>C &rarr; F:</strong>
+                <span style="color: #f85149">Partial Dependency!</span> (F is
+                non-prime, depends only on part of CK: C)
+              </li>
+              <li>
+                <strong>E &rarr; A:</strong>
+                <span style="color: #f85149">Partial Dependency!</span> (A is
+                non-prime, depends only on part of CK: E)
+              </li>
+              <li>
+                <strong>EC &rarr; D:</strong> No Partial Dependency (Depends on
+                full CK)
+              </li>
+              <li>
+                <strong>A &rarr; B:</strong> No Partial Dependency (A is not a
+                part of any CK)
+              </li>
+            </ul>
+            <div
+              class="note-block"
+              style="
+                border-left-color: #f85149;
+                background: rgba(248, 81, 73, 0.05);
+              "
+            >
+              Conclusion: The relation is <strong>NOT in 2NF</strong> due to
+              dependencies <code>C &rarr; F</code> and <code>E &rarr; A</code>.
+            </div>
+
+            <h2>Third Normal Form (3NF)</h2>
+            <div class="note-block">
+              <strong>Conditions for 3NF:</strong><br />
+              1. Must be in <strong>2nd Normal Form (2NF)</strong>.<br />
+              2. <strong>No Transitive Dependency:</strong> A non-prime
+              attribute should not depend on another non-prime attribute.
+            </div>
+
+            <h3>Formal Verification Rule</h3>
+            <p>
+              For each functional dependency <strong>X &rarr; Y</strong>, the
+              relation is in 3NF if <strong>AT LEAST ONE</strong> of the
+              following is true:
+            </p>
+            <ul>
+              <li>
+                <strong>X</strong> is a Super Key (SK) or Candidate Key (CK).
+              </li>
+              <li>
+                <strong>Y</strong> is a Prime Attribute (part of any candidate
+                key).
+              </li>
+            </ul>
+
+            <h4>Example 1: Student Address</h4>
+            <p>Consider a student registration table:</p>
+            <table
+              style="
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 16px;
+              "
+            >
+              <thead>
+                <tr style="background: var(--color-hover)">
+                  <th
+                    style="
+                      padding: 12px;
+                      border: 1px solid var(--color-border);
+                      text-align: left;
+                    "
+                  >
+                    Roll (PK)
+                  </th>
+                  <th
+                    style="
+                      padding: 12px;
+                      border: 1px solid var(--color-border);
+                      text-align: left;
+                    "
+                  >
+                    Post Code
+                  </th>
+                  <th
+                    style="
+                      padding: 12px;
+                      border: 1px solid var(--color-border);
+                      text-align: left;
+                    "
+                  >
+                    City
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td
+                    style="padding: 12px; border: 1px solid var(--color-border)"
+                  >
+                    1
+                  </td>
+                  <td
+                    style="padding: 12px; border: 1px solid var(--color-border)"
+                  >
+                    3100
+                  </td>
+                  <td
+                    style="padding: 12px; border: 1px solid var(--color-border)"
+                  >
+                    Sylhet
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style="padding: 12px; border: 1px solid var(--color-border)"
+                  >
+                    2
+                  </td>
+                  <td
+                    style="padding: 12px; border: 1px solid var(--color-border)"
+                  >
+                    3100
+                  </td>
+                  <td
+                    style="padding: 12px; border: 1px solid var(--color-border)"
+                  >
+                    Sylhet
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style="padding: 12px; border: 1px solid var(--color-border)"
+                  >
+                    3
+                  </td>
+                  <td
+                    style="padding: 12px; border: 1px solid var(--color-border)"
+                  >
+                    1300
+                  </td>
+                  <td
+                    style="padding: 12px; border: 1px solid var(--color-border)"
+                  >
+                    Dhaka
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div
+              class="note-block"
+              style="
+                border-left-color: #f85149;
+                background: rgba(248, 81, 73, 0.05);
+              "
+            >
+              <strong>Transitive Dependency Found:</strong><br />
+              <code>Roll &rarr; Post Code</code> and
+              <code>Post Code &rarr; City</code>.<br />
+              The <code>City</code> depends on <code>Roll</code>
+              <em>transitively</em> through <code>Post Code</code>. Since both
+              <code>Post Code</code> and <code>City</code> are non-prime, this
+              violates 3NF.
+            </div>
+
+            <h4>Example 2: Verification by Rule (Invalid)</h4>
+            <p>
+              <strong>Relation:</strong> R(A, B, C, D) |
+              <strong>FDs:</strong> {AB &rarr; C, C &rarr; D}
+            </p>
+            <p>
+              <strong>CK:</strong> AB | <strong>Prime:</strong> {A, B} |
+              <strong>Non-Prime:</strong> {C, D}
+            </p>
+            <ul>
+              <li>
+                <strong>AB &rarr; C:</strong> Valid (AB is Candidate Key).
+              </li>
+              <li>
+                <strong>C &rarr; D:</strong>
+                <span style="color: #f85149">Invalid!</span> (C is not a key,
+                and D is not a prime attribute). This is a
+                <strong>Non-prime &rarr; Non-prime</strong> dependency.
+              </li>
+            </ul>
+
+            <h4>Example 3: Verification by Rule (Valid)</h4>
+            <p>
+              <strong>Relation:</strong> R(A, B, C, D) |
+              <strong>FDs:</strong> {AB &rarr; C, D &rarr; A}
+            </p>
+            <p>
+              <strong>CK:</strong> AB, BD | <strong>Prime:</strong> {A, B, D} |
+              <strong>Non-Prime:</strong> {C}
+            </p>
+            <ul>
+              <li>
+                <strong>AB &rarr; C:</strong> Valid (AB is Candidate Key).
+              </li>
+              <li>
+                <strong>D &rarr; A:</strong> Valid (A is a Prime attribute).
+              </li>
+            </ul>
+            <div
+              class="note-block"
+              style="
+                border-left-color: #7ee787;
+                background: rgba(126, 231, 135, 0.05);
+              "
+            >
+              <strong>Conclusion:</strong> Example 3 is in
+              <strong>3NF</strong> because every dependency either has a Key on
+              the left or a Prime attribute on the right.
+            </div>
+
+            <h2>Boyce-Codd Normal Form (BCNF)</h2>
+            <div class="note-block">
+              <strong>Conditions for BCNF:</strong><br />
+              1. Must be in <strong>3rd Normal Form (3NF)</strong>.<br />
+              2. For every functional dependency <strong>X &rarr; Y</strong>,
+              <strong>X must be a Candidate Key (CK)</strong>.
+            </div>
+
+            <p>
+              BCNF is a stricter version of 3NF. While 3NF allows
+              <strong>Non-prime &rarr; Prime</strong> dependencies, BCNF does
+              not.
+            </p>
+
+            <h3>Decomposition and FD Preservation</h3>
+            <p>
+              One major difference between 3NF and BCNF is that
+              <strong
+                >3NF decomposition always preserves Functional Dependencies
+                (FDs)</strong
+              >, whereas BCNF decomposition
+              <strong>does not always preserve FDs</strong>.
+            </p>
+
+            <h4>Detailed Example: Verification & Decomposition</h4>
+            <p>
+              <strong>Relation:</strong> R(A, B, C, D) |
+              <strong>FDs:</strong> {AB &rarr; CD, D &rarr; A}
+            </p>
+
+            <p>
+              <strong>Step 1: Find CKs</strong><br />
+              Attributes not in RHS: <strong>B, D</strong>. <br />
+              <code>BD+ = {B, D, A, C}</code> (Found all!) <br />
+              Checking <code>AB+ = {A, B, C, D}</code> (Found all!) <br />
+              <strong>CKs:</strong> {AB, BD} | <strong>Prime:</strong> {A, B, D}
+              | <strong>Non-Prime:</strong> {C}
+            </p>
+
+            <p><strong>Step 2: 3NF vs BCNF Check</strong></p>
+            <ul>
+              <li>
+                <strong>AB &rarr; CD:</strong> Valid for BCNF (LHS AB is a CK).
+              </li>
+              <li>
+                <strong>D &rarr; A:</strong>
+                <span style="color: #f85149">Violation for BCNF!</span> (LHS D
+                is <strong>not</strong> a CK). However, it is valid for 3NF
+                because A is a prime attribute.
+              </li>
+            </ul>
+            <p>
+              <em
+                >Conclusion: This relation is in <strong>3NF</strong> but
+                <strong>not in BCNF</strong>.</em
+              >
+            </p>
+
+            <h3 style="color: var(--color-accent)">
+              Step 3: Decomposition into BCNF
+            </h3>
+            <p>
+              To fix the BCNF violation (D &rarr; A), we must decompose the
+              relation by splitting the offending dependency into its own table.
+            </p>
+
+            <div class="split-layout" style="gap: 20px">
+              <div style="flex: 1">
+                <h4>Table R1: Attributes (D, A)</h4>
+                <p>Dependency: <code>D &rarr; A</code></p>
+                <p><strong>CK:</strong> D</p>
+                <div
+                  class="note-block"
+                  style="
+                    border-left-color: #7ee787;
+                    background: rgba(126, 231, 135, 0.05);
+                    padding: 8px;
+                  "
+                >
+                  In BCNF (LHS is Key)
+                </div>
+              </div>
+              <div style="flex: 1">
+                <h4>Table R2: Attributes (B, C, D)</h4>
+                <p>Remaining Attributes.</p>
+                <p>
+                  <strong>CK:</strong> BD (Check: <code>BD+ = {B, D, C}</code>)
+                </p>
+                <div
+                  class="note-block"
+                  style="
+                    border-left-color: #7ee787;
+                    background: rgba(126, 231, 135, 0.05);
+                    padding: 8px;
+                  "
+                >
+                  In BCNF (BD &rarr; C)
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="note-block"
+              style="
+                border-left-color: #ffab70;
+                background: rgba(255, 171, 112, 0.05);
+                margin-top: 24px;
+              "
+            >
+              <strong>⚠️ FD Loss Warning:</strong> Notice that the original
+              dependency <code>AB &rarr; CD</code> is lost in this
+              decomposition. We cannot verify it in either R1 or R2. This is why
+              we say <strong>BCNF is not always dependency-preserving</strong>.
+            </div>
+
+            <h2>Decomposition Types</h2>
+            <div class="split-layout" style="gap: 20px">
+              <div
+                class="note-block"
+                style="
+                  flex: 1;
+                  border-left-color: #7ee787;
+                  background: rgba(126, 231, 135, 0.05);
+                "
+              >
+                <strong>1. Lossless Decomposition:</strong><br />
+                When a relation is decomposed, we should be able to join the
+                resulting tables to get back the original relation without any
+                <em>spurious tuples</em>. <br /><em>Check:</em> R1 &cap; R2 must
+                be a Candidate Key for R1 or R2.
+              </div>
+              <div
+                class="note-block"
+                style="
+                  flex: 1;
+                  border-left-color: #f85149;
+                  background: rgba(248, 81, 73, 0.05);
+                "
+              >
+                <strong>2. Lossy Decomposition:</strong><br />
+                Occurs when joining the decomposed tables results in extra
+                (false) rows that weren't in the original table. Information is
+                "lost" because we can't distinguish the real data.
+              </div>
+            </div>
+
+            <h2>Minimal (Canonical) Cover</h2>
+            <p>
+              The objective is to find the simplest possible set of Functional
+              Dependencies that are equivalent to the original set, removing all
+              redundancy.
+            </p>
+
+            <div
+              class="note-block"
+              style="
+                border-left-color: var(--color-accent);
+                background: rgba(88, 166, 255, 0.05);
+              "
+            >
+              <strong>Example:</strong> Find the minimal cover for:<br />
+              <code>{A &rarr; B, C &rarr; B, D &rarr; ABC, AC &rarr; D}</code>
+            </div>
+
+            <h3>Step 1: Simplify RHS (Decomposition Rule)</h3>
+            <p>
+              Every FD should have only <strong>one</strong> attribute on the
+              right side.
+            </p>
+            <pre><code>A &rarr; B
+C &rarr; B
+D &rarr; A
+D &rarr; B
+D &rarr; C
+AC &rarr; D</code></pre>
+
+            <h3>Step 2: Remove Redundant FDs</h3>
+            <p>
+              For each FD, temporarily remove it and check if the LHS can still
+              find the RHS using the remaining FDs (Closure method).
+            </p>
+            <ul>
+              <li>
+                <strong>Check A &rarr; B:</strong> Remove it.
+                <code>A+ = {A}</code>. B not found. <strong>Keep it.</strong>
+              </li>
+              <li>
+                <strong>Check C &rarr; B:</strong> Remove it.
+                <code>C+ = {C}</code>. B not found. <strong>Keep it.</strong>
+              </li>
+              <li>
+                <strong>Check D &rarr; A:</strong> Remove it.
+                <code>D+ = {D, B, C}</code>. A not found.
+                <strong>Keep it.</strong>
+              </li>
+              <li>
+                <strong>Check D &rarr; B:</strong> Remove it.
+                <code>D+ = {D, A, C, B}</code>.
+                <span style="color: #7ee787">B found!</span>
+                <strong>Remove D &rarr; B.</strong>
+              </li>
+              <li>
+                <strong>Check D &rarr; C:</strong> Remove it.
+                <code>D+ = {D, A, B}</code>. C not found.
+                <strong>Keep it.</strong>
+              </li>
+              <li>
+                <strong>Check AC &rarr; D:</strong> Remove it.
+                <code>AC+ = {A, C, B}</code>. D not found.
+                <strong>Keep it.</strong>
+              </li>
+            </ul>
+
+            <h3>Step 3: Simplify LHS (Remove Extraneous Attributes)</h3>
+            <p>
+              Check if any attribute on the left side of a composite FD is
+              redundant.
+            </p>
+            <p><strong>Check AC &rarr; D:</strong></p>
+            <ul>
+              <li>
+                Can we remove A? Check <code>C+</code>.
+                <code>C+ = {C, B}</code>. A not found. <strong>Keep A.</strong>
+              </li>
+              <li>
+                Can we remove C? Check <code>A+</code>.
+                <code>A+ = {A, B}</code>. C not found. <strong>Keep C.</strong>
+              </li>
+            </ul>
+
+            <div
+              class="note-block"
+              style="
+                background: rgba(126, 231, 135, 0.1);
+                border-left-color: #7ee787;
+              "
+            >
+              <strong>Final Minimal Cover:</strong><br />
+              <code
+                >{A &rarr; B, C &rarr; B, D &rarr; A, D &rarr; C, AC &rarr;
+                D}</code
+              >
+            </div>
+
+            <h2 style="margin-top: 40px">
+              Comprehensive Example: Finding Maximum Normal Form
+            </h2>
+            <p>
+              <strong>Problem:</strong> Determine the highest Normal Form for
+              relation <code>R(a, b, c, d, e, f)</code> with FDs:
+              <code>{ab &rarr; c, c &rarr; de, e &rarr; f, f &rarr; a}</code>
+            </p>
+
+            <h3>Step 1: Finding Candidate Keys</h3>
+            <ul>
+              <li><strong>ab+:</strong> {a, b, c, d, e, f} (Candidate Key)</li>
+              <li><strong>bc+:</strong> {b, c, d, e, f, a} (Candidate Key)</li>
+              <li><strong>be+:</strong> {b, e, f, a, c, d} (Candidate Key)</li>
+              <li><strong>bf+:</strong> {b, f, a, c, d, e} (Candidate Key)</li>
+            </ul>
+            <div class="note-block">
+              <strong>Candidate Keys:</strong> {ab, bc, be, bf}<br />
+              <strong>Prime Attributes:</strong> {a, b, c, e, f}<br />
+              <strong>Non-prime Attribute:</strong> {d}
+            </div>
+
+            <h3>Step 2: Normal Form Verification Table</h3>
+            <div style="overflow-x: auto">
+              <table
+                style="width: 100%; border-collapse: collapse; margin-top: 16px"
+              >
+                <thead>
+                  <tr style="background: var(--color-hover)">
+                    <th
+                      style="
+                        padding: 12px;
+                        border: 1px solid var(--color-border);
+                        text-align: left;
+                      "
+                    >
+                      Normal Form
+                    </th>
+                    <th
+                      style="
+                        padding: 12px;
+                        border: 1px solid var(--color-border);
+                        text-align: left;
+                      "
+                    >
+                      ab &rarr; c
+                    </th>
+                    <th
+                      style="
+                        padding: 12px;
+                        border: 1px solid var(--color-border);
+                        text-align: left;
+                      "
+                    >
+                      c &rarr; de
+                    </th>
+                    <th
+                      style="
+                        padding: 12px;
+                        border: 1px solid var(--color-border);
+                        text-align: left;
+                      "
+                    >
+                      e &rarr; f
+                    </th>
+                    <th
+                      style="
+                        padding: 12px;
+                        border: 1px solid var(--color-border);
+                        text-align: left;
+                      "
+                    >
+                      f &rarr; a
+                    </th>
+                    <th
+                      style="
+                        padding: 12px;
+                        border: 1px solid var(--color-border);
+                        text-align: left;
+                      "
+                    >
+                      Result
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td
+                      style="
+                        padding: 12px;
+                        border: 1px solid var(--color-border);
+                        font-weight: bold;
+                      "
+                    >
+                      BCNF
+                    </td>
+                    <td
+                      style="
+                        padding: 12px;
+                        border: 1px solid var(--color-border);
+                        color: #7ee787;
+                      "
+                    >
+                      Yes (ab is key)
+                    </td>
+                    <td
+                      style="
+                        padding: 12px;
+                        border: 1px solid var(--color-border);
+                        color: #f85149;
+                      "
+                    >
+                      No (c is not key)
+                    </td>
+                    <td
+                      style="
+                        padding: 12px;
+                        border: 1px solid var(--color-border);
+                        color: #f85149;
+                      "
+                    >
+                      No (e is not key)
+                    </td>
+                    <td
+                      style="
+                        padding: 12px;
+                        border: 1px solid var(--color-border);
+                        color: #f85149;
+                      "
+                    >
+                      No (f is not key)
+                    </td>
+                    <td
+                      style="
+                        padding: 12px;
+                        border: 1px solid var(--color-border);
+                        font-weight: bold;
+                        color: #f85149;
+                      "
+                    >
+                      FAIL
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="
+                        padding: 12px;
+                        border: 1px solid var(--color-border);
+                        font-weight: bold;
+                      "
+                    >
+                      3NF
+                    </td>
+                    <td
+                      style="
+                        padding: 12px;
+                        border: 1px solid var(--color-border);
+                        color: #7ee787;
+                      "
+                    >
+                      Yes
+                    </td>
+                    <td
+                      style="
+                        padding: 12px;
+                        border: 1px solid var(--color-border);
+                        color: #f85149;
+                      "
+                    >
+                      No (d is non-prime)
+                    </td>
+                    <td
+                      style="
+                        padding: 12px;
+                        border: 1px solid var(--color-border);
+                        color: #7ee787;
+                      "
+                    >
+                      Yes (f is prime)
+                    </td>
+                    <td
+                      style="
+                        padding: 12px;
+                        border: 1px solid var(--color-border);
+                        color: #7ee787;
+                      "
+                    >
+                      Yes (a is prime)
+                    </td>
+                    <td
+                      style="
+                        padding: 12px;
+                        border: 1px solid var(--color-border);
+                        font-weight: bold;
+                        color: #f85149;
+                      "
+                    >
+                      FAIL
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="
+                        padding: 12px;
+                        border: 1px solid var(--color-border);
+                        font-weight: bold;
+                      "
+                    >
+                      2NF
+                    </td>
+                    <td
+                      style="
+                        padding: 12px;
+                        border: 1px solid var(--color-border);
+                        color: #7ee787;
+                      "
+                    >
+                      Yes
+                    </td>
+                    <td
+                      style="
+                        padding: 12px;
+                        border: 1px solid var(--color-border);
+                        color: #f85149;
+                      "
+                    >
+                      No (c &sub; bc key)
+                    </td>
+                    <td
+                      style="
+                        padding: 12px;
+                        border: 1px solid var(--color-border);
+                        color: #7ee787;
+                      "
+                    >
+                      Yes (e &sub; be key)*
+                    </td>
+                    <td
+                      style="
+                        padding: 12px;
+                        border: 1px solid var(--color-border);
+                        color: #7ee787;
+                      "
+                    >
+                      Yes
+                    </td>
+                    <td
+                      style="
+                        padding: 12px;
+                        border: 1px solid var(--color-border);
+                        font-weight: bold;
+                        color: #f85149;
+                      "
+                    >
+                      FAIL
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="
+                        padding: 12px;
+                        border: 1px solid var(--color-border);
+                        font-weight: bold;
+                      "
+                    >
+                      1NF
+                    </td>
+                    <td
+                      colspan="4"
+                      style="
+                        padding: 12px;
+                        border: 1px solid var(--color-border);
+                        text-align: center;
+                      "
+                    >
+                      Assumed atomic values
+                    </td>
+                    <td
+                      style="
+                        padding: 12px;
+                        border: 1px solid var(--color-border);
+                        font-weight: bold;
+                        color: #7ee787;
+                      "
+                    >
+                      PASS
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div
+              class="note-block"
+              style="
+                border-left-color: #f85149;
+                background: rgba(248, 81, 73, 0.05);
+                margin-top: 24px;
+              "
+            >
+              <strong>Final Conclusion:</strong> The highest Normal Form of R is
+              <strong>1NF</strong>.<br />
+              <strong>Reason:</strong> The dependency <code>c &rarr; d</code> is
+              the main violator. Since <code>d</code> is a non-prime attribute
+              and <code>c</code> is a proper subset of the Candidate Key
+              <code>bc</code>, it creates a <strong>Partial Dependency</strong>,
+              which violates 2NF.
+            </div>
+            <p style="font-size: 0.9em; opacity: 0.8; margin-top: 8px">
+              <em
+                >*Note: e &rarr; f doesn't violate 2NF directly because f is a
+                prime attribute. 2NF only forbids non-prime attributes from
+                depending on partial keys.</em
+              >
+            </p>
+
+            <h2 style="margin-top: 40px">
+              Normalization Application: Ex1 - Decomposing to BCNF
+            </h2>
+            <p>
+              Taking the previous relation <code>R(a,b,c,d,e,f)</code> from 1NF
+              all the way to BCNF through systematic decomposition.
+            </p>
+
+            <h3>Step 1: Initial Evaluation</h3>
+            <div class="note-block">
+              <strong>Relation:</strong> R(abcdef) | <strong>CKs:</strong> {ab,
+              bc, be, bf} | <strong>Non-prime:</strong> {d}
+            </div>
+            <p>
+              We found a <strong>Partial Dependency (PD)</strong> in
+              <code>c &rarr; d</code> because <code>c</code> is a subset of key
+              <code>bc</code>. We must decompose to achieve 2NF.
+            </p>
+
+            <h3>Step 2: Decomposing for 2NF/3NF</h3>
+            <p>
+              Extract the problematic dependency <code>c &rarr; d</code> into
+              its own table, while keeping <code>c</code> in the main table to
+              maintain a <strong>Lossless Join</strong>.
+            </p>
+
+            <div class="split-layout" style="gap: 20px">
+              <div style="flex: 1">
+                <h4>Table R1: (c, d)</h4>
+                <p><strong>CK:</strong> c</p>
+                <div
+                  class="note-block"
+                  style="
+                    border-left-color: #7ee787;
+                    background: rgba(126, 231, 135, 0.05);
+                    padding: 8px;
+                  "
+                >
+                  In 3NF & BCNF (LHS is key)
+                </div>
+              </div>
+              <div style="flex: 1">
+                <h4>Table R2: (a, b, c, e, f)</h4>
+                <p><strong>CKs:</strong> {ab, bc, be, bf}</p>
+                <p>
+                  <strong>FDs:</strong> {ab &rarr; c, c &rarr; e, e &rarr; f, f
+                  &rarr; a}
+                </p>
+                <div
+                  class="note-block"
+                  style="
+                    border-left-color: #7ee787;
+                    background: rgba(126, 231, 135, 0.05);
+                    padding: 8px;
+                  "
+                >
+                  In 3NF (No Non-primes)
+                </div>
+              </div>
+            </div>
+
+            <h3>Step 3: Checking BCNF for R2</h3>
+            <p>
+              In BCNF, for every FD <strong>X &rarr; Y</strong>,
+              <strong>X must be a Candidate Key</strong>.
+            </p>
+            <ul>
+              <li>
+                <strong>ab &rarr; c:</strong>
+                <span style="color: #7ee787">OK</span> (ab is a key)
+              </li>
+              <li>
+                <strong>c &rarr; e:</strong>
+                <span style="color: #f85149">Violation</span> (c is not a key
+                for R2)
+              </li>
+              <li>
+                <strong>e &rarr; f:</strong>
+                <span style="color: #f85149">Violation</span> (e is not a key)
+              </li>
+              <li>
+                <strong>f &rarr; a:</strong>
+                <span style="color: #f85149">Violation</span> (f is not a key)
+              </li>
+            </ul>
+
+            <h3>Step 4: Recursive Decomposition to BCNF</h3>
+            <p>
+              To reach BCNF, we recursively split the relation on every
+              violating dependency:
+            </p>
+
+            <ol>
+              <li>
+                Decompose R2 on <code>c &rarr; e</code> &rarr;
+                <strong>R21(c, e)</strong> and <strong>R22(a, b, c, f)</strong>
+              </li>
+              <li>
+                Decompose R22 on <code>e &rarr; f</code> &rarr;
+                <strong>R23(e, f)</strong> and <strong>R24(a, b, c)</strong>
+                <em
+                  >(Correction: since e is in R21, we extract dependencies
+                  linked to the chain)</em
+                >
+              </li>
+            </ol>
+
+            <div
+              class="note-block"
+              style="
+                border-left-color: var(--color-accent);
+                background: rgba(88, 166, 255, 0.05);
+              "
+            >
+              <strong>Final Normalized Relations (BCNF):</strong>
+              <ul style="margin-top: 8px">
+                <li>
+                  <strong>R1: (c, d)</strong> &mdash; <code>c &rarr; d</code> (c
+                  is key)
+                </li>
+                <li>
+                  <strong>R21: (c, e)</strong> &mdash;
+                  <code>c &rarr; e</code> (c is key)
+                </li>
+                <li>
+                  <strong>R22: (e, f)</strong> &mdash;
+                  <code>e &rarr; f</code> (e is key)
+                </li>
+                <li>
+                  <strong>R23: (f, a)</strong> &mdash;
+                  <code>f &rarr; a</code> (f is key)
+                </li>
+                <li>
+                  <strong>R24: (a, b, c)</strong> &mdash;
+                  <code>ab &rarr; c</code> (ab is key)
+                </li>
+              </ul>
+            </div>
+
+            <div
+              class="note-block"
+              style="
+                border-left-color: #7ee787;
+                background: rgba(126, 231, 135, 0.05);
+                margin-top: 16px;
+              "
+            >
+              <strong>Result:</strong> Every resulting relation now has a
+              <strong>Redundancy Ratio of 0%</strong>. Every dependency's LHS is
+              a Candidate Key, achieving the strictest level of normalization.
+            </div>
+
+            <h2 style="margin-top: 40px">
+              Equivalence of Functional Dependencies (FDs)
+            </h2>
+            <p>
+              Two sets of functional dependencies <strong>X</strong> and
+              <strong>Y</strong> are said to be equivalent (<strong
+                >X &equiv; Y</strong
+              >) if:
+            </p>
+            <ul>
+              <li>
+                <strong>X covers Y:</strong> Every dependency in
+                <strong>Y</strong> can be derived from <strong>X</strong>.
+              </li>
+              <li>
+                <strong>Y covers X:</strong> Every dependency in
+                <strong>X</strong> can be derived from <strong>Y</strong>.
+              </li>
+            </ul>
+
+            <div
+              class="note-block"
+              style="
+                border-left-color: var(--color-accent);
+                background: rgba(88, 166, 255, 0.05);
+              "
+            >
+              <strong>Proof Method:</strong> To check if X covers Y, take each
+              FD <code>A &rarr; B</code> in <strong>Y</strong> and compute the
+              closure <code>A+</code> using only FDs from <strong>X</strong>. If
+              <code>B</code> is in <code>A+</code>, then that FD is covered.
+            </div>
+
+            <h3>Example 1: Equivalent Sets</h3>
+            <p>
+              <strong>X:</strong> {A &rarr; B, B &rarr; C} |
+              <strong>Y:</strong> {A &rarr; B, B &rarr; C, A &rarr; C}
+            </p>
+
+            <p><strong>Part 1: Does X cover Y?</strong></p>
+            <ul>
+              <li>
+                For <code>A &rarr; B</code> in Y: <code>A+</code> in X is
+                <code>{A, B, C}</code>. (Found B) &mdash;
+                <span style="color: #7ee787">Valid</span>
+              </li>
+              <li>
+                For <code>B &rarr; C</code> in Y: <code>B+</code> in X is
+                <code>{B, C}</code>. (Found C) &mdash;
+                <span style="color: #7ee787">Valid</span>
+              </li>
+              <li>
+                For <code>A &rarr; C</code> in Y: <code>A+</code> in X is
+                <code>{A, B, C}</code>. (Found C) &mdash;
+                <span style="color: #7ee787">Valid</span>
+              </li>
+            </ul>
+
+            <p><strong>Part 2: Does Y cover X?</strong></p>
+            <ul>
+              <li>
+                For <code>A &rarr; B</code> in X: <code>A+</code> in Y is
+                <code>{A, B, C}</code>. (Found B) &mdash;
+                <span style="color: #7ee787">Valid</span>
+              </li>
+              <li>
+                For <code>B &rarr; C</code> in X: <code>B+</code> in Y is
+                <code>{B, C}</code>. (Found C) &mdash;
+                <span style="color: #7ee787">Valid</span>
+              </li>
+            </ul>
+            <p>
+              <strong>Conclusion:</strong> X &equiv; Y (They are equivalent).
+            </p>
+
+            <h3>Example 2: Non-Equivalent Sets</h3>
+            <p>
+              <strong>X:</strong> {AB &rarr; CD, B &rarr; C, C &rarr; D} |
+              <strong>Y:</strong> {AB &rarr; C, AB &rarr; D, C &rarr; D}
+            </p>
+
+            <p><strong>Part 1: Does X cover Y?</strong></p>
+            <ul>
+              <li>
+                For <code>AB &rarr; C</code> in Y: <code>AB+</code> in X is
+                <code>{A, B, C, D}</code>. (Found C) &mdash;
+                <span style="color: #7ee787">Valid</span>
+              </li>
+              <li>
+                For <code>AB &rarr; D</code> in Y: <code>AB+</code> in X is
+                <code>{A, B, C, D}</code>. (Found D) &mdash;
+                <span style="color: #7ee787">Valid</span>
+              </li>
+              <li>
+                For <code>C &rarr; D</code> in Y: <code>C+</code> in X is
+                <code>{C, D}</code>. (Found D) &mdash;
+                <span style="color: #7ee787">Valid</span>
+              </li>
+            </ul>
+            <p><em>X covers Y.</em></p>
+
+            <p><strong>Part 2: Does Y cover X?</strong></p>
+            <ul>
+              <li>
+                For <code>AB &rarr; CD</code> in X: <code>AB+</code> in Y is
+                <code>{A, B, C, D}</code>. (Found CD) &mdash;
+                <span style="color: #7ee787">Valid</span>
+              </li>
+              <li>
+                For <code>B &rarr; C</code> in X: <code>B+</code> in Y is
+                <code>{B}</code>.
+                <span style="color: #f85149">(C not found!)</span> &mdash;
+                <span style="color: #f85149">Invalid</span>
+              </li>
+            </ul>
+            <div
+              class="note-block"
+              style="
+                border-left-color: #f85149;
+                background: rgba(248, 81, 73, 0.05);
+              "
+            >
+              <strong>Conclusion:</strong> X &ne; Y. Set <strong>Y</strong> does
+              not cover <strong>X</strong> because it cannot derive
+              <code>B &rarr; C</code>.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>&copy; 2026 Study Tracker.</footer>
+
+    <script>
+      function openTab(evt, tabName) {
+        // Hide all tab content
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].className = tabcontent[i].className.replace(
+            " active",
+            ""
+          );
+        }
+
+        // Remove active class from all buttons
+        tablinks = document.getElementsByClassName("tab-btn");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(tabName).className += " active";
+        evt.currentTarget.className += " active";
+      }
+    </script>
+  </body>
+</html>

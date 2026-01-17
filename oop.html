@@ -1,0 +1,2249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OOP - Study Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <svg
+        height="32"
+        viewBox="0 0 16 16"
+        version="1.1"
+        width="32"
+        aria-hidden="true"
+        fill="white"
+      >
+        <path
+          d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.27-1.48-.55-1.94 2.7-.3 5.5-1.32 5.5-5.92 0-1.31-.46-2.38-1.23-3.26.12-.32.53-1.52-.12-3.26 0 0-1.01-.32-3.3 1.23A11.52 11.52 0 0 0 8 2.3c-1.01 0-2.01.14-2.85.41-2.29-1.55-3.3-1.23-3.3-1.23-.65 1.74-.24 2.94-.12 3.26-.77.88-1.23 1.95-1.23 3.26 0 4.58 2.8 5.62 5.5 5.92-.27.46-.55 1.17-.55 1.94 0 1.25.01 2.37.01 2.54 0 .21-.15.46-.55.38A8.013 8.013 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
+        ></path>
+      </svg>
+      <h1>My Study Progress</h1>
+    </header>
+    <div class="container">
+      <a href="index.html" class="back-link">&larr; Back into Overview</a>
+
+      <div class="split-layout">
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <button class="tab-btn active" onclick="openTab(event, 'classes')">
+            Classes and Constructors
+          </button>
+          <button class="tab-btn" onclick="openTab(event, 'encapsulation')">
+            Encapsulation
+          </button>
+          <button class="tab-btn" onclick="openTab(event, 'inheritance')">
+            Inheritance
+          </button>
+          <button class="tab-btn" onclick="openTab(event, 'polymorphism')">
+            Polymorphism
+          </button>
+          <button class="tab-btn" onclick="openTab(event, 'packages')">
+            Packages
+          </button>
+          <button class="tab-btn" onclick="openTab(event, 'interfaces')">
+            Interfaces
+          </button>
+          <button class="tab-btn" onclick="openTab(event, 'abstraction')">
+            Abstraction
+          </button>
+          <button class="tab-btn" onclick="openTab(event, 'exceptions')">
+            Exceptions
+          </button>
+          <button class="tab-btn" onclick="openTab(event, 'this')">
+            this Keyword
+          </button>
+          <button class="tab-btn" onclick="openTab(event, 'super')">
+            super Keyword
+          </button>
+          <button class="tab-btn" onclick="openTab(event, 'static')">
+            static Keyword
+          </button>
+          <button class="tab-btn" onclick="openTab(event, 'final')">
+            final Keyword
+          </button>
+        </div>
+
+        <!-- Content Area -->
+        <div class="tab-content-container">
+          <!-- Tab 1: Classes and Constructors -->
+          <div id="classes" class="tab-content active">
+            <h1 style="margin-top: 0">Classes and Constructors</h1>
+
+            <h2>1. Class vs. Object:</h2>
+            <p>
+              <strong>A Class</strong> is a logical construct; it is a blueprint
+              or template. It creates a new data type but does not occupy memory
+              until used.<br />
+              <strong>An Object</strong> has physical reality; it is an instance
+              of a class. It occupies space in memory (specifically, the Heap).
+            </p>
+            <div class="note-block">
+              <strong>Why is a class logical and an object physical?</strong
+              ><br />
+              <em>Logical:</em> The class defines what an object will be (its
+              attributes and behaviors), but it’s just an idea.<br />
+              <em>Physical:</em> When you create an object, the system allocates
+              actual memory to store specific data defined in class.
+            </div>
+
+            <h3>Example:</h3>
+            <pre><code class="language-java">class Car {       // Logical construct (Blueprint)
+   String brand;
+   int speed;
+   void accelerate() { speed += 10; }
+}
+
+
+Car myCar = new Car(); // Physical reality (Object created in memory)?</code></pre>
+
+            <p>
+              <strong>Class:</strong> Defines what a "Car" is.<br />
+              <strong>Object:</strong> Represents an actual car with data (e.g.,
+              brand = "Toyota", speed = 50).
+            </p>
+
+            <p>Objects are characterized by three essentials:</p>
+            <ul>
+              <li>
+                <strong>State:</strong> The value from its data type (the data
+                held in variables).
+              </li>
+              <li>
+                <strong>Identity:</strong> Distinguishes one object from another
+                (essentially the memory address).
+              </li>
+              <li>
+                <strong>Behavior:</strong> The effect of data-type operations
+                (methods).
+              </li>
+            </ul>
+
+            <h3>Instance Variables and Methods</h3>
+            <p>
+              The variables defined within a class not declared with the static
+              keyword are called instance variables
+            </p>
+
+            <h2>2. Memory Management & The new Keyword</h2>
+            <h3>Declaring a variable does not create an object.</h3>
+            <pre><code class="language-java">Box mybox;             // 1. Declare reference to object
+mybox = new Box();     // 2. Allocate a Box object</code></pre>
+            <p>
+              <strong>Line 1:</strong> mybox is a reference variable. Currently,
+              it doesn't refer to a real object.<br />
+              <strong>Line 2:</strong> The new keyword dynamically allocates
+              memory at run time and returns a reference (address) to it. mybox
+              now holds that address.
+            </p>
+
+            <p>
+              <strong>Why don't we use new for int or char?</strong> → Java’s
+              primitive types are "normal" variables, not objects, for the sake
+              of efficiency.
+            </p>
+
+            <h3>Reference Sharing (The "Remote Control" Analogy):</h3>
+            <p>
+              If you assign one object reference to another, you are not copying
+              the object. You are copying the reference.
+            </p>
+            <pre><code class="language-java">Box b1 = new Box();
+b1.width = 10;
+
+
+Box b2 = b1;  // b2 now points to the SAME object as b1
+b2.width = 30;
+
+
+System.out.println(b1.width); // Output: 30
+// Changing b2 affects b1 because they are the same object.</code></pre>
+
+            <p>
+              <strong>Null Assignment:</strong> If <code>b1 = null;</code>, the
+              reference is cut. b1 points to nothing. However, if b2 was
+              pointing to that object, b2 still refers to it. The object is not
+              destroyed until any reference point to it.
+            </p>
+
+            <h3>Garbage Collection:</h3>
+            <p>
+              Java automatically handles memory deallocation. When an object has
+              no references pointing to it, it becomes eligible for Garbage
+              Collection.<br />
+              It happens sporadically (not immediately).<br />
+              We don't need to explicitly destroy objects.
+            </p>
+
+            <h2>3. Methods</h2>
+            <h3>General Form</h3>
+            <pre><code class="language-java">type name(parameter-list) {
+  // body
+}</code></pre>
+            <p>
+              <strong>Parameter:</strong> The variable defined in the method
+              (e.g., int i).<br />
+              <strong>Argument:</strong> The actual value passed when calling
+              (e.g., 100).
+            </p>
+
+            <h3>Variable Scope & The this Keyword</h3>
+            <p>
+              It is illegal to have two local variables with the same name.
+              However, a local variable(functional scope. Eg: constructor
+              parameter) can have the same name as an instance variable (this
+              "hides" the instance variable).<br />
+              We use <code>this</code> to resolve the collision.
+              <code>this</code> refers to the current object.
+            </p>
+            <pre><code class="language-java">Box(int width) {
+    this.width = width; // 'this.width' is the instance var, 'width' is the parameter
+}</code></pre>
+            <p>
+              <em
+                >Note: this cannot be used in static methods (because static
+                methods belong to the class, not an instance).</em
+              >
+            </p>
+
+            <h3>Method Overloading (Polymorphism):</h3>
+            <p>
+              Multiple methods can share the same name if their parameter lists
+              differ.
+            </p>
+            <ul>
+              <li>
+                <strong>Rules:</strong> Same class, same name, different
+                parameters (type or number or order).
+              </li>
+              <li>
+                <strong>Return Type:</strong> Changing only the return type is
+                not sufficient for overloading.
+              </li>
+            </ul>
+            <p>
+              <strong>Java's Logic:</strong> It executes the version where
+              parameters match the arguments.<br />
+              <strong>Recursion:</strong> A method calling itself. Each call
+              creates new local variables on the stack. As calls return, the
+              stack "unwinds."
+            </p>
+
+            <h2>4. Passing Parameters: Reference vs. Value</h2>
+            <p>
+              Java creates a copy of the argument when passing it to a method.
+            </p>
+            <ul>
+              <li>
+                <strong>Primitives:</strong> Passed by Value. The method gets a
+                copy; the original is untouched.
+              </li>
+              <li>
+                <strong>Objects:</strong> Passed by Value of Reference.<br />
+                The method receives a copy of the reference.<br />
+                If you modify the object's data (e.g., car.speed = 100), the
+                original object changes.<br />
+                If you reassign the reference itself (e.g., car = new Car()),
+                the original reference outside remains unchanged. ***
+              </li>
+            </ul>
+            <pre><code class="language-java">public static void changeReference(Car car1, Car car2) {
+    car1.name = “honda” //possible
+    car1 = car2;  // This only changes the LOCAL reference variable
+}
+// The original 'car1' back in main() still points to its original object.</code></pre>
+
+            <h2>5. Constructors</h2>
+            <p>
+              A constructor initializes an object immediately upon creation.
+            </p>
+            <ul>
+              <li><strong>Name:</strong> Must match the Class name.</li>
+              <li>
+                <strong>Return Type:</strong> None (not even void). It returns
+                the object reference implicitly.
+              </li>
+              <li>
+                <strong>Execution:</strong> Called automatically when
+                <code>new</code> is used.
+              </li>
+            </ul>
+            <h3>Types of Constructors:</h3>
+            <ul>
+              <li>
+                <strong>Default:</strong> If you write no constructor, Java
+                provides a no-arg default one.
+              </li>
+              <li>
+                <strong>Parameterized:</strong> Initializes fields with specific
+                values.
+              </li>
+              <li>
+                <strong>Overloaded:</strong> You can have multiple constructors
+                with different parameters.
+              </li>
+            </ul>
+
+            <h3>Constructor Chaining (this())</h3>
+            <p>
+              One constructor can call another in the same class to reuse code.
+            </p>
+            <pre><code class="language-java">Box() {
+    this(10, 20); // Calls Box(int, int)
+}</code></pre>
+            <h3>Extended Example:</h3>
+            <pre><code class="language-java">class Student {
+    String name;
+    int age;
+    double marks;
+    // Constructor 1
+    public Student(String name) {
+        this.name = name;
+        System.out.println("Name: " + name);
+    }
+    // Constructor 2
+    public Student(String name, int age) {
+        // Calling Constructor 1
+        this(name);
+        this.age = age;
+        System.out.println("Age: " + age);
+    }
+    // Constructor 3
+    public Student(String name, int age, double marks) {
+        // Calling Constructor 2
+        this(name, age);  
+        this.marks = marks;
+        System.out.println("Marks: " + marks);
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        // Creating an object of Student class using Constructor 3
+        Student student = new Student("John", 20, 85.5);
+    }
+}</code></pre>
+
+            <p>
+              <em
+                >Note: this() must be the first statement in the constructor
+                else, we’ll get error</em
+              ><br />
+              <strong>Super:</strong> To call a superclass constructor, use
+              <code>super()</code> this also should be the first statement in
+              the constructor.
+            </p>
+
+            <h2>6. Nested Classes</h2>
+            <p>Classes defined within the scope of another class.</p>
+            <p><strong>1. Static Nested Class</strong></p>
+            <ul>
+              <li>Associated with the outer class, not an instance.</li>
+              <li>Can only access static members of the outer class.</li>
+              <li>
+                Access:
+                <code>Outer.StaticNested obj = new Outer.StaticNested();</code>
+              </li>
+            </ul>
+
+            <p><strong>2. Inner Class (Non-Static)</strong></p>
+            <ul>
+              <li>Associated with an instance of the outer class.</li>
+              <li>Can access all members (even private) of the outer class.</li>
+              <li>
+                Access: You need an outer object first.<br />
+                <code>OuterClass obj = new OuterClass();</code><br />
+                <code>OuterClass.InnerClass obj2 = obj.new InnerClass();</code>
+              </li>
+            </ul>
+
+            <p><strong>3. Local Inner Class</strong></p>
+            <ul>
+              <li>Defined inside a method.</li>
+              <li>
+                Can access local variables only if they are final or effectively
+                final (assigned only once).
+              </li>
+              <li>Cannot be accessed from outside the method.</li>
+            </ul>
+
+            <p><strong>4. Anonymous Inner Class</strong></p>
+            <ul>
+              <li>
+                A class without a name, instantiated in a single statement.
+              </li>
+              <li>
+                Used for overriding methods or implementing interfaces on the
+                fly.
+              </li>
+            </ul>
+            <pre><code class="language-java">A obj = new A() {
+    public void show() { System.out.println("Anonymous override"); }
+};</code></pre>
+
+            <h2>7. Java Internals & Miscellaneous</h2>
+            <h3>The .class file</h3>
+            <p>
+              During compilation, every class is put into its own .class file
+              containing bytecode. The source filename must match the public
+              class name so Java can find the corresponding .class file.
+            </p>
+
+            <h3>Memory Structure (Simplified)</h3>
+            <ul>
+              <li>
+                <strong>Method Area (Metaspace):</strong> Stores class
+                definitions/code.
+              </li>
+              <li><strong>Heap:</strong> Stores Objects.</li>
+              <li>
+                <strong>Stack:</strong> Stores reference variables and method
+                calls.
+              </li>
+            </ul>
+
+            <h3>System Class</h3>
+            <p>
+              <code>System.out</code>: System is a class, out is a static
+              variable representing the output stream to the console.
+            </p>
+
+            <h3>Strings & Arrays</h3>
+            <ul>
+              <li>
+                <strong>Arrays:</strong> Are implemented as objects in Java.
+              </li>
+              <li>
+                <strong>Strings:</strong> Are objects. They are immutable
+                (cannot be changed once created).
+              </li>
+            </ul>
+
+            <h3>Notes on Edge Cases</h3>
+            <ul>
+              <li>
+                <strong>Constructors in Interfaces?</strong> No, interfaces are
+                not instantiated.
+              </li>
+              <li>
+                <strong>Constructor without super() call?</strong> It implicitly
+                calls super() (the parent class constructor).
+              </li>
+              <li>
+                <strong>Null Pointer Exception:</strong> Occurs if you try to
+                use the . operator on a reference that is null.
+              </li>
+            </ul>
+          </div>
+
+          <!-- Tab 2: Encapsulation -->
+          <div id="encapsulation" class="tab-content">
+            <h1 style="margin-top: 0">Encapsulation 💊</h1>
+            <div class="note-block">
+              <strong>Definition:</strong> Encapsulation is the process of
+              wrapping up data (variables) and methods (functions) into a single
+              unit—usually a class—and controlling access to them.
+            </div>
+            <p>
+              <strong>The Analogy:</strong> Think of it like a medical capsule.
+              The medicine (data) is wrapped inside a container so it’s kept
+              together and safe from outside interference.<br />
+              <strong>Key Goal:</strong> Data Hiding & Security.
+            </p>
+
+            <h2>How We Achieve Encapsulation</h2>
+            <p>The basis is the Class, but specific techniques enforce it:</p>
+
+            <h3>1. Data Hiding & Access Control 🔒</h3>
+            <ul>
+              <li>
+                <strong>Private Variables:</strong> Make variables private so
+                they cannot be accessed directly from outside.
+              </li>
+              <li>
+                <strong>Getters & Setters:</strong> Provide public methods to
+                view or modify data. Inside these, you can add validation logic.
+              </li>
+            </ul>
+
+            <h3>2. Logical Grouping</h3>
+            <ul>
+              <li>
+                <strong>Static Nested Classes:</strong> Group related
+                functionality.
+              </li>
+              <li>
+                <strong>Packages:</strong> Provide modularity and organization.
+              </li>
+            </ul>
+
+            <h2>Encapsulation vs. Abstraction 🎭</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th style="text-align: left">Feature</th>
+                  <th style="text-align: left">Encapsulation</th>
+                  <th style="text-align: left">Abstraction</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Focus</strong></td>
+                  <td>Implementation Level (How it works internally)</td>
+                  <td>Design Level (What user sees)</td>
+                </tr>
+                <tr>
+                  <td><strong>Goal</strong></td>
+                  <td>Security: Protecting data</td>
+                  <td>Simplicity: Hiding complexity</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="note-block">
+              <strong>🧠 Check Your Understanding</strong><br />
+              Scenario: Adding a "fingerprint scanner" to start a car so only
+              you can start it.<br />
+              <em>Question:</em> Encapsulation or Abstraction?<br />
+              <em>Answer:</em> <strong>Encapsulation.</strong> You are
+              restricting access to the internal function (starting engine) for
+              security.
+            </div>
+          </div>
+
+          <!-- Tab 3: Inheritance -->
+          <div id="inheritance" class="tab-content">
+            <h1 style="margin-top: 0">Inheritance</h1>
+            <div class="note-block">
+              <strong>NOTE:</strong> Polymorphism does not apply to instance
+              variables.
+            </div>
+
+            <h2>What is inheritance in Java?</h2>
+            <p>
+              Inheritance is the process by which one class derives properties
+              and methods from another to reduce redundancy.<br />
+              <strong>Keyword:</strong> <code>extends</code>.<br />
+              <strong>Relationship:</strong> "IS-A" (e.g., A Car is a Vehicle).
+            </p>
+
+            <h3>Types of Inheritance</h3>
+            <ul>
+              <li><strong>Single Inheritance:</strong> Class A → Class B.</li>
+              <li>
+                <strong>Multilevel Inheritance:</strong> Class A → Class B →
+                Class C.
+              </li>
+              <li>
+                <strong>Hierarchical Inheritance:</strong> One parent, multiple
+                children.
+              </li>
+              <li>
+                <em>Multiple Inheritance:</em> Not supported with classes in
+                Java to avoid ambiguity.
+              </li>
+            </ul>
+
+            <h2>The super Keyword</h2>
+            <p>Refers to the immediate parent class.</p>
+            <h3>A. Calling the Parent Constructor</h3>
+            <p><code>super(arguments);</code></p>
+            <p>
+              <strong>Crucial Rule:</strong> <code>super()</code> must be the
+              very first statement in the child class’s constructor. If not
+              explicit, Java calls default <code>super()</code> implicitly.
+            </p>
+
+            <h3>B. Accessing Parent Members</h3>
+            <p>
+              <code>super.variableName</code> or
+              <code>super.methodName()</code>. Used when shadowing/overriding
+              occurs.
+            </p>
+
+            <h3>Code Example (Multilevel Inheritance)</h3>
+            <pre><code class="language-java">// 1. The Base Class
+class Box {
+   double l, h, w;
+   Box(double l, double h, double w) {
+       this.l = l; this.h = h; this.w = w;
+   }
+}
+
+// 2. The Child Class
+class BoxWeight extends Box {
+   double weight;
+   public BoxWeight(double l, double h, double w, double weight) {
+       super(l, h, w); // Must initialize parent values first!
+       this.weight = weight;
+   }
+}
+
+// 3. The Grandchild Class
+class BoxPrice extends BoxWeight {
+   double cost;
+   public BoxPrice(double l, double h, double w, double weight, double cost) {
+       super(l, h, w, weight);
+       this.cost = cost;
+   }
+}</code></pre>
+
+            <h3>Important Rules & "Gotchas"</h3>
+            <ul>
+              <li>
+                <strong>Private Members:</strong> Not inherited directly.
+                Accessible via public getters.
+              </li>
+              <li>
+                <strong>Static Methods:</strong> Inherited but cannot be
+                overridden (Method Hiding).
+              </li>
+              <li>
+                <strong>The Object Class:</strong> The root of Java class
+                hierarchy.
+              </li>
+              <li>
+                <strong>Constructor Order:</strong> Parent → Child → Grandchild.
+              </li>
+              <li>
+                <strong>Inlining with Final Methods:</strong> Compiler
+                optimization replacing method calls with code. Only possible
+                with <code>final</code> methods as they cannot be overridden.
+              </li>
+            </ul>
+          </div>
+
+          <!-- Tab 4: Polymorphism (Placeholder) -->
+          <div id="polymorphism" class="tab-content">
+            <h1 style="margin-top: 0">Polymorphism</h1>
+            <p>
+              <strong>Polymorphism</strong> – The ability of an entity (method
+              or object) to take multiple forms.
+            </p>
+            <p>
+              A common phrase used to describe this is:
+              <em>"One interface, multiple methods."</em>
+            </p>
+            <p>
+              It reduces complexity by allowing us to use the same interface to
+              perform different actions depending on the situation.
+            </p>
+
+            <h2>Types of Polymorphism:</h2>
+            <h3>A. Compile-time Polymorphism (Static Binding/Polymorphism)</h3>
+            <p>
+              This is achieved via <strong>Method Overloading</strong>. The
+              compiler decides which method to call during compilation based on
+              the arguments passed.
+            </p>
+            <h4>Rules for Method Overloading:</h4>
+            <ul>
+              <li>Must be in the same class.</li>
+              <li>Method names must be the same.</li>
+              <li>
+                Parameter lists must be different (number of parameters or their
+                types or their order).
+              </li>
+            </ul>
+            <p>
+              <em
+                >Note: Changing only the return type is not sufficient to
+                overload a method.</em
+              >
+            </p>
+
+            <p>
+              <strong>Automatic Type Conversion (Promotion):</strong> Java uses
+              automatic type conversion in overload resolution if no exact match
+              is found (when called with <code>new constructor()</code>) for
+              method parameters.
+            </p>
+            <div class="note-block">
+              <strong>Allowed promotion:</strong><br />
+              byte &rarr; short &rarr; int &rarr; long &rarr; float &rarr;
+              double
+            </div>
+            <p>
+              <strong>Example:</strong> Overloaded Constructors, Functions
+              (e.g., <code>Box()</code> and <code>Box(double side)</code>). Java
+              picks the correct one based on whether you pass an argument when
+              using <code>new</code>.
+            </p>
+
+            <h3>B. Runtime Polymorphism (Dynamic Binding)</h3>
+            <p>
+              This is achieved via <strong>Method Overriding</strong>. The
+              decision of which method to run is made at runtime based on the
+              actual object, not the reference variable.
+            </p>
+            <h4>Rules for Method Overriding:</h4>
+            <ul>
+              <li>
+                Superclass Variable Referencing Subclass Object (dynamic method
+                dispatch).
+              </li>
+              <li>
+                Method signature (name + parameters) must be exactly the same.
+              </li>
+              <li>
+                The version in the child class "hides" or replaces the version
+                in the parent class.
+              </li>
+            </ul>
+
+            <div class="note-block">
+              <strong>Main Concept:</strong>
+              <code>Car car = new Lamborghini();</code><br />
+              - Methods come from the
+              <strong>Subclass</strong> (Lamborghini).<br />
+              - Variables come from the <strong>Reference</strong> (Car).
+            </div>
+
+            <h3>Dynamic Method Dispatch (Runtime Polymorphism):</h3>
+            <p>
+              This is the mechanism Java uses to resolve calls to overridden
+              methods at runtime rather than compile time.
+            </p>
+            <ul>
+              <li>
+                <strong>Reference Type:</strong> Determines
+                <em>what methods can be accessed</em>. (If the method isn't in
+                the Parent class, you can't call it).
+              </li>
+              <li>
+                <strong>Object Type:</strong> Determines
+                <em>which implementation runs</em>. (If the Child overrides it,
+                the Child's version runs).
+              </li>
+            </ul>
+
+            <h2>Upcasting and Downcasting</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th style="text-align: left">Aspect</th>
+                  <th style="text-align: left">Upcasting (Widening)</th>
+                  <th style="text-align: left">Downcasting (Narrowing)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Definition</strong></td>
+                  <td>Converts subclass to superclass.</td>
+                  <td>Converts superclass to subclass.</td>
+                </tr>
+                <tr>
+                  <td><strong>Explicit/Implicit</strong></td>
+                  <td>Implicit (No cast required).</td>
+                  <td>Explicit (Cast required).</td>
+                </tr>
+                <tr>
+                  <td><strong>Safety</strong></td>
+                  <td>Safe, always valid.</td>
+                  <td>
+                    Unsafe, may throw <code>ClassCastException</code>. Always
+                    check with <code>instanceof</code> first!
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Purpose</strong></td>
+                  <td>Used for polymorphism.</td>
+                  <td>Used to access subclass-specific methods.</td>
+                </tr>
+                <tr>
+                  <td><strong>Example</strong></td>
+                  <td><code>Animal a = new Dog();</code></td>
+                  <td><code>Dog d = (Dog) a;</code></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h2>Comprehensive Code Example: Animals</h2>
+            <p>
+              This example demonstrates <code>super()</code>, Upcasting,
+              Downcasting, and Polymorphism all in one.
+            </p>
+            <pre><code class="language-java">class Animal {
+   String type;
+   Animal() {
+       type = "Unknown Animal";
+       System.out.println("Animal constructor called.");
+   }
+   void eat() {
+       System.out.println(type + " is eating.");
+   }
+   void sound() {
+       System.out.println("Animal makes a sound");
+   }
+}
+
+class Dog extends Animal {
+   int legs;
+   Dog() {
+       super(); // Implicitly calls Animal constructor(not mandatory, defaults call auto)
+       legs = 4;
+       type = "Dog";
+       System.out.println("Dog constructor called.");
+   }
+
+   @Override //just check if overridden (will show error if not)
+   void sound() {
+       System.out.println("Dog barks");
+   }
+
+   // Specific to Dog
+   void bark() {
+       System.out.println("The dog barks.");
+   }
+}
+
+class Cat extends Animal {
+   int lives;
+
+   Cat() {
+       super();
+       lives = 9;
+       type = "Cat";
+       System.out.println("Cat constructor called.");
+   }
+
+   @Override
+   void sound() {
+       System.out.println("Cat meows");
+   }
+
+   // Specific to Cat
+   void meow() {
+       System.out.println("The cat meows.");
+   }
+}
+
+public class Main {
+   public static void main(String[] args) {
+       // --- 1. Polymorphism & Upcasting ---
+       // We use the Superclass reference (Animal) for different Subclass objects
+       Animal myAnimal = new Dog();
+       myAnimal.sound(); // Output: Dog barks (Dynamic Method Dispatch)
+       
+       // Variable access (shows variable hiding)
+       System.out.println(myAnimal.type); //Unknown Animal
+
+       myAnimal = new Cat();
+       myAnimal.sound(); // Output: Cat meows (Flexibility!)
+
+       // --- 2. The Limitation ---
+       // myAnimal.meow(); // ERROR: The 'Animal' reference doesn't know about 'meow()'
+
+       // --- 3. Downcasting to access specific methods ---
+       if (myAnimal instanceof Cat) {
+           Cat myCat = (Cat) myAnimal; // Explicit casting
+           myCat.meow(); // Output: The cat meows.
+           System.out.println(myCat.type); // Cat
+       }
+   }
+}</code></pre>
+
+            <h3>Output:</h3>
+            <pre><code>Animal constructor called.
+Dog constructor called.
+Dog barks
+Unknown Animal
+Animal constructor called.
+Cat constructor called.
+Cat meows
+The cat meows.
+Cat</code></pre>
+
+            <p>
+              <strong>Flexibility:</strong> You can assign different subclass
+              objects (e.g., Dog, Cat) to the same Animal reference, allowing
+              for code generalization.
+            </p>
+
+            <h2>Early vs. Late Binding</h2>
+            <ul>
+              <li>
+                <strong>Early Binding (Static Binding):</strong><br />
+                Method calls are resolved at compile-time. Used with private,
+                final, and static methods.
+              </li>
+              <li>
+                <strong>Late Binding (Dynamic Binding):</strong><br />
+                Method calls are resolved at runtime based on the object type.
+                Occurs with overridden methods, enabling runtime polymorphism.
+              </li>
+            </ul>
+            <p>
+              <em
+                >Binding = deciding which method’s code will be executed when a
+                method is called.</em
+              >
+            </p>
+
+            <h2>Inheritance vs. Polymorphism</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th style="text-align: left">Feature</th>
+                  <th style="text-align: left">Inheritance</th>
+                  <th style="text-align: left">Polymorphism</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Focus</strong></td>
+                  <td>"Is-a" relationship (Structure)</td>
+                  <td>Flexibility (Behavior)</td>
+                </tr>
+                <tr>
+                  <td><strong>Definition</strong></td>
+                  <td>Subclass acquires properties of Superclass.</td>
+                  <td>Objects take multiple forms.</td>
+                </tr>
+                <tr>
+                  <td><strong>Mechanism</strong></td>
+                  <td><code>extends</code> keyword.</td>
+                  <td>Method Overloading / Overriding.</td>
+                </tr>
+                <tr>
+                  <td><strong>Timing</strong></td>
+                  <td>Static (Compile-time structure).</td>
+                  <td>Dynamic (Runtime behavior).</td>
+                </tr>
+                <tr>
+                  <td><strong>Relationship</strong></td>
+                  <td>Inheritance enables Polymorphism.</td>
+                  <td>Polymorphism uses Inheritance.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h2>Can Static Methods be Overridden? No.</h2>
+            <p>Static methods belong to the class, not the object.</p>
+            <p>
+              If you define a static method with the same name in a subclass, it
+              is called <strong>Method Hiding</strong>, not overriding.
+            </p>
+            <p>
+              The compiler decides which static method to call based on the
+              <em>reference type</em> (Compile-time polymorphism), not the
+              actual object.
+            </p>
+
+            <h2>Abstract Classes & Interfaces</h2>
+            <ul>
+              <li>
+                <strong>Abstract Classes:</strong> Cannot be instantiated, but
+                their reference variables can hold subclass objects (e.g.,
+                <code>Animal a = new Dog()</code>).
+              </li>
+              <li>
+                <strong>Interfaces:</strong> Pure blueprints. They specify what
+                a class must do, not how. They are the ultimate way to achieve
+                "One interface, multiple methods."
+              </li>
+            </ul>
+
+            <h2>Summary Checklist</h2>
+            <ul style="list-style-type: none; padding-left: 0">
+              <li>
+                <input type="checkbox" checked disabled />
+                <strong>Overloading:</strong> Same method name, different params
+                (Compile-time).
+              </li>
+              <li>
+                <input type="checkbox" checked disabled />
+                <strong>Overriding:</strong> Same method signature in Child
+                class (Runtime).
+              </li>
+              <li>
+                <input type="checkbox" checked disabled />
+                <strong>Dynamic Dispatch:</strong> Java runs the method based on
+                the actual object, not the variable type.
+              </li>
+              <li>
+                <input type="checkbox" checked disabled />
+                <strong>Upcasting:</strong> Safe, used for generalization (<code
+                  >Animal a = new Dog()</code
+                >).
+              </li>
+              <li>
+                <input type="checkbox" checked disabled />
+                <strong>Downcasting:</strong> Risky, used to access
+                child-specific methods (<code>Dog d = (Dog) a</code>).
+              </li>
+            </ul>
+          </div>
+        </div>
+
+          <!-- Tab 5: Packages -->
+          <div id="packages" class="tab-content">
+            <h1 style="margin-top: 0">Java Packages & Access Modifiers</h1>
+
+            <h2>1. What is a Package?</h2>
+            <p>A <strong>package</strong> is essentially a container for classes. It serves two main purposes:</p>
+            <ul>
+                <li><strong>Organization:</strong> It groups related classes together (modularity).</li>
+                <li><strong>Namespace Management:</strong> It prevents naming conflicts.</li>
+            </ul>
+            <p>
+                Think of packages like folders on your computer.<br>
+                You might have a file named <code>Resume.docx</code> in your "Work" folder and another <code>Resume.docx</code> in your "Personal" folder.<br>
+                Because they are in different folders (packages), they don't conflict with each other.
+            </p>
+            <div class="note-block">
+                <strong>Why do we need them?</strong><br>
+                If you create a class named <code>List</code>, it would normally conflict with Java’s built-in <code>java.util.List</code>. By putting your class inside your own package (e.g., <code>mypackage.List</code>), you avoid this collision.
+            </div>
+
+            <h2>2. Creating and Storing Packages</h2>
+            <h3>The Rules</h3>
+            <ul>
+                <li><strong>First Line:</strong> The <code>package</code> statement must be the very first line of code in your Java file.</li>
+                <li><strong>One Package:</strong> A class can belong to only one package.</li>
+                <li><strong>File System Mapping:</strong> The package structure must match your directory structure exactly.</li>
+            </ul>
+
+            <h3>Code vs. Folder Structure</h3>
+            <p>If you declare a package hierarchy, your folders must match it.</p>
+            <p><strong>Code:</strong></p>
+            <pre><code class="language-java">package java.awt.image;</code></pre>
+            <p><strong>Required Folder Structure (Windows example):</strong></p>
+            <pre><code>.../java/awt/image/</code></pre>
+            <p><em>Note: You cannot rename a package simply by changing the code. You must also rename the actual directory where the .class files are stored.</em></p>
+
+            <h2>3. Importing Packages</h2>
+            <p>To use classes from another package, you must import them.</p>
+            <h3>Syntax:</h3>
+            <pre><code class="language-java">import pkg1.pkg2.ClassName; // Imports a specific class
+import pkg1.pkg2.*;         // Imports ALL classes in that package</code></pre>
+            <h3>Key Details:</h3>
+            <ul>
+                <li><strong>The Default Import:</strong> The <code>java.lang</code> package (containing String, Math, System) is imported automatically. You never need to manually import it.</li>
+                <li><strong>Wildcards (*):</strong> Using <code>import java.util.*</code> imports all classes in that package. It might slightly increase compilation time, but it does not affect runtime performance.</li>
+                <li><strong>Name Conflicts:</strong> If you import two packages that both have a class named <code>Date</code> (e.g., <code>java.util</code> and <code>java.sql</code>), you must use the fully qualified name to tell Java which one you mean: <br><code>java.util.Date myDate = new java.util.Date();</code></li>
+            </ul>
+
+            <h2>4. How Java Finds Packages (Runtime)</h2>
+            <p>When you run a program, how does Java know where to look for these packages? It searches in this order:</p>
+            <ol>
+                <li><strong>Current Directory:</strong> By default, Java looks in the folder you are currently running from.</li>
+                <li><strong>CLASSPATH Variable:</strong> You can set an environment variable on your computer called <code>CLASSPATH</code> to tell Java where your libraries are stored.</li>
+                <li><strong>Command Line (-classpath):</strong> You can explicitly tell Java where to look when running a command: <br><code>java -classpath C:\MyPrograms\Java mypackage.MyClass</code></li>
+            </ol>
+
+            <h2>5. Visibility & Access Modifiers</h2>
+            <p>This is the most critical part of package logic. Packages act as a security wall.</p>
+            <h3>The 4 Access Levels</h3>
+            <ul>
+                <li><strong>private:</strong> Visible only within the same class. (Most restrictive)</li>
+                <li><strong>default (no modifier):</strong> Visible to any class in the same package.</li>
+                <li><strong>protected:</strong> Visible to the same package AND subclasses in other packages.</li>
+                <li><strong>public:</strong> Visible everywhere. (Least restrictive)</li>
+            </ul>
+            <p><code>private</code> &lt; <code>default (same package)</code> &lt; <code>protected (inherited in any package)</code> &lt; <code>public (any)</code></p>
+
+            <h3>Code Scenarios</h3>
+            <p>Here is how the visibility rules work in practice.</p>
+
+            <h4>Scenario A: The Parent Class (The Source)</h4>
+            <pre><code class="language-java">package mypackage;
+public class Parent {
+    private int privateVar = 1;
+    int defaultVar = 2;          // No modifier
+    protected int protectedVar = 3;
+    public int publicVar = 4;
+
+    public void testAccess() {
+        System.out.println(privateVar);  //  OK: Same Class
+        System.out.println(defaultVar);     // OK: Same package
+        System.out.println(protectedVar);   // OK: Same package
+        System.out.println(publicVar);      // OK: Public
+    }
+}</code></pre>
+
+            <h4>Scenario B: Same Package (Subclass)</h4>
+            <p>File: <code>mypackage/Child.java</code></p>
+            <pre><code class="language-java">package mypackage;
+public class Child extends Parent {
+    public void testAccess() {
+        // System.out.println(privateVar);  // ERROR: Private is hidden
+        System.out.println(defaultVar);     // OK: Same package
+        System.out.println(protectedVar);   // OK: Same package
+        System.out.println(publicVar);      // OK: Public
+    }
+}</code></pre>
+
+            <h4>Scenario C: Different Package (Subclass)</h4>
+            <p>File: <code>otherpackage/DifferentPackageChild.java</code></p>
+            <pre><code class="language-java">package otherpackage;
+import mypackage.Parent;
+
+public class DifferentPackageChild extends Parent {
+    public void testAccess() {
+        // System.out.println(privateVar);  // ERROR
+        // System.out.println(defaultVar);  // ERROR: Default is package-private
+        System.out.println(protectedVar);   // OK: Accessible via inheritance
+        System.out.println(publicVar);      // OK
+    }
+}</code></pre>
+
+            <h4>Scenario D: Different Package (Non-Subclass)</h4>
+            <p>File: <code>otherpackage/Stranger.java</code></p>
+            <pre><code class="language-java">package otherpackage;
+import mypackage.Parent;
+
+public class Stranger {
+    public void testAccess() {
+        Parent p = new Parent();
+        // System.out.println(p.privateVar);   // ERROR
+        // System.out.println(p.defaultVar);   // ERROR
+        // System.out.println(p.protectedVar); // ERROR: Not a subclass
+        System.out.println(p.publicVar);       // OK
+    }
+}</code></pre>
+
+            <h2>6. Important "Gotchas"</h2>
+            <ul>
+                <li><strong>The Default Package:</strong> If you don't write <code>package mypack;</code>, your class goes into the "default package." Limitation: Classes in the default package cannot be imported by classes in other packages. Always use a package!</li>
+                <li><strong>Interfaces:</strong> Interfaces can also be public or package-private (default). If an interface is not public, it cannot be implemented by classes outside its package.</li>
+            </ul>
+
+            <h2>7. Self-Check: Interview Q&A</h2>
+            <div class="faq-block">
+                <p><strong>Q1: What happens if two imported packages have classes with the same name?</strong><br>
+                A: The compiler will be silent until you actually try to use the class. Then, you must use the fully qualified name (e.g., <code>java.sql.Date</code>) to resolve the ambiguity.</p>
+
+                <p><strong>Q2: Does importing packages.* slow down my program?</strong><br>
+                A: It may slow down compilation slightly, but it has zero effect on runtime performance.</p>
+
+                <p><strong>Q3: Can a class be part of multiple packages?</strong><br>
+                A: No. A class can belong to only one package.</p>
+
+                <p><strong>Q4: What is the -d option in the compiler?</strong><br>
+                A: It stands for "destination." When you run <code>javac -d . MyClass.java</code>, it tells the compiler to automatically create the folder structure (directories) that matches your package name.</p>
+
+                <p><strong>Q5: Can I access a protected variable from a non-subclass in a different package?</strong><br>
+                A: No. <code>protected</code> allows access only to classes in the same package or subclasses (inheritance) in other packages.</p>
+            </div>
+
+            <h2>8. Practical Example: Handling Name Conflicts</h2>
+            <p>This example demonstrates how to use fully qualified names when two packages contain classes with the same name.</p>
+
+            <h3>File: <code>package1/A.java</code></h3>
+            <pre><code class="language-java">package package1;
+
+public class A {
+    public void show() {
+        System.out.println("Hello from package1.A");
+    }
+}</code></pre>
+
+            <h3>File: <code>package2/A.java</code></h3>
+            <pre><code class="language-java">package package2;
+
+public class A {
+    public void show() {
+        System.out.println("Hello from package2.A");
+    }
+}</code></pre>
+
+            <h3>File: <code>Test.java</code> (Main Class)</h3>
+            <pre><code class="language-java">// We cannot import both package1.A and package2.A at the same time
+// because they have the same class name 'A'.
+// import package1.A;
+// import package2.A; // This would cause a compile-time error
+
+public class Test {
+    public static void main(String[] args) {
+        // Using fully qualified names to avoid ambiguity
+        System.out.println("Creating object of package1.A:");
+        package1.A obj1 = new package1.A();
+        obj1.show();
+
+        System.out.println("\nCreating object of package2.A:");
+        package2.A obj2 = new package2.A();
+        obj2.show();
+    }
+}</code></pre>
+
+            <h3>Output:</h3>
+            <pre><code>Creating object of package1.A:
+Hello from package1.A
+
+Creating object of package2.A:
+Hello from package2.A</code></pre>
+          </div>
+
+          <!-- Tab 6: Interfaces -->
+          <div id="interfaces" class="tab-content">
+            <h1 style="margin-top: 0">Interfaces</h1>
+
+            <h2>1. What is an Interface?</h2>
+            <p>An <strong>interface</strong> is a blueprint of a class's behavior. It is a strictly defined "contract" that specifies <em>what a class must do</em>, but not <em>how it does it</em>.</p>
+            <ul>
+                <li>It is used to achieve <strong>Abstraction</strong> and support <strong>Multiple Inheritance</strong>.</li>
+                <li><strong>The Rule:</strong> If a class "implements" an interface, it is legally bound to provide the actual code for every method defined in that interface.</li>
+            </ul>
+
+            <div class="note-block">
+                <strong>Why do we need them? (The Diamond Problem)</strong><br>
+                Java does not support multiple inheritance with classes (e.g., <code>Class C extends A, B</code>) because of ambiguity: if both A and B have a <code>run()</code> method, which one does C inherit? This is known as the Diamond Problem.<br>
+                <strong>The Solution:</strong> Java uses Interfaces.<br>
+                1. A class can extend only one superclass.<br>
+                2. But a class can implement multiple interfaces.<br>
+                This allows unrelated classes (like <code>Car</code> and <code>VideoGame</code>) to implement the same behavior (like <code>Startable</code>), creating flexible polymorphism.
+            </div>
+
+            <h3>Difference in Method Resolution</h3>
+            <pre><code class="language-java">class B {
+   public void run() {
+       System.out.println("B run");
+   }
+}
+
+interface D {
+   default void run() {
+       System.out.println("D run");
+   }
+}
+
+class A extends B implements D, E, F {
+}
+
+new A().run();  // Output: B run
+// Precedence: Class > Interface > Abstract method</code></pre>
+
+            <h2>2. Key Rules & Syntax</h2>
+            <ul>
+                <li><strong>Methods:</strong> Implicitly <code>public</code> and <code>abstract</code>. They generally have no body (unless using Java 8+ features).</li>
+                <li><strong>Variables:</strong> Implicitly <code>public</code>, <code>static</code>, and <code>final</code>.<br>
+                <em>Why?</em> Interfaces cannot have instances, so they cannot hold "state." All variables effectively become global constants.</li>
+                <li><strong>Constructors:</strong> Interfaces <strong>cannot</strong> have constructors because you cannot instantiate an interface directly.</li>
+            </ul>
+            
+            <h3>Summary of Keywords:</h3>
+            <ul>
+                <li>Class &rarr; Class: <code>extends</code></li>
+                <li>Class &rarr; Interface: <code>implements</code></li>
+                <li>Interface &rarr; Interface: <code>extends</code></li>
+            </ul>
+
+            <h2>3. Modern Interface Features (Java 8 & 9)</h2>
+            <p>Originally, interfaces were 100% abstract. To keep up with modern development, Java 8 and 9 added features that allow interfaces to have some implementation code without breaking existing applications.</p>
+            
+            <h3>A. Default Methods (Java 8)</h3>
+            <p>Allows you to add a method with a body using the <code>default</code> keyword.</p>
+            <p><strong>Purpose:</strong> Backward compatibility. You can add a new feature to an interface without forcing every single class that implements it to break or be rewritten.</p>
+
+            <h3>B. Static Methods (Java 8)</h3>
+            <p>Utility methods that belong to the interface itself, not the implementing class.<br>
+            Called via: <code>InterfaceName.methodName()</code>.</p>
+
+            <h3>C. Private Methods (Java 9)</h3>
+            <p>Used to share common code between default and static methods inside the interface. They are hidden from the outside world.</p>
+
+            <h3>Example: Modern Interface Syntax</h3>
+            <pre><code class="language-java">interface Calculator {
+    // 1. Default method (can be overridden by the class)
+    // Calls a private helper method
+    default int add(int a, int b) {
+        return doOperation(a, b);
+    }
+
+    // 2. Static method (cannot be overridden, belongs to Interface)
+    // Usage: Calculator.multiply(2, 3);
+    static int multiply(int a, int b) {
+        return doStaticOperation(a, b);
+    }
+
+    // 3. Private instance method (Helper for default methods)
+    private int doOperation(int a, int b) {
+        return a + b;
+    }
+
+    // 4. Private static method (Helper for static methods)
+    private static int doStaticOperation(int a, int b) {
+        return a * b;
+    }
+}</code></pre>
+
+            <h2>4. Conflict Resolution (The Diamond Problem)</h2>
+            <p>When you implement multiple interfaces, you might run into a situation where two interfaces have a default method with the exact same name.</p>
+            <p><strong>The Rule:</strong> If a conflict occurs, the compiler throws an error. You must override the method in your class and explicitly choose which version to use.</p>
+            
+            <h3>Example:</h3>
+            <pre><code class="language-java">interface A { default void show() { System.out.println("A"); } }
+interface B { default void show() { System.out.println("B"); } }
+
+class C implements A, B {
+    @Override
+    public void show() {
+        // Manually resolving the conflict
+        A.super.show(); // Explicitly calls A's version
+        // B.super.show(); // Or call B's version
+    }
+}</code></pre>
+
+
+            <h2>Nested Interfaces</h2>
+            <p>An interface can be declared inside a class or another interface. Unlike top-level interfaces, these can be private, protected, or public.</p>
+            <p><em>Any interface declared inside a class is implicitly considered public static</em></p>
+            <pre><code class="language-java">class A {
+    // Nested interface
+    public interface NestedIF {
+        boolean isNotNegative(int x);
+    }
+}
+
+// B implements the nested interface using dot notation
+class B implements A.NestedIF {
+    public boolean isNotNegative(int x) {
+        return x >= 0;
+    }
+}</code></pre>
+
+            <h2>Interface Polymorphism</h2>
+            <p>You can use the Interface as the variable type to hold any object that implements it. This hides the specific implementation details from the user.</p>
+            <pre><code class="language-java">// "runner" can hold a Dog, Person, or Robot, as long as they implement Runnable
+Runnable runner = new Dog();</code></pre>
+
+            <h2>Abstract method implementing interface</h2>
+            <pre><code class="language-java">interface A {
+    void call();
+    void show();
+}
+abstract class C implements A {
+    public void call() {
+        System.out.println("Call from C");
+    }
+    // show() is not implemented here, making C abstract
+}
+class X extends C {
+    public void show() {
+        System.out.println("Show from A");
+    }
+}</code></pre>
+          </div>
+
+          <!-- Tab 7: Abstraction -->
+          <div id="abstraction" class="tab-content">
+            <h1 style="margin-top: 0">Abstraction</h1>
+
+            <h2>1. Abstract Classes (The Blueprint)</h2>
+            <p>An <strong>abstract class</strong> acts as a generalized form. It defines the structure (the nature of the methods) but leaves specific implementation details to its subclasses.</p>
+            <ul>
+                <li><strong>The Rule:</strong> If a class contains even one abstract method, the class itself must be declared abstract.</li>
+            </ul>
+
+            <h3>Key Rules:</h3>
+            <ul>
+                <li><strong>No Instantiation:</strong> You cannot create an object of an abstract class (<code>new AbstractClass()</code> is illegal).</li>
+                <li><strong>Mixed Implementation:</strong> Can contain both abstract methods (no body) and concrete methods (with body).</li>
+                <li><strong>Constructors:</strong> Yes, they can have constructors! <br><em>Why?</em> Even though you can't instantiate the abstract class, the constructor is used to initialize variables when a subclass object is created (chained via <code>super()</code>).</li>
+                <li><strong>Subclass Responsibility:</strong> Any subclass must either implement all abstract methods of the parent OR be declared abstract itself.</li>
+            </ul>
+
+            <h3>Abstract vs. Concrete Features</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Can it be Abstract?</th>
+                        <th>Reason</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Constructors</td>
+                        <td>NO</td>
+                        <td>Constructors build objects; you cannot build an abstract object.</td>
+                    </tr>
+                    <tr>
+                        <td>Static Methods</td>
+                        <td>NO</td>
+                        <td>Static methods are called via the Class. If it were empty (abstract), nothing would execute.</td>
+                    </tr>
+                    <tr>
+                        <td>Object References</td>
+                        <td>YES</td>
+                        <td>You can define a reference (<code>Parent p = new Child();</code>) for polymorphism.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>2. Comparison: Abstract Class vs. Interface</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Abstract Class</th>
+                        <th>Interface</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Methods</strong></td>
+                        <td>Both abstract and concrete.</td>
+                        <td>Pre-Java 8: Abstract only.<br>Post-Java 8: Default/Static allowed.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Variables (State)</strong></td>
+                        <td>Any type (static, non-final, etc.). Defines state.</td>
+                        <td>Implicitly <code>public static final</code> (constants only). No state.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Constructors</strong></td>
+                        <td>Yes (invoked by subclass).</td>
+                        <td>No.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Inheritance</strong></td>
+                        <td><code>extends</code> (Single inheritance).</td>
+                        <td><code>implements</code> (Multiple inheritance).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Main Use Case</strong></td>
+                        <td>Identity: "Is-A" relationship (Dog is an Animal).</td>
+                        <td>Capability: "Can-Do" relationship (Dog and Car are Movable).</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="note-block">
+                <strong>Summary Key:</strong><br>
+                <strong>Interface:</strong> Defines what an object <em>can do</em> (Action/Capability).<br>
+                <strong>Abstract Class:</strong> Defines what an object <em>is</em> (Identity/Base).
+            </div>
+
+            <h2>3. What are Default Methods?</h2>
+            <p>Default methods are methods defined in an interface with the <code>default</code> keyword.</p>
+            <ul>
+                <li>These methods can have a body (i.e., an implementation) within the interface itself.</li>
+                <li>They provide a way for interfaces to add new methods without breaking existing implementing classes.</li>
+                <li>Any class that implements the interface can use the default method or override it with its own implementation.</li>
+            </ul>
+
+            <h2>4. Master Example: Putting It All Together</h2>
+            <p>This example demonstrates:</p>
+            <ul>
+                <li><strong>Abstract Class (Vehicle):</strong> Defines "Identity" and shared state (model).</li>
+                <li><strong>Interface (Electric):</strong> Defines a "Capability."</li>
+                <li><strong>Concrete Class (Tesla):</strong> Combines them.</li>
+            </ul>
+
+            <pre><code class="language-java">// 1. THE INTERFACE (The Capability)
+interface Electric {
+    String ENERGY_UNIT = "kWh"; // Constant
+
+    void charge(); // Abstract method (what it must do)
+    
+    // Default method (Optional to override)
+    default void checkBatteryStatus() {
+        System.out.println("Checking battery health...");
+    }
+}
+
+// 2. THE ABSTRACT CLASS (The Blueprint)
+abstract class Vehicle {
+    String model; // Instance variable (State)
+
+    // Constructor: Used to initialize state via subclass!
+    Vehicle(String model) {
+        this.model = model;
+    }
+
+    // Abstract method: Subclass MUST implement this
+    abstract void accelerate();
+
+    // Concrete method: Shared behavior
+    void stop() {
+        System.out.println(model + " has stopped.");
+    }
+}
+
+// 3. THE CONCRETE CLASS (The Real Object)
+class Tesla extends Vehicle implements Electric {
+    
+    // Constructor matching the superclass
+    Tesla(String model) {
+        super(model); // Calls Vehicle's constructor
+    }
+
+    @Override
+    void accelerate() {
+        System.out.println(model + " accelerates silently (Electric drive).");
+    }
+
+    @Override
+    public void charge() {
+        System.out.println("Charging " + model + ". Unit: " + ENERGY_UNIT);
+    }
+}
+
+// 4. MAIN CLASS
+public class Main {
+    public static void main(String[] args) {
+        // Vehicle v = new Vehicle("Generic"); // ERROR! Cannot instantiate abstract class.
+
+        // Polymorphism: Reference is Vehicle, Object is Tesla
+        Vehicle myCar = new Tesla("Model S");
+        
+        myCar.accelerate(); // Calls Tesla's implementation
+        myCar.stop();       // Calls Vehicle's shared implementation
+
+        // To access Interface methods, we need a reference that knows about 'Electric'
+        Tesla myTesla = (Tesla) myCar; 
+        myTesla.charge();
+        myTesla.checkBatteryStatus(); 
+    }
+}</code></pre>
+
+            <h2>5. Common Interview Q&A</h2>
+            <div class="faq-block">
+                <p><strong>Q: Can an abstract class implement an interface?</strong><br>
+                A: Yes. <br>
+                1. <strong>The Standard Rule (Concrete Classes):</strong> If Class A is a concrete class, it must provide an implementation for every method declared in Interface B. <br>
+                2. <strong>The Exception (Abstract Classes):</strong> If Class A is defined as abstract, it does not have to implement the methods of Interface B. Instead, it passes that responsibility down the line. The first "concrete" class that extends Class A will then be forced to implement all the missing methods.</p>
+
+                <p><strong>Q: Can a class be both abstract and final?</strong><br>
+                A: No. <code>abstract</code> means "must be extended," and <code>final</code> means "cannot be extended." They are opposites.</p>
+
+                <p><strong>Q: What is the "public scope" of a class?</strong><br>
+                A: It refers to all public methods/variables exposed to the user. It is the "face" of the class.</p>
+
+                <p><strong>Q: What happens if I add a second abstract method to a Functional Interface?</strong><br>
+                A: If marked with <code>@FunctionalInterface</code>, the compiler throws an error. If not marked, it simply loses its status as a functional interface and cannot be used with Lambdas.</p>
+            </div>
+          </div>
+
+          <!-- Tab 8: Exceptions -->
+          <div id="exceptions" class="tab-content">
+            <h1 style="margin-top: 0">Exceptions</h1>
+
+            <h2>1. What is an Exception?</h2>
+            <p>An exception is an abnormal condition (runtime error) that disrupts the normal flow of the program.</p>
+            <p><strong>Handling:</strong> When an error occurs, an object representing the error is created and "thrown."</p>
+            <ul>
+              <li><strong>System-generated:</strong> By Java Runtime (e.g., dividing by zero).</li>
+              <li><strong>Manually thrown:</strong> By your code using the <code>throw</code> keyword.</li>
+            </ul>
+            <h3>The 5 Keywords of Exception Handling</h3>
+            <ul>
+              <li><code>try</code> – Monitor for errors</li>
+              <li><code>catch</code> – Handle the error</li>
+              <li><code>throw</code> – Manually create an error</li>
+              <li><code>throws</code> – Declare an error might happen</li>
+              <li><code>finally</code> – Clean up code that always runs</li>
+            </ul>
+
+            <h2>2. The Exception Hierarchy</h2>
+            <p>All exceptions inherit from the <code>Throwable</code> class.</p>
+            <ul>
+              <li><strong>Error:</strong> Serious system problems you generally cannot catch (e.g., <code>OutOfMemoryError</code>, <code>StackOverflowError</code>).</li>
+              <li><strong>Exception:</strong> Problems your program can and should handle.</li>
+            </ul>
+
+            <h2>3. Types of Exceptions: Checked vs. Unchecked</h2>
+            <table>
+              <thead>
+                <tr><th>Feature</th><th>Checked Exceptions</th><th>Unchecked Exceptions</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Type</td><td>Compile-time Exceptions</td><td>Runtime Exceptions</td></tr>
+                <tr><td>Handling</td><td>Mandatory (try‑catch or throws)</td><td>Optional</td></tr>
+                <tr><td>Root Class</td><td>Extends <code>Exception</code></td><td>Extends <code>RuntimeException</code></td></tr>
+                <tr><td>Examples</td><td><code>IOException</code>, <code>ClassNotFoundException</code>, <code>SQLException</code></td><td><code>ArithmeticException</code>, <code>NullPointerException</code>, <code>IndexOutOfBoundsException</code></td></tr>
+              </tbody>
+            </table>
+
+            <h3>Code Comparison</h3>
+            <pre><code class="language-java">// Checked (Must Handle)
+public void readFile() {
+    try {
+        FileReader file = new FileReader("file.txt");
+    } catch (IOException e) {
+        System.out.println("An error occurred: " + e.getMessage());
+    }
+}
+
+// Declares checked exception
+public void readFile() throws IOException {
+    FileReader file = new FileReader("file.txt");
+}
+
+// Compile error – not handled
+public void readFile() {
+    FileReader file = new FileReader("file.txt"); // IOException must be handled
+}
+</code></pre>
+            <pre><code class="language-java">// Unchecked (Runtime Error)
+int result = 10 / 0; // Throws ArithmeticException at runtime
+</code></pre>
+
+            <h2>4. The try‑catch Block</h2>
+            <p>Prevents the program from terminating abruptly.</p>
+            <ul>
+              <li>A <code>try</code> block must have curly braces {}.</li>
+              <li>If an exception occurs, control jumps immediately to the matching <code>catch</code>. Remaining <code>try</code> statements are skipped.</li>
+              <li>If no exception, <code>catch</code> is skipped.</li>
+            </ul>
+            <h3>Multiple Catch Blocks</h3>
+            <p>Specific exceptions must come before general ones. Example: catch <code>ArithmeticException</code> before <code>Exception</code>.</p>
+            <h3>Multi‑Catch (Java 7+)</h3>
+            <pre><code class="language-java">catch (ArithmeticException | NullPointerException e) {
+    System.out.println("Handled: " + e);
+}
+</code></pre>
+            <h3>Nested Try</h3>
+            <p>You can nest <code>try</code> blocks. If inner <code>try</code> has no matching <code>catch</code>, the outer <code>catch</code> handles it.</p>
+
+            <h2>5. All‑in‑One Example</h2>
+            <pre><code class="language-java">public class AllInOneException {
+    public static void main(String[] args) {
+        try {
+            System.out.println("--- Outer Try Start ---");
+            try {
+                String str = null;
+                System.out.println(str.length()); // NullPointerException
+                System.out.println("This won't print (Inner)");
+            } catch (ArithmeticException | NullPointerException e) {
+                System.out.println(">> Inner Multi-Catch handled: " + e);
+            }
+            System.out.println("--- Back in Outer Try ---");
+            int[] numbers = {1, 2};
+            System.out.println(numbers[5]); // ArrayIndexOutOfBoundsException
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(">> Outer Specific Catch handled: Index Error");
+        } catch (Exception e) {
+            System.out.println(">> Outer General Catch handled: " + e);
+        }
+        System.out.println("Program continues safely...");
+    }
+}
+</code></pre>
+
+            <h2>6. The finally Block</h2>
+            <p>Executes regardless of whether an exception occurred.</p>
+            <pre><code class="language-java">try {
+    throw new RuntimeException("demo");
+} finally {
+    System.out.println("This always prints.");
+}
+</code></pre>
+
+            <h2>7. Throw vs. Throws</h2>
+            <table>
+              <thead>
+                <tr><th>Aspect</th><th>throw</th><th>throws</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Purpose</td><td>Explicitly throws an exception now.</td><td>Declares that a method might throw an exception.</td></tr>
+                <tr><td>Location</td><td>Inside method body.</td><td>In method signature.</td></tr>
+                <tr><td>Count</td><td>Throws one exception instance.</td><td>Can declare multiple types (comma‑separated).</td></tr>
+              </tbody>
+            </table>
+
+            <h2>8. Advanced Concepts</h2>
+            <h3>A. Chained Exceptions</h3>
+            <pre><code class="language-java">try {
+    int result = 10 / 0;
+} catch (ArithmeticException e) {
+    throw new RuntimeException("Calculation failed", e);
+}
+</code></pre>
+            <h3>B. Custom Exceptions</h3>
+            <pre><code class="language-java">class InvalidAgeException extends Exception {
+    public InvalidAgeException(String message) { super(message); }
+}
+
+static void validate(int age) throws InvalidAgeException {
+    if (age < 18) throw new InvalidAgeException("Too young!");
+}
+</code></pre>
+            <h3>C. Try‑with‑Resources (Automatic Cleanup)</h3>
+            <pre><code class="language-java">try (BufferedReader br = new BufferedReader(new FileReader("file.txt"))) {
+    System.out.println(br.readLine());
+} catch (IOException e) {
+    // handle
+}
+// br is automatically closed
+</code></pre>
+
+            <h2>9. Key Rules &amp; Gotchas</h2>
+            <ul>
+              <li>Unreachable code after a <code>throw</code> or <code>return</code> causes a compile error.</li>
+              <li>Default handler prints stack trace and terminates if uncaught.</li>
+              <li>If a <code>finally</code> block throws, it overrides any exception from <code>try</code>.</li>
+            </ul>
+
+            <h2>10. Quick Recap: Common Interview Q&amp;A</h2>
+            <div class="faq-block">
+              <p><strong>Q:</strong> Difference between Error and Exception?<br/>
+              <strong>A:</strong> Error is a critical system failure (unrecoverable). Exception is an app‑level error (recoverable).</p>
+              <p><strong>Q:</strong> Can you catch <code>Error</code>?<br/>
+              <strong>A:</strong> Technically yes, but you shouldn't; they are usually unrecoverable.</p>
+            </div>
+          </div>
+
+          <!-- Tab 9: the this Keyword -->
+          <div id="this" class="tab-content">
+            <h1 style="margin-top: 0">The this Keyword</h1>
+            
+            <p>In Java, <code>this</code> is a reference variable that points to the current object.</p>
+
+            <h2>1. Common Uses of this</h2>
+            
+            <h3>A. Resolving Variable "Shadowing" (Ambiguity)</h3>
+            <p>When a parameter (local variable) has the same name as an instance variable (class field), the local variable "shadows" or hides the instance variable. We use <code>this</code> to tell Java exactly which one we mean.</p>
+            <pre><code class="language-java">class Employee {
+    String name; // Instance variable
+
+    // The parameter 'name' shadows the instance variable 'name'
+    Employee(String name) {
+        this.name = name;  // this.name refers to the class field
+    }
+
+    void printName() {
+        // Explicitly printing the current object's name
+        System.out.println(this.name);
+    }
+}</code></pre>
+
+            <h3>B. Calling Constructors (Constructor Chaining)</h3>
+            <p>You can use <code>this()</code> to call one constructor from another within the same class. This helps avoid rewriting code.</p>
+            <div class="note-block">
+                <strong>Rules:</strong>
+                <ul>
+                    <li><code>this()</code> must be the very first statement in the constructor.</li>
+                    <li>It is used to reuse initialization logic.</li>
+                </ul>
+            </div>
+            <pre><code class="language-java">class Box {
+    int width, height;
+
+    // Default constructor calls the parameterized one
+    Box() {
+        this(10, 20); 
+        System.out.println("Default box created with size 10x20");
+    }
+
+    Box(int width, int height) {
+        this.width = width;
+        this.height = height;
+    }
+}</code></pre>
+
+            <h3>C. Returning the Current Object (Method Chaining)</h3>
+            <p>We can return <code>this</code> from a method to allow "chaining" calls together (e.g., <code>obj.add().subtract()</code>). This is often called the Builder Pattern style.</p>
+            <pre><code class="language-java">class Calculator {
+    int value = 0;
+
+    Calculator add(int val) {
+        this.value += val;
+        return this; // Returns the current object so we can call another method on it
+    }
+
+    Calculator subtract(int val) {
+        this.value -= val;
+        return this;
+    }
+
+    void display() {
+        System.out.println("Value: " + this.value);
+    }
+}
+
+// Usage in Main:
+// Calculator calc = new Calculator();
+// calc.add(10).subtract(5).display(); // Output: Value: 5</code></pre>
+
+            <h3>D. Passing this as a Parameter</h3>
+            <p>Sometimes you need to pass the current object into another method or class.</p>
+            <pre><code class="language-java">class Car {
+    void display(Car c) {
+        System.out.println("Processing Car object: " + c);
+    }
+
+    void show() {
+        // Pass 'this' (the current car instance) to the display method
+        this.display(this);  // pass object
+    }
+}</code></pre>
+
+            <h2>2. Important Rules &amp; Limitations</h2>
+            <ul>
+                <li><strong>No Static Access:</strong> You cannot use <code>this</code> inside static methods (like <code>main</code>). Static methods belong to the class, not a specific object, so there is no "current object" to refer to.</li>
+                <li><strong>Constructor Order:</strong> If using <code>this()</code> or <code>super()</code> in a constructor, it must be the first line. You cannot do both in the same constructor.</li>
+            </ul>
+            <pre>
+              <code>
+              Dog() {
+                // Error: 'this()' must be the first statement, and 'super()' is already called implicitly 
+                super();   // Calls the superclass constructor 
+                this();    // Error: 'this' must be the first statement 
+                System.out.println("Dog constructor called"); 
+            }
+            </code>
+            </pre>
+
+            <h2>3. Constructors: Advanced Concepts</h2>
+            
+            <h3>A. Default &amp; Implicit Constructors</h3>
+            <ul>
+                <li>Every class has a constructor. If you don't write one, Java provides a default no-argument constructor.</li>
+                <li><strong>Implicit super():</strong> Every constructor automatically calls <code>super()</code> (the parent class constructor) as its first line, even if you don't write it.</li>
+            </ul>
+
+            <h3>B. The Copy Constructor</h3>
+            <p>A copy constructor initializes a new object by copying values from an existing object of the same class.</p>
+            <pre><code class="language-java">class InterviewBit {
+    String department;
+    String service;
+
+    // Standard Constructor
+    InterviewBit(String dept, String serv) {
+        this.department = dept;
+        this.service = serv;
+    }
+
+    // Copy Constructor
+    InterviewBit(InterviewBit ib) {
+        this.department = ib.department; // Copying values
+        this.service = ib.service;
+    }
+}</code></pre>
+
+            <h3>C. Inheritance Flow</h3>
+            <p>When you create an object of a derived (child) class, the constructors execute in a specific order: <strong>Parent First, then Child</strong>.</p>
+            <pre><code class="language-java">class Base {
+    Base() {
+        System.out.println("Base Class Constructor Called");
+    }
+}
+
+class Derived extends Base {
+    Derived() {
+        // implicit super() happens here
+        System.out.println("Derived Class Constructor Called");
+    }
+}
+
+// Output when creating new Derived():
+// Base Class Constructor Called
+// Derived Class Constructor Called</code></pre>
+
+            <h2>4. Multithreading Context</h2>
+            <p>When implementing <code>Runnable</code>, <code>this</code> is often used to pass the current instance to the <code>Thread</code> constructor.</p>
+            <pre><code class="language-java">class NewThreads implements Runnable {
+    Thread t;
+
+    NewThreads() {
+        // 'this' refers to the current NewThreads instance
+        // We pass it to Thread so it knows which run() method to execute
+        t = new Thread(this, "Demo Thread");
+        t.start();
+    }
+
+    public void run() {
+        System.out.println("Child thread running...");
+    }
+}</code></pre>
+
+            <h2>5. Quick Review (Self-Check)</h2>
+            <div class="faq-block">
+                <p><strong>Q: What happens if this() is the second line of a constructor?</strong><br>
+                A: Error: It must be the first statement.</p>
+
+                <p><strong>Q: Can this be used in a static method?</strong><br>
+                A: No: Static methods aren't tied to an instance.</p>
+
+                <p><strong>Q: Does final make an object immutable?</strong><br>
+                A: No: It only prevents the reference variable from changing. The object's internal data can still be modified.</p>
+
+                <p><strong>Q: Recursion with this()?</strong><br>
+                A: Result: <code>StackOverflowError</code> (infinite loop of constructors calling each other).</p>
+            </div>
+          </div>
+
+          <!-- Tab 10: the super Keyword -->
+          <div id="super" class="tab-content">
+            <h1 style="margin-top: 0">The super Keyword</h1>
+            
+            <div class="note-block">
+                <strong>Definition:</strong> The <code>super</code> keyword is a reference variable used in a subclass (child) to refer to its immediate superclass (parent) object.
+            </div>
+
+            <h2>Why we need it:</h2>
+            <ul>
+                <li><strong>Constructors:</strong> When you create an object of a Child class, the Parent class must be initialized first. Since constructors are not inherited, we use <code>super(...)</code> to call the parent's constructor explicitly.</li>
+                <li><strong>Accessing Parent Methods:</strong> If a child class overrides a method (provides a specific implementation), you can still call the original parent version using <code>super.methodName()</code>.</li>
+                <li><strong>Accessing Parent Variables:</strong> If a child class defines a variable with the same name as the parent (Variable Shadowing), <code>super.variableName</code> allows you to access the parent's specific variable.</li>
+            </ul>
+
+            <pre><code class="language-java">public class Main {
+    public static void main(String[] args) {
+        // Creating a BoxWeight object
+        BoxWeight myBox = new BoxWeight(10, 20, 15, 50);
+
+        // It has properties from both Parent and Child
+        System.out.println("Volume: " + myBox.calculateVolume()); // Inherited from Parent
+        System.out.println("Weight: " + myBox.weight);            // Specific to Child
+    }
+}
+
+// 1. The Parent Class (Superclass)
+class Box {
+    double length;
+    double height;
+    double width;
+
+    // Standard Constructor
+    Box(double length, double height, double width) {
+        this.length = length;
+        this.height = height;
+        this.width = width;
+    }
+
+    double calculateVolume() {
+        return length * height * width;
+    }
+}
+
+// 2. The Child Class (Subclass)
+class BoxWeight extends Box {
+    double weight;
+
+    // CONSTRUCTOR:
+    // In Java, super() must be the very first statement inside the constructor body.
+    BoxWeight(double length, double height, double width, double weight) {
+        // Pass arguments up to the Box class constructor
+        super(length, height, width); 
+        
+        // Initialize the child-specific field
+        this.weight = weight;         
+    }
+}</code></pre>
+
+            <h2>1. Static Method Restrictions</h2>
+            <p>You cannot use <code>this</code> or <code>super</code> inside a static method.</p>
+
+            <h2>2. The super Keyword Rules</h2>
+            <h3>super() (Constructor Call):</h3>
+            <ul>
+                <li>It calls the constructor of the immediate superclass.</li>
+                <li><strong>The Golden Rule:</strong> <code>super()</code> must always be the first statement in the subclass constructor. This ensures the parent is fully initialized before the child tries to use any inherited data.</li>
+                <li>If you do not write <code>super()</code>, the Java compiler automatically inserts a default no-argument <code>super()</code> for you.</li>
+            </ul>
+
+            <h3>super.method():</h3>
+            <p>Calls a method from the parent class (useful when the method was overridden in the child).</p>
+
+            <h3>super.variable:</h3>
+            <p>Accesses a variable in the parent class that has been shadowed (hidden) by a variable of the same name in the child class.</p>
+
+            <h2>3. Default Constructor Behavior</h2>
+            <p>Every constructor in Java has a call to another constructor as its first line. If you don't type it, the compiler adds <code>super()</code>.</p>
+
+            <h3>this() vs super():</h3>
+            <ul>
+                <li><code>this()</code> calls a constructor within the same class.</li>
+                <li><code>super()</code> calls a constructor in the parent class.</li>
+                <li><strong>Conflict:</strong> Since both <code>this()</code> and <code>super()</code> must be the first statement, a single constructor cannot contain both. You must choose one.</li>
+            </ul>
+
+            <div class="faq-block">
+                <h3>Quick Question to check your understanding:</h3>
+                <p>In the Java code above, if we moved <code>super(length, height, width);</code> to the last line of the <code>BoxWeight</code> constructor (after <code>this.weight = weight;</code>), Java would throw an error. Based on the notes above, do you know why?</p>
+            </div>
+          </div>
+
+          <!-- Tab 11: the static Keyword -->
+          <div id="static" class="tab-content">
+            <h1 style="margin-top: 0">The static Keyword</h1>
+            
+            <p>In Java, <code>static</code> means that a member (variable or method) belongs to the class itself, not to any specific instance (object) of that class.</p>
+            <ul>
+                <li><strong>Without static:</strong> You need an object to access the member (e.g., <code>obj.method()</code>).</li>
+                <li><strong>With static:</strong> You can access it directly using the class name (e.g., <code>ClassName.method()</code>).</li>
+            </ul>
+
+            <h2>1. The main Method Explained</h2>
+            <pre><code class="language-java">public static void main(String[] args)</code></pre>
+            <ul>
+                <li><strong>public:</strong> Access modifier allowing the JVM (code outside the class) to call the method.</li>
+                <li><strong>static:</strong> Allows the JVM to call <code>main</code> without creating an instance of the class first.</li>
+                <li><strong>void:</strong> The method does not return a value.</li>
+                <li><strong>String[] args:</strong> Stores command-line arguments passed to the program.</li>
+            </ul>
+
+            <h2>2. Static Variables (Class Variables)</h2>
+            <p>Static variables are shared among all instances of a class. They are essentially global variables for that class.</p>
+            <ul>
+                <li><strong>Memory:</strong> Allocation happens only once when the class is loaded.</li>
+                <li><strong>Behavior:</strong> Changing a static variable in one place affects it for all objects.</li>
+            </ul>
+            <pre><code class="language-java">class Mobile {
+    static String brand = "Samsung"; // Shared by all objects
+    String model;                    // Unique to each object
+
+    public void show() {
+        System.out.println(brand + " : " + model);
+    }
+    
+    public static void main(String[] args) {
+        Mobile m1 = new Mobile();
+        m1.model = "S21";
+        
+        Mobile m2 = new Mobile();
+        m2.model = "S10";
+        
+        Mobile.brand = "Apple"; // Changed for EVERYONE
+        
+        m1.show(); // Output: Apple : S21
+        m2.show(); // Output: Apple : S10
+    }
+}</code></pre>
+
+            <h2>3. Static Blocks</h2>
+            <p>A static block is used to initialize static variables. It runs exactly once when the class is first loaded into memory.</p>
+            <pre><code class="language-java">class StaticTest {
+    static int a = 3;
+    static int b;
+
+    // Static block
+    static {
+        System.out.println("Static block initialized.");
+        b = a * 4;
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Value of b: " + b); // Output: 12
+    }
+}</code></pre>
+
+            <h2>4. Static Methods</h2>
+            <p>Static methods belong to the class. They are often used for utility functions (like <code>Math.sqrt()</code>).</p>
+            <div class="note-block">
+                <strong>Rules of Static:</strong>
+                <ul>
+                    <li>Cannot access instance variables directly.</li>
+                    <li>Cannot use <code>this</code> or <code>super</code>.</li>
+                    <li>Can only call other static methods directly.</li>
+                </ul>
+            </div>
+            <h3>Workaround: Accessing Instance Data</h3>
+            <pre><code class="language-java">class Human {
+    String message = "Hello World"; // Instance variable
+
+    public static void display(Human h) {
+        // Valid: We are telling the static method WHICH object to look at
+        System.out.println(h.message); 
+    }
+}</code></pre>
+
+            <h2>5. Method Overloading vs. Overriding</h2>
+            <ul>
+                <li><strong>Overloading:</strong> Yes, you can overload static methods.</li>
+                <li><strong>Overriding:</strong> No. Static methods are bound at compile time (Static Binding).</li>
+                <li><strong>Method Hiding:</strong> A subclass can define a static method with the same signature, but it hides the parent's version rather than overriding it.</li>
+            </ul>
+
+            <h2>6. Static Classes (Nested Classes)</h2>
+            <p>Only nested classes can be static. A top-level class cannot be static.</p>
+            <table>
+                <thead>
+                    <tr><th>Feature</th><th>Static Nested Class</th><th>Non-Static Inner Class</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Dependency</td><td>Does not need an instance of Outer.</td><td>Needs an instance of Outer.</td></tr>
+                    <tr><td>Access</td><td>Can only access static members of Outer.</td><td>Can access all members of Outer.</td></tr>
+                    <tr><td>Syntax</td><td><code>Outer.Inner obj = new Outer.Inner();</code></td><td><code>Outer out = new Outer(); Outer.Inner in = out.new Inner();</code></td></tr>
+                </tbody>
+            </table>
+
+            <h2>7. Advanced &amp; Interview Questions</h2>
+            <div class="faq-block">
+                <p><strong>Q: Can you access a static method using an object reference?</strong><br>
+                A: Yes (<code>obj.staticMethod()</code>), but it is bad practice. The compiler translates it to <code>ClassName.staticMethod()</code>.</p>
+
+                <p><strong>Q: Can an Abstract Class have a main method?</strong><br>
+                A: Yes. The JVM calls it without creating an object.</p>
+
+                <p><strong>Q: Difference between import and import static?</strong><br>
+                A: <code>import</code> imports classes; <code>import static</code> imports members directly (no need for class name prefix).</p>
+                
+                <p><strong>Q: What is a Singleton Class?</strong><br>
+                A class that allows only one instance, achieved via a private static instance and a static method.</p>
+            </div>
+            
+            <h3>Example: Execution Order</h3>
+            <pre><code class="language-java">class Mobile {
+   static String brand = "Mehedi";
+   String model;
+
+   static {
+       System.out.println("First static block.");
+   }
+
+   {
+       System.out.println("Normal block (before static block in code order, but executes per object).");
+   }
+
+   static {
+       brand = "Samsung";
+       System.out.println("Second static block.");
+   }
+
+   Mobile(String model) {
+       this.model = model;
+   }
+
+   public static void show(Mobile obj) {
+       System.out.println("Brand: " + brand + ", Model: " + obj.model);
+   }
+
+   public static void main(String[] args) {
+       System.out.println("Main method started.");
+       Mobile.show(new Mobile("S21"));
+   }
+}</code></pre>
+          </div>
+
+          <!-- Tab 12: the final Keyword -->
+          <div id="final" class="tab-content">
+            <h1 style="margin-top: 0">The final Keyword</h1>
+            
+            <p>In Java, <code>final</code> is used to prevent change. It applies to Variables, Methods, and Classes.</p>
+
+            <h2>1. Final Variables (Constants)</h2>
+            <p>Once a final variable is initialized, its value cannot be changed.</p>
+            <ul>
+                <li><strong>Initialization:</strong> Must be done during declaration or in the constructor.</li>
+                <li><strong>Naming:</strong> Constants (static final) use <code>UPPER_CASE</code>.</li>
+                <li><strong>Local Variables:</strong> Prevents reassignment within a function.</li>
+                <li><strong>Method Arguments:</strong> You cannot change the parameter value inside the method.</li>
+                <li><strong>Interface Variables:</strong> Implicitly <code>public static final</code>.</li>
+            </ul>
+
+            <pre><code class="language-java">public class FinalDemo {
+    static final double PI = 3.14159; // Constant
+    final int val;                    // Blank Instance Final
+
+    FinalDemo(int v) { this.val = v; } // Initialized in Constructor
+
+    void demo(final int arg) {
+        final int local = 10;
+        // arg = 20; // Error
+        System.out.println(val + " " + PI + " " + arg + " " + local);
+    }
+    // if final value is static and uninitialized, it must be initialized in static block
+    // instance final variables must be initialized in constructor
+    // static block cant initialize instance final variables
+    
+}</code></pre>
+
+            <div class="note-block">
+                <strong>Reference vs. State:</strong>
+                <p><code>final</code> locks the reference (the leash), not the object itself (the dog).</p>
+                <ul>
+                    <li><strong>Allowed:</strong> Modifying internal data (e.g., <code>list.add("item")</code>).</li>
+                    <li><strong>Forbidden:</strong> Pointing the variable to a new object (e.g., <code>list = new ArrayList()</code>).</li>
+                </ul>
+            </div>
+
+            <h2>2. Final Methods (Prevent Overriding)</h2>
+            <p>A final method cannot be overridden by a subclass. This ensures consistency and allows for compiler optimizations like "inlining".</p>
+            <pre><code class="language-java">class Parent {
+    final void show() {
+        System.out.println("This behavior is locked.");
+    }
+}</code></pre>
+
+            <h2>3. Final Classes (Prevent Inheritance)</h2>
+            <p>A final class cannot be extended. Real-world example: <code>java.lang.String</code> is final to ensure security and immutability.</p>
+            <pre><code class="language-java">final class SecureBox { }
+// class HackBox extends SecureBox { } // Error
+
+// NOTE: final class-> cant be inherited but can be instantiated
+// private constructor-> cant be instantiated & inherited (normally)
+</code></pre>
+
+            <h2>4. Advanced Concepts</h2>
+            <h3>A. Effectively Final</h3>
+            <p>Variables used in anonymous inner classes or lambdas must be final or "effectively final" (never changed after initialization).</p>
+
+            <h3>B. Abstract and Final</h3>
+            <p>A class <strong>cannot</strong> be both abstract and final. They are opposites.</p>
+
+            <h3>C. Immutable Class Recipe</h3>
+            <ol>
+                <li>Mark the class <code>final</code>.</li>
+                <li>Mark all fields <code>private</code> and <code>final</code>.</li>
+                <li>Provide only getter methods (no setters).</li>
+                <li>Initialize everything via the constructor.</li>
+            </ol>
+
+            <h2>5. final vs finally vs finalize</h2>
+            <table>
+                <thead>
+                    <tr><th>Keyword</th><th>Type</th><th>Purpose</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>final</td><td>Modifier</td><td>Prevents changes (variables, methods, classes).</td></tr>
+                    <tr><td>finally</td><td>Block</td><td>Cleanup code after try-catch.</td></tr>
+                    <tr><td>finalize</td><td>Method</td><td>Called by Garbage Collector before destruction.</td></tr>
+                </tbody>
+            </table>
+
+            <h2>Summary Checklist</h2>
+            <ul>
+                <li>[ ] <strong>Variable:</strong> Value cannot change (reference is locked).</li>
+                <li>[ ] <strong>Method:</strong> Cannot be overridden (supports inlining).</li>
+                <li>[ ] <strong>Class:</strong> Cannot be inherited (e.g., String).</li>
+                <li>[ ] <strong>Anonymous Class:</strong> Can only access final/effectively final variables.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>&copy; 2026 Study Tracker.</footer>
+
+    <script>
+      function openTab(evt, tabName) {
+        // Hide all tab content
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].className = tabcontent[i].className.replace(
+            " active",
+            ""
+          );
+        }
+
+        // Remove active class from all buttons
+        tablinks = document.getElementsByClassName("tab-btn");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show default tab (classes) if tabName is missing/invalid or show specific
+        document.getElementById(tabName).className += " active";
+        evt.currentTarget.className += " active";
+      }
+
+      // Syntax Highlighting for Comments
+      document.addEventListener("DOMContentLoaded", function() {
+        const codeBlocks = document.querySelectorAll('pre code');
+        codeBlocks.forEach(block => {
+          let html = block.innerHTML;
+          // Regex to capture // comments
+          // We use a safe approach to avoid breaking HTML tags if any (though code blocks usually don't have inner tags here yet)
+          html = html.replace(/(\/\/[^\n]*)/g, '<span class="comment">$1</span>');
+          block.innerHTML = html;
+        });
+      });
+    </script>
+  </body>
+</html>

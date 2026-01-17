@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixed Shuffle Blind 75</title>
+    <style>
+        :root {
+            --primary: #60a5fa;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f8fafc;
+            --border: #334155;
+        }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            max-width: 700px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #94a3b8;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+        .stats-bar {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            border: 1px solid var(--border);
+        }
+        .problem-grid {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .problem-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.2s;
+        }
+        .problem-item:last-child { border-bottom: none; }
+        .problem-item:hover { background: #1e293b; filter: brightness(1.2); }
+        
+        input[type="checkbox"] {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+        a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 1rem;
+            flex-grow: 1;
+        }
+        a:hover { color: var(--primary); }
+        .reset-btn {
+            display: block;
+            margin: 20px auto;
+            background: transparent;
+            border: 1px solid #ef4444;
+            color: #ef4444;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        .reset-btn:hover { background: #ef4444; color: white; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Blind 75</h1>
+    <p class="subtitle">Randomized order (Locked on this device)</p>
+    <div class="stats-bar" id="stats">Completed: 0 / 75</div>
+    
+    <div class="problem-grid" id="main-list"></div>
+
+    <!-- <button class="reset-btn" onclick="reshuffle()">Reshuffle Everything & Clear Progress</button> -->
+</div>
+
+<script>
+    const baseProblems = [
+        { name: "Longest Repeating Character Replacement", link: "https://leetcode.com/problems/longest-repeating-character-replacement/" },
+        { name: "Set Matrix Zeroes", link: "https://leetcode.com/problems/set-matrix-zeroes/" },
+        { name: "Reverse Bits", link: "https://leetcode.com/problems/reverse-bits/" },
+        { name: "Non-overlapping Intervals", link: "https://leetcode.com/problems/non-overlapping-intervals/" },
+        { name: "3Sum", link: "https://leetcode.com/problems/3sum/" },
+        { name: "Binary Tree Maximum Path Sum", link: "https://leetcode.com/problems/binary-tree-maximum-path-sum/" },
+        { name: "Climbing Stairs", link: "https://leetcode.com/problems/climbing-stairs/" },
+        { name: "Top K Frequent Elements", link: "https://leetcode.com/problems/top-k-frequent-elements/" },
+        { name: "Pacific Atlantic Water Flow", link: "https://leetcode.com/problems/pacific-atlantic-water-flow/" },
+        { name: "Same Tree", link: "https://leetcode.com/problems/same-tree/" },
+        { name: "Word Search II", link: "https://leetcode.com/problems/word-search-ii/" },
+        { name: "Missing Number", link: "https://leetcode.com/problems/missing-number/" },
+        { name: "Maximum Product Subarray", link: "https://leetcode.com/problems/maximum-product-subarray/" },
+        { name: "Merge K Sorted Lists", link: "https://leetcode.com/problems/merge-k-sorted-lists/" },
+        { name: "Valid Palindrome", link: "https://leetcode.com/problems/valid-palindrome/" },
+        { name: "Graph Valid Tree", link: "https://leetcode.com/problems/graph-valid-tree/" },
+        { name: "Longest Consecutive Sequence", link: "https://leetcode.com/problems/longest-consecutive-sequence/" },
+        { name: "Container With Most Water", link: "https://leetcode.com/problems/container-with-most-water/" },
+        { name: "Search in Rotated Sorted Array", link: "https://leetcode.com/problems/search-in-rotated-sorted-array/" },
+        { name: "Sum of Two Integers", link: "https://leetcode.com/problems/sum-of-two-integers/" },
+        { name: "Longest Increasing Subsequence", link: "https://leetcode.com/problems/longest-increasing-subsequence/" },
+        { name: "Two Sum", link: "https://leetcode.com/problems/two-sum/" },
+        { name: "Course Schedule", link: "https://leetcode.com/problems/course-schedule/" },
+        { name: "House Robber", link: "https://leetcode.com/problems/house-robber/" },
+        { name: "Binary Tree Level Order Traversal", link: "https://leetcode.com/problems/binary-tree-level-order-traversal/" },
+        { name: "Number of Islands", link: "https://leetcode.com/problems/number-of-islands/" },
+        { name: "Jump Game", link: "https://leetcode.com/problems/jump-game/" },
+        { name: "Meeting Rooms II", link: "https://leetcode.com/problems/meeting-rooms-ii/" },
+        { name: "Construct Binary Tree from Preorder and Inorder Traversal", link: "https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/" },
+        { name: "Word Break", link: "https://leetcode.com/problems/word-break/" },
+        { name: "LCA of BST", link: "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/" },
+        { name: "Spiral Matrix", link: "https://leetcode.com/problems/spiral-matrix/" },
+        { name: "Valid Parentheses", link: "https://leetcode.com/problems/valid-parentheses/" },
+        { name: "Group Anagrams", link: "https://leetcode.com/problems/group-anagrams/" },
+        { name: "Number of 1 Bits", link: "https://leetcode.com/problems/number-of-1-bits/" },
+        { name: "Coin Change", link: "https://leetcode.com/problems/coin-change/" },
+        { name: "Insert Interval", link: "https://leetcode.com/problems/insert-interval/" },
+        { name: "Rotate Image", link: "https://leetcode.com/problems/rotate-image/" },
+        { name: "Merge Two Sorted Lists", link: "https://leetcode.com/problems/merge-two-sorted-lists/" },
+        { name: "Kth Smallest in BST", link: "https://leetcode.com/problems/kth-smallest-element-in-a-bst/" },
+        { name: "Meeting Rooms", link: "https://leetcode.com/problems/meeting-rooms/" },
+        { name: "Maximum Subarray", link: "https://leetcode.com/problems/maximum-subarray/" },
+        { name: "Merge Intervals", link: "https://leetcode.com/problems/merge-intervals/" },
+        { name: "Valid Anagram", link: "https://leetcode.com/problems/valid-anagram/" },
+        { name: "Longest Palindromic Substring", link: "https://leetcode.com/problems/longest-palindromic-substring/" },
+        { name: "Reverse Linked List", link: "https://leetcode.com/problems/reverse-linked-list/" },
+        { name: "Contains Duplicate", link: "https://leetcode.com/problems/contains-duplicate/" },
+        { name: "Alien Dictionary", link: "https://leetcode.com/problems/alien-dictionary/" },
+        { name: "Product of Array Except Self", link: "https://leetcode.com/problems/product-of-array-except-self/" },
+        { name: "Validate BST", link: "https://leetcode.com/problems/validate-binary-search-tree/" },
+        { name: "Combination Sum", link: "https://leetcode.com/problems/combination-sum/" },
+        { name: "Invert Binary Tree", link: "https://leetcode.com/problems/invert-binary-tree/" },
+        { name: "Clone Graph", link: "https://leetcode.com/problems/clone-graph/" },
+        { name: "Longest Substring Without Repeating Characters", link: "https://leetcode.com/problems/longest-substring-without-repeating-characters/" },
+        { name: "Subtree of Another Tree", link: "https://leetcode.com/problems/subtree-of-another-tree/" },
+        { name: "Decode Ways", link: "https://leetcode.com/problems/decode-ways/" },
+        { name: "Minimum Window Substring", link: "https://leetcode.com/problems/minimum-window-substring/" },
+        { name: "Remove Nth Node From End", link: "https://leetcode.com/problems/remove-nth-node-from-end-of-list/" },
+        { name: "Counting Bits", link: "https://leetcode.com/problems/counting-bits/" },
+        { name: "Linked List Cycle", link: "https://leetcode.com/problems/linked-list-cycle/" },
+        { name: "Unique Paths", link: "https://leetcode.com/problems/unique-paths/" },
+        { name: "Find Median from Data Stream", link: "https://leetcode.com/problems/find-median-from-data-stream/" },
+        { name: "Reorder List", link: "https://leetcode.com/problems/reorder-list/" },
+        { name: "Best Time to Buy and Sell Stock", link: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/" },
+        { name: "House Robber II", link: "https://leetcode.com/problems/house-robber-ii/" },
+        { name: "Find Minimum in Rotated Sorted Array", link: "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/" },
+        { name: "Implement Trie", link: "https://leetcode.com/problems/implement-trie-prefix-tree/" },
+        { name: "Max Depth of Binary Tree", link: "https://leetcode.com/problems/maximum-depth-of-binary-tree/" },
+        { name: "Serialize/Deserialize Tree", link: "https://leetcode.com/problems/serialize-and-deserialize-binary-tree/" },
+        { name: "Word Search", link: "https://leetcode.com/problems/word-search/" },
+        { name: "Connected Components", link: "https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/" },
+        { name: "Palindromic Substrings", link: "https://leetcode.com/problems/palindromic-substrings/" },
+        { name: "Longest Common Subsequence", link: "https://leetcode.com/problems/longest-common-subsequence/" },
+        { name: "Add & Search Word", link: "https://leetcode.com/problems/design-add-and-search-words-data-structure/" },
+        { name: "Encode and Decode Strings", link: "https://leetcode.com/problems/encode-and-decode-strings/" }
+    ];
+
+    let problemOrder = JSON.parse(localStorage.getItem('blind75_order'));
+
+    if (!problemOrder) {
+        // First time: Shuffle and save order
+        problemOrder = [...baseProblems];
+        for (let i = problemOrder.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [problemOrder[i], problemOrder[j]] = [problemOrder[j], problemOrder[i]];
+        }
+        localStorage.setItem('blind75_order', JSON.stringify(problemOrder));
+    }
+
+    const listContainer = document.getElementById('main-list');
+    const stats = document.getElementById('stats');
+
+    function updateStats() {
+        const checked = document.querySelectorAll('input[type="checkbox"]:checked').length;
+        stats.innerText = `Completed: ${checked} / 75`;
+    }
+
+    function reshuffle() {
+        if(confirm("Are you sure? This will reset your progress and change the order.")) {
+            localStorage.clear();
+            location.reload();
+        }
+    }
+
+    problemOrder.forEach((p, index) => {
+        const div = document.createElement('div');
+        div.className = 'problem-item';
+        
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = localStorage.getItem('status_' + p.name) === 'true';
+
+        checkbox.addEventListener('change', () => {
+            localStorage.setItem('status_' + p.name, checkbox.checked);
+            updateStats();
+        });
+
+        const link = document.createElement('a');
+        link.href = p.link;
+        link.target = '_blank';
+        link.innerText = p.name;
+
+        div.appendChild(checkbox);
+        div.appendChild(link);
+        listContainer.appendChild(div);
+    });
+
+    updateStats();
+</script>
+
+</body>
+</html>
