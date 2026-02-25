@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DSA Topic List By ASM Shuvo</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .topic-section {
+        margin-bottom: 32px;
+      }
+      .topic-card {
+        background-color: var(--color-card-bg);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        padding: 24px;
+        margin-bottom: 16px;
+      }
+      .topic-card h3 {
+        margin-top: 0;
+        color: var(--color-accent);
+        border-bottom: 1px solid var(--color-border);
+        padding-bottom: 8px;
+        margin-bottom: 16px;
+      }
+      .topic-card ul {
+        list-style-type: none;
+        padding-left: 0;
+      }
+      .topic-card li {
+        margin-bottom: 8px;
+        padding-left: 20px;
+        position: relative;
+      }
+      .topic-card li::before {
+        content: "▹";
+        position: absolute;
+        left: 0;
+        color: var(--color-accent);
+      }
+      .complexity-tag {
+        font-size: 0.85em;
+        background: rgba(88, 166, 255, 0.1);
+        color: var(--color-accent);
+        padding: 2px 6px;
+        border-radius: 4px;
+        margin-left: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>DSA Topic List</h1>
+    </header>
+    <div class="container">
+      <div class="page-header">
+        <a href="index.html" class="back-link">&larr; Back to Dashboard</a>
+        <h2>DSA Topic List By ASM Shuvo</h2>
+        <p style="color: var(--color-text-secondary); margin-top: 8px">
+          A comprehensive roadmap for mastering Data Structures and Algorithms.
+        </p>
+      </div>
+
+      <div class="content-area">
+        <div
+          class="grid"
+          style="
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+          "
+        >
+          <!-- 1. String -->
+          <div class="topic-card">
+            <h3>1. String</h3>
+            <ul>
+              <li>Learn all the string functions & operations.</li>
+              <li>Pattern matching basics.</li>
+              <li>String manipulation techniques.</li>
+            </ul>
+          </div>
+
+          <!-- 2. Complexity Analysis -->
+          <div class="topic-card">
+            <h3>2. Complexity Analysis</h3>
+            <ul>
+              <li>Big O Time Complexity for all algorithms.</li>
+              <li>Space Complexity analysis.</li>
+              <li>Best, Worst, and Average cases.</li>
+            </ul>
+          </div>
+
+          <!-- 3. Basic Bitmasking -->
+          <div class="topic-card">
+            <h3>3. Basic Bitmasking</h3>
+            <ul>
+              <li>Bitwise operators: AND, OR, XOR, NOT, Shifts.</li>
+              <li>Setting, clearing, and toggling bits.</li>
+              <li>Checking if a bit is set.</li>
+            </ul>
+          </div>
+
+          <!-- 4. Basic Recursion -->
+          <div class="topic-card">
+            <h3>4. Basic Recursion & Visualization</h3>
+            <ul>
+              <li>Recursion Tree visualization.</li>
+              <li>GCD (Greatest Common Divisor).</li>
+              <li>LCM (Least Common Multiple).</li>
+            </ul>
+          </div>
+
+          <!-- 5. Math Basics -->
+          <div class="topic-card">
+            <h3>5. Number Theory Basics</h3>
+            <ul>
+              <li>Primes & Sieve of Eratosthenes.</li>
+              <li>Prime Factorization.</li>
+              <li>Modularity Basics (Modulo Arithmetic).</li>
+            </ul>
+          </div>
+
+          <!-- 6. Heap Visualization -->
+          <div class="topic-card">
+            <h3>6. Heap Visualization</h3>
+            <ul>
+              <li>Heap Insertions (Up-Heapify).</li>
+              <li>Heap Deletions (Down-Heapify).</li>
+              <li>Max-Heap vs Min-Heap properties.</li>
+            </ul>
+          </div>
+
+          <!-- 7. STL & Data Structures -->
+          <div class="topic-card">
+            <h3>7. STL & Built-in Functions</h3>
+            <ul>
+              <li>
+                Set, Unordered Set
+                <span class="complexity-tag">O(log N) / O(1)</span>
+              </li>
+              <li>
+                Map, Unordered Map
+                <span class="complexity-tag">O(log N) / O(1)</span>
+              </li>
+              <li>Multimap, Multiset, Queue, Deque, Stack.</li>
+              <li>Find in array vs Find in set complexities.</li>
+            </ul>
+          </div>
+
+          <!-- 8. Search Algorithms -->
+          <div class="topic-card">
+            <h3>8. Binary & Ternary Search</h3>
+            <ul>
+              <li>
+                Binary Search (STL: <code>lower_bound</code>,
+                <code>upper_bound</code>).
+              </li>
+              <li>Binary Search on Answer.</li>
+              <li>Ternary Search (Unimodal functions).</li>
+            </ul>
+          </div>
+
+          <!-- 9. Sorting -->
+          <div class="topic-card">
+            <h3>9. Sorting Algorithms</h3>
+            <ul>
+              <li><strong>Simple:</strong> Bubble, Selection, Insertion.</li>
+              <li><strong>Advanced:</strong> Merge Sort, Quick Sort.</li>
+              <li>Implementation & Complexity (Best, Avg, Worst).</li>
+              <li>Stability & Comparison-based vs Non-comparison.</li>
+            </ul>
+          </div>
+
+          <!-- 10. Techniques -->
+          <div class="topic-card">
+            <h3>10. Core Techniques</h3>
+            <ul>
+              <li>Two Pointers (Opposite & Same direction).</li>
+              <li>Sliding Window Problems (Fixed & Variable).</li>
+              <li>Prefix Sum / Prefix Count arrays.</li>
+            </ul>
+          </div>
+
+          <!-- 11. Advanced Math -->
+          <div class="topic-card">
+            <h3>11. Combinatorics & Exponentiation</h3>
+            <ul>
+              <li>
+                Binary Exponentiation
+                <span class="complexity-tag">O(log N)</span>
+              </li>
+              <li>NCR (Combinations) Calculation.</li>
+              <li>NPR (Permutations) Calculation.</li>
+            </ul>
+          </div>
+
+          <!-- 12. Graph Theory -->
+          <div class="topic-card">
+            <h3>12. Graph Theory</h3>
+            <ul>
+              <li>Adjacency Matrix vs List: When to use what.</li>
+              <li>DFS vs BFS: Comparison & Complexity.</li>
+              <li>Graph coloring & Bipartite Graph check.</li>
+              <li>Connected & Strongly Connected Components (SCC).</li>
+              <li>Cycles: Directed vs Non-Directed.</li>
+              <li>Topological Sort: DFS-based vs Kahn's Algorithm.</li>
+              <li>
+                Shortest Path: Dijkstra, Bellman-Ford,
+                Floyd-Warshall.Complexity, Comparision & Limitations
+              </li>
+              <li>Dijkstra vs BFS comparison.</li>
+            </ul>
+          </div>
+
+          <!-- 13. Tree -->
+          <div class="topic-card">
+            <h3>13. Tree</h3>
+            <ul>
+              <li>Traversals: Inorder, Preorder, Postorder.</li>
+              <li>Types of Trees</li>
+              <li>Types of Binary Trees.</li>
+            </ul>
+          </div>
+
+          <!-- 14. Dynamic Programming -->
+          <div class="topic-card">
+            <h3>14. Dynamic Programming (DP)</h3>
+            <ul>
+              <li>0/1 Knapsack problem.</li>
+              <li>Longest Common Subsequence (LCS).</li>
+              <li>Longest Increasing Subsequence (LIS).</li>
+              <li>DP vs Greedy: When to use which approach.</li>
+            </ul>
+          </div>
+
+          <!-- 15. Shortest Path (Repeated in list, merged here) -->
+          <!-- <div class="topic-card">
+            <h3>15. Pathfinding Recap</h3>
+            <ul>
+              <li>Recall: Dijkstra, Bellman-Ford, Floyd-Warshall.</li>
+              <li></li>
+            </ul>
+          </div> -->
+
+          <!-- 16. Linked List -->
+          <div class="topic-card">
+            <h3>16. Linked List</h3>
+            <ul>
+              <li>Singly & Doubly Linked List.</li>
+              <li>Insert/Delete implementations & Complexity.</li>
+              <li>Linked List vs Array: Comparison of operations.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>&copy; 2026 Study Tracker. Built with GitHub Style.</footer>
+  </body>
+</html>
