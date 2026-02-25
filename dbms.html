@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -36,6 +36,12 @@
           </button>
           <button class="tab-btn" onclick="openTab(event, 'normalization')">
             Normalization
+          </button>
+          <button class="tab-btn" onclick="openTab(event, 'indexing')">
+            Indexing
+          </button>
+          <button class="tab-btn" onclick="openTab(event, 'acid')">
+            ACID Properties
           </button>
         </div>
 
@@ -1029,6 +1035,9 @@ BE+ = {B, E, C, D, A} (CK found! - Since BC &rarr; D and E &rarr; C)</code></pre
             </div>
 
             <h2>Boyce-Codd Normal Form (BCNF)</h2>
+            A → C is a partial dependency because C depends on part of the
+            composite key ABC, but it violates 2NF only if C is a non-prime
+            attribute.
             <div class="note-block">
               <strong>Conditions for BCNF:</strong><br />
               1. Must be in <strong>3rd Normal Form (3NF)</strong>.<br />
@@ -1867,6 +1876,328 @@ AC &rarr; D</code></pre>
               <code>B &rarr; C</code>.
             </div>
           </div>
+
+          <!-- Tab 4: Indexing -->
+          <div id="indexing" class="tab-content">
+            <h1 style="margin-top: 0">Indexing in DBMS</h1>
+
+            <h2>1. What is Indexing?</h2>
+            <p>
+              Think of an Index in a database like the index at the back of a
+              textbook.
+            </p>
+            <ul>
+              <li>
+                <strong>Without an index:</strong> If you want to find a
+                specific topic, you have to flip through every single page (this
+                is called a <strong>Full Table Scan</strong>).
+              </li>
+              <li>
+                <strong>With an index:</strong> You look up the topic in the
+                index, find the page number, and go directly there.
+              </li>
+            </ul>
+            <div class="note-block">
+              <strong>Technical Definition:</strong> Indexing is a data
+              structure technique that improves the speed of data retrieval
+              O(log N) or even O(1) by minimizing disk accesses.
+            </div>
+
+            <h3>Why do we need it?</h3>
+            <ul>
+              <li>
+                <strong>Faster Search:</strong> Drastically speeds up SELECT
+                queries, filtering, and sorting.
+              </li>
+              <li>
+                <strong>Efficient Joins:</strong> Speeds up joining tables based
+                on foreign keys.
+              </li>
+              <li>
+                <strong>Constraint Enforcement:</strong> Unique indexes ensure
+                data integrity (no duplicates).
+              </li>
+            </ul>
+
+            <h2>2. Index Architecture (Under the Hood)</h2>
+            <p>Different scenarios require different structures.</p>
+
+            <h3>A. B-Tree (Balanced Tree)</h3>
+            <p>
+              <strong>Concept:</strong> The default index type (always on
+              primary key by default). It maintains a sorted tree structure. The
+              "Root" points to "Branches," which point to "Leaves" (where the
+              actual data pointers are).
+            </p>
+            <ul>
+              <li>
+                <strong>Best For:</strong> Exact Matches (=) and Range Queries
+                (>, BETWEEN).
+              </li>
+              <li><strong>Complexity:</strong> O(log N).</li>
+            </ul>
+            <div class="note-block">
+              <strong>Why Range Queries Work:</strong> If you want IDs > 7, the
+              database finds 20, then just reads the "next" pointers (11, 13,
+              17, ..) sequentially without traversing the tree again.
+            </div>
+
+            <h3>B. Hash Index</h3>
+            <p>
+              <strong>Concept:</strong> Uses a mathematical formula (Hash
+              Function) to calculate a specific memory slot (Bucket) for a key.
+            </p>
+            <ul>
+              <li>
+                <strong>Best For:</strong> Exact Lookups (WHERE name = 'Alice').
+              </li>
+              <li>
+                <strong>Limitation:</strong> No ranges. The physical storage
+                order is random.
+              </li>
+            </ul>
+            <div class="note-block">
+              <strong>Memory Layout Example (O(1)):</strong><br />
+              [Bucket 001] &rarr; Charlie's Data<br />
+              [Bucket 002] &rarr; (Empty)<br />
+              [Bucket 003] &rarr; Alice's Data &larr; <em>Direct jump here!</em
+              ><br />
+              ...<br />
+              [Bucket 052] &rarr; Bob's Data
+            </div>
+
+            <h3>C. Bitmap Index</h3>
+            <p>
+              <strong>Concept:</strong> Uses bit arrays (0s and 1s) for columns
+              with <strong>Low Cardinality</strong> (few unique values).
+            </p>
+            <ul>
+              <li>
+                <strong>Best For:</strong> Gender, Marital Status, Is_Active.
+              </li>
+              <li>
+                <strong>Pros:</strong> Ultra-fast bitwise operations (AND, OR).
+              </li>
+            </ul>
+            <div class="note-block">
+              <strong>Find "Female AND Single":</strong><br />
+              0 1 1 0 (Female Vector)<br />
+              1 0 1 0 (Single Vector)<br />
+              <strong>AND</strong> ---------<br />
+              0 0 1 0 (Result: Only Row 3 matches)
+            </div>
+
+            <h2>3. Types of Indexes</h2>
+            <p>
+              In MySQL InnoDB, the <strong>clustered index</strong> is always
+              the primary key. Modern indexing is effectively
+              <strong>dense</strong>.
+            </p>
+
+            <h3>Primary vs. Secondary Index</h3>
+            <ul>
+              <li>
+                <strong>Primary Index (Sparse):</strong> Automatically created
+                on the Primary Key. The file is usually sorted sequentially.
+              </li>
+              <li>
+                <strong>Secondary Index (Dense):</strong> Created on non-primary
+                key columns (e.g., email, name).
+              </li>
+            </ul>
+
+            <h3>Clustered vs. Non-Clustered Index</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Feature</th>
+                  <th>Clustered Index (Sparse)</th>
+                  <th>Non-Clustered Index</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Storage</strong></td>
+                  <td>This IS the table. Data rows are in leaf nodes.</td>
+                  <td>Stores key + pointer to the actual data row.</td>
+                </tr>
+                <tr>
+                  <td><strong>Quantity</strong></td>
+                  <td>Max 1 per table.</td>
+                  <td>Multiple allowed per table.</td>
+                </tr>
+                <tr>
+                  <td><strong>Performance</strong></td>
+                  <td>Fastest for retrieval.</td>
+                  <td>Fast, but may require a "Key Lookup".</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h2>4. Practical Implementation (SQL)</h2>
+            <pre><code class="language-sql">-- Create a simple index
+CREATE INDEX idx_email ON users(email);
+
+-- Create a UNIQUE index
+CREATE UNIQUE INDEX idx_email_unique ON users(email);
+
+-- Create a COMPOSITE index (Multi-column)
+CREATE INDEX idx_name_age ON users(name, age);</code></pre>
+
+            <h2>5. Performance Tuning & Execution Plans</h2>
+            <p>
+              <strong>Seek vs. Scan:</strong> Index Seek (traversing B-Tree) is
+              good, while Table Scan (reading everything) is usually bad.
+            </p>
+
+            <h3>Query Optimization (STAR Framework)</h3>
+            <ul>
+              <li>
+                <strong>S &mdash; Situation:</strong> Identify if CPU or I/O
+                bound.
+              </li>
+              <li>
+                <strong>T &mdash; Task:</strong> Check Execution Plan for scans
+                or lookups.
+              </li>
+              <li>
+                <strong>A &mdash; Action:</strong> Use
+                <strong>Covering Indexes</strong> or make queries
+                <strong>SARGable</strong>.
+              </li>
+              <li>
+                <strong>R &mdash; Result:</strong> Measure reduced logical reads
+                and timing.
+              </li>
+            </ul>
+
+            <h2>6. Conceptual FAQ</h2>
+            <div class="note-block">
+              <strong>Q: What is a Covering Index?</strong><br />
+              A: An index that contains all columns requested by a query. The DB
+              satisfies query from index alone.
+            </div>
+            <div class="note-block">
+              <strong>Q: When to AVOID indexing?</strong><br />
+              A: Small tables, high write rates (overhead), or low cardinality
+              columns.
+            </div>
+          </div>
+
+          <!-- Tab 5: ACID Properties -->
+          <div id="acid" class="tab-content">
+            <h1 style="margin-top: 0">
+              Database Transactions & ACID Properties
+            </h1>
+
+            <h2>1. What is a Database Transaction?</h2>
+            <p>
+              A <strong>Transaction</strong> is a single logical unit of work
+              that performs operations like reading, writing, or updating data
+              in a database.
+            </p>
+            <div class="note-block">
+              <strong>Formal Definition:</strong> A transaction is a sequence of
+              operations performed as a single unit. It represents a real-world
+              event (like a bank transfer) transformed into database operations.
+            </div>
+
+            <h3>Transaction States</h3>
+            <ul>
+              <li>
+                <strong>Active:</strong> Initial state; transaction is
+                executing.
+              </li>
+              <li>
+                <strong>Partially Committed:</strong> After the last statement
+                has been executed.
+              </li>
+              <li><strong>Committed:</strong> After successful completion.</li>
+              <li>
+                <strong>Failed:</strong> After the discovery that normal
+                execution can no longer proceed.
+              </li>
+              <li>
+                <strong>Aborted:</strong> After the transaction has been rolled
+                back and the database restored to its state prior to the start.
+              </li>
+            </ul>
+
+            <h2>2. ACID Properties</h2>
+            <p>
+              To ensure data integrity and reliability, databases follow the
+              <strong>ACID</strong> model:
+            </p>
+
+            <h3>A &mdash; Atomicity ("All or Nothing") ⚛️</h3>
+            <p>
+              A transaction is an indivisible unit. Either the entire
+              transaction succeeds and commits, or it fails and rolls back
+              completely.
+            </p>
+            <div class="note-block">
+              <strong>Example: Bank Transfer</strong><br />
+              Transferring $100 from Account A to Account B involves:
+              <ol>
+                <li>Deduction of $100 from Account A.</li>
+                <li>Addition of $100 to Account B.</li>
+              </ol>
+              If step 2 fails, step 1 must be reversed. You can't have the money
+              disappear from A without reaching B.
+            </div>
+
+            <h3>C &mdash; Consistency ⚖️</h3>
+            <p>
+              Consistency ensures that a transaction takes the database from one
+              valid state to another valid state, maintaining all
+              <strong>integrity constraints</strong> (e.g., Primary Keys,
+              Foreign Keys, check constraints).
+            </p>
+            <div class="note-block">
+              <strong>Example:</strong> In a bank transfer, the total balance of
+              A + B must remain the same before and after the transaction.
+            </div>
+
+            <h3>I &mdash; Isolation 🛡️</h3>
+            <p>
+              Multiple transactions running concurrently should not interfere
+              with each other. The result of running transactions in parallel
+              should be the same as running them one after another (serially).
+            </p>
+            <div class="note-block">
+              <strong>Note:</strong> Intermediate states of a transaction must
+              be invisible to other transactions until it is committed.
+            </div>
+
+            <h3>D &mdash; Durability 🏗️</h3>
+            <p>
+              Once a transaction is committed, the changes are permanent and
+              will persist even in the event of a system failure (e.g., power
+              outage, crash).
+            </p>
+            <div class="note-block">
+              <strong>Implementation:</strong> This is usually achieved using
+              <strong>Transaction Logs</strong> or
+              <strong>Write-Ahead Logging (WAL)</strong>.
+            </div>
+
+            <!-- <h2>3. Transaction Control Language (TCL)</h2>
+            <pre><code class="language-sql">-- Start of transaction
+BEGIN TRANSACTION;
+
+-- SQL operations
+UPDATE Accounts SET Balance = Balance - 100 WHERE id = 1;
+
+-- Save progress
+SAVEPOINT sp1;
+
+-- If everything is fine
+COMMIT;
+
+-- If something goes wrong
+ROLLBACK TO sp1;
+ROLLBACK;</code></pre> -->
+          </div>
         </div>
       </div>
     </div>
@@ -1880,7 +2211,7 @@ AC &rarr; D</code></pre>
         for (i = 0; i < tabcontent.length; i++) {
           tabcontent[i].className = tabcontent[i].className.replace(
             " active",
-            ""
+            "",
           );
         }
 

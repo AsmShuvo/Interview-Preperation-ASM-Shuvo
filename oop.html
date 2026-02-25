@@ -64,6 +64,18 @@
           <button class="tab-btn" onclick="openTab(event, 'final')">
             final Keyword
           </button>
+          <button class="tab-btn" onclick="openTab(event, 'strings')">
+            Strings
+          </button>
+          <button class="tab-btn" onclick="openTab(event, 'memory')">
+            Memory
+          </button>
+          <button class="tab-btn" onclick="openTab(event, 'jdk')">
+            JDK, JRE & JVM
+          </button>
+          <button class="tab-btn" onclick="openTab(event, 'test')">
+            Test
+          </button>
         </div>
 
         <!-- Content Area -->
@@ -2079,6 +2091,9 @@ class BoxWeight extends Box {
             </div>
             
             <h3>Example: Execution Order</h3>
+            <h2>Static blocks run only once during class loading. After that, every time you create an object, the static block does not run again.
+
+Instance blocks run before constructors and both occur every time you create objects.</h2>
             <pre><code class="language-java">class Mobile {
    static String brand = "Mehedi";
    String model;
@@ -2204,6 +2219,325 @@ class BoxWeight extends Box {
                 <li>[ ] <strong>Class:</strong> Cannot be inherited (e.g., String).</li>
                 <li>[ ] <strong>Anonymous Class:</strong> Can only access final/effectively final variables.</li>
             </ul>
+          </div>
+
+          <!-- Tab: Strings -->
+          <div id="strings" class="tab-content">
+            <h1 style="margin-top: 0">Java Strings: The Complete Guide 🧵</h1>
+            <p>Strings in Java are sequences of characters implemented as objects of the <code>java.lang.String</code> class. While they seem simple, they have special behaviors regarding memory and immutability that are crucial for both development and interviews.</p>
+
+            <h2>1. Key Characteristics</h2>
+            <ul>
+                <li><strong>Immutable:</strong> Once a String object is created, its value cannot be changed. Any modification (like concatenation) actually creates a brand new String object.</li>
+                <li><strong>Stored in String Pool:</strong> To save memory, Java stores string literals in a special area of the Heap called the String Pool.</li>
+                <li><strong>Thread-Safe:</strong> Because they are immutable, Strings are automatically thread-safe.</li>
+                <li><strong>Final:</strong> The String class is marked final, meaning you cannot subclass it.</li>
+            </ul>
+
+            <h3>Why are Strings immutable?</h3>
+            <ul>
+                <li><strong>Security:</strong> Prevents modification of sensitive data like file paths, database URLs, or usernames after validation.</li>
+                <li><strong>Memory Efficiency:</strong> Enables the String Pool. If Strings were mutable, changing one reference would affect all other variables pointing to that same literal in the pool.</li>
+                <li><strong>Thread Safety:</strong> Multiple threads can safely share a String instance without synchronization.</li>
+            </ul>
+
+            <h2>2. Creating Strings: Literals vs. new Keyword</h2>
+            <p>Understanding how you create a string determines where it lives in memory.</p>
+            
+            <h3>A. String Literals (The String Pool)</h3>
+            <p>When you use quotes, Java checks the String Pool first.</p>
+            <pre><code class="language-java">String s1 = "Hello";
+String s2 = "Hello";
+
+System.out.println(s1 == s2); // true</code></pre>
+            <p><strong>Explanation:</strong> s1 creates "Hello" in the pool. When s2 is created, Java sees "Hello" already exists and simply points s2 to the same object.</p>
+
+            <h3>B. The new Keyword (The Heap)</h3>
+            <p>Using new forces Java to create a new object in the Heap, even if the literal already exists in the pool.</p>
+            <pre><code class="language-java">String s1 = new String("Hello");
+String s2 = new String("Hello");
+
+System.out.println(s1 == s2); // false</code></pre>
+            <p><strong>Explanation:</strong> These are two distinct objects in the Heap memory, even though they contain the same text.</p>
+
+            <h2>3. String Comparison: == vs. .equals()</h2>
+            <p>This is the most common point of confusion.</p>
+            <table>
+                <thead>
+                    <tr><th>Method</th><th>What it compares</th><th>Example</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>==</code></td><td>References (Memory Address)</td><td>Do these variables point to the exact same object?</td></tr>
+                    <tr><td><code>.equals()</code></td><td>Content (Values)</td><td>Do these objects contain the same characters?</td></tr>
+                </tbody>
+            </table>
+            
+            <h3>Example:</h3>
+            <pre><code class="language-java">String s1 = new String("Java");
+String s2 = new String("Java");
+
+System.out.println(s1 == s2);      // false (Different objects in Heap)
+System.out.println(s1.equals(s2)); // true  (Content is identical)</code></pre>
+
+            <h2>4. String vs. StringBuffer vs. StringBuilder</h2>
+            <pre><code class="language-java">String s1 = new String("Hello");     
+StringBuilder s2 = new StringBuilder("Hello");
+StringBuffer s3 = new StringBuffer("Hello");</code></pre>
+
+            <table>
+                <thead>
+                    <tr><th>Feature</th><th>String</th><th>StringBuilder</th><th>StringBuffer</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Mutability</td><td>Immutable</td><td>Mutable</td><td>Mutable</td></tr>
+                    <tr><td>Thread Safety</td><td>Yes (Immutable)</td><td>No</td><td>Yes (Synchronized)</td></tr>
+                    <tr><td>Performance</td><td>Slow for concatenation</td><td>Fast</td><td>Slower than Builder (due to sync)</td></tr>
+                    <tr><td>Usage</td><td>Storing text</td><td>Single-threaded string manipulation</td><td>Multi-threaded string manipulation</td></tr>
+                </tbody>
+            </table>
+
+            <div class="note-block">
+                <strong>Crucial Note on Comparing Builders:</strong> Watch out: StringBuilder and StringBuffer do <strong>not</strong> override the <code>.equals()</code> method. They use the default implementation, which behaves like <code>==</code> (compares references).
+                <br>To compare their content, you must convert them to a String first:
+            </div>
+            <pre><code class="language-java">StringBuilder sb1 = new StringBuilder("test");
+StringBuilder sb2 = new StringBuilder("test");
+
+System.out.println(sb1.equals(sb2));             // false (Compares references!)
+System.out.println(sb1.toString().equals(sb2.toString())); // true (Compares content)</code></pre>
+
+            <h2>5. Tricky Interview Concepts</h2>
+            
+            <h3>A. How many objects are created?</h3>
+            <p><code>String s = new String("Hello");</code></p>
+            <p><strong>Answer: 2 Objects.</strong></p>
+            <ul>
+                <li><strong>In the Pool:</strong> The literal "Hello" is created in the String Pool (if it wasn't there already).</li>
+                <li><strong>In the Heap:</strong> The new keyword creates a distinct String object in the heap.</li>
+            </ul>
+
+            <h3>B. The intern() Trap</h3>
+            <pre><code class="language-java">String s1 = "abc";
+String s2 = new String("abc");
+s2.intern(); // Trick is here!
+System.out.println(s1 == s2); // Output: false</code></pre>
+            <p><strong>Why?</strong> The <code>intern()</code> method returns the reference from the pool, but it does not modify the original object <code>s2</code> in place.<br>To make this true, you must reassign it: <code>s2 = s2.intern();</code></p>
+            
+            <h3>C. Password Security (String vs. char[])</h3>
+            <p><strong>Question:</strong> Why use char[] for passwords instead of String?</p>
+            <p><strong>Answer:</strong> Strings are stored in the String Pool and stay in memory until Garbage Collection occurs (which you cannot control). A hacker reading a memory dump could see the password in plain text.<br>With a char[], you can manually scrub the data immediately after use (e.g., <code>passwordArray[0] = '0';</code>), removing the security risk.</p>
+
+            <h2>6. Cheatsheet: Common Methods</h2>
+            <table>
+                <thead>
+                    <tr><th>Method</th><th>Description</th><th>Example</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>length()</code></td><td>Returns character count.</td><td><code>"Hi".length()</code> &rarr; 2</td></tr>
+                    <tr><td><code>charAt(int i)</code></td><td>Returns char at index.</td><td><code>"Hi".charAt(1)</code> &rarr; 'i'</td></tr>
+                    <tr><td><code>substring(int start, int end)</code></td><td>Returns part of string (end exclusive).</td><td><code>"Java".substring(0, 2)</code> &rarr; "Ja"</td></tr>
+                    <tr><td><code>contains(CharSequence s)</code></td><td>Checks if value exists.</td><td><code>"Hello".contains("el")</code> &rarr; true</td></tr>
+                    <tr><td><code>trim()</code></td><td>Removes leading/trailing whitespace.</td><td><code>" Hi ".trim()</code> &rarr; "Hi"</td></tr>
+                    <tr><td><code>split(String regex)</code></td><td>Splits string into an array.</td><td><code>"A,B".split(",")</code> &rarr; ["A", "B"]</td></tr>
+                    <tr><td><code>toCharArray()</code></td><td>Converts String to char array.</td><td><code>"Hi".toCharArray()</code> &rarr; ['H', 'i']</td></tr>
+                </tbody>
+            </table>
+          </div>
+
+          <!-- Tab: Memory -->
+          <div id="memory" class="tab-content">
+            <h1 style="margin-top: 0">Java Memory: Stack vs. Heap 🧠</h1>
+            <p>One of the most favorite interview topics. Understanding memory management is key to understanding performance and errors like <code>StackOverflowError</code> vs <code>OutOfMemoryError</code>.</p>
+
+            <h2>1. The Big Picture</h2>
+            <p>Java memory is divided into two main parts where data lives:</p>
+            <ol>
+                <li><strong>Stack Memory:</strong> Used for static memory allocation and execution of threads.</li>
+                <li><strong>Heap Memory:</strong> Used for dynamic memory allocation for Java objects.</li>
+            </ol>
+
+            <div class="note-block">
+                <strong>Analogy:</strong><br>
+                <strong>Stack:</strong> Think of it like a "To-Do List" on a sticky note. It's fast, temporary, and organized (LIFO).<br>
+                <strong>Heap:</strong> Think of it like a "Warehouse". It stores all the heavy boxes (Objects) indefinitely until someone cleans them up (Garbage Collector).
+            </div>
+
+            <h2>2. Stack Memory (Method Frames)</h2>
+            <ul>
+                <li><strong>What it stores:</strong> Primitive values (int, char, etc.) and <strong>references</strong> to objects.</li>
+                <li><strong>Scope:</strong> Function call specific. When a method is called, a block (frame) is added to the top. When the method finishes, the block is removed.</li>
+                <li><strong>Visibility:</strong> Not shared. Each thread has its own stack. Variables here are thread-safe.</li>
+                <li><strong>Error:</strong> <code>java.lang.StackOverflowError</code> (e.g., Infinite Recursion).</li>
+            </ul>
+
+            <h2>3. Heap Memory (Object Storage)</h2>
+            <ul>
+                <li><strong>What it stores:</strong> Actual Objects (<code>new Car()</code>, <code>int[] arr</code>) and Instance Variables.</li>
+                <li><strong>Scope:</strong> Global. Objects live here as long as they are referenced.</li>
+                <li><strong>Visibility:</strong> Shared. All threads share the same Heap. This means objects are <strong>not</strong> thread-safe by default.</li>
+                <li><strong>Error:</strong> <code>java.lang.OutOfMemoryError</code> (Java Heap Space) (e.g., Memory Leaks).</li>
+            </ul>
+
+            <h2>4. Comparision Table ⚔️</h2>
+            <table>
+                <thead>
+                    <tr><th>Feature</th><th>Stack 🥞</th><th>Heap 📦</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Purpose</strong></td><td>Execution of methods.</td><td>Storage of objects.</td></tr>
+                    <tr><td><strong>Speed</strong></td><td>Very Fast access.</td><td>Slower compared to Stack.</td></tr>
+                    <tr><td><strong>Order</strong></td><td>LIFO (Last In First Out).</td><td>Dynamic (No specific order).</td></tr>
+                    <tr><td><strong>Life</strong></td><td>Short (Method execution time).</td><td>Long (Until Garbage Collected).</td></tr>
+                    <tr><td><strong>Management</strong></td><td>Automatic (OS/JVM).</td><td>Garbage Collector (GC).</td></tr>
+                </tbody>
+            </table>
+
+            <h2>5. Execution Flow Example</h2>
+            <pre><code class="language-java">public void main(String[] args) {
+    int x = 10;           // 1. Primitive -> Stack
+    Car c = new Car();    // 2. Reference 'c' -> Stack, Object 'Car' -> Heap
+    c.drive();            // 3. New Frame pushed to Stack
+}</code></pre>
+            
+            <h3>Step-by-Step Memory Map:</h3>
+            <ul>
+                <li><strong>Line 1:</strong> <code>int x = 10</code> goes directly onto the Main Stack Frame.</li>
+                <li><strong>Line 2:</strong> 
+                    <ul>
+                        <li>The <code>new Car()</code> object is created in the <strong>Heap</strong>.</li>
+                        <li>The variable <code>c</code> (containing the memory address like 0x123) is created in the <strong>Stack</strong>.</li>
+                        <li>The stack variable <code>c</code> points to the heap object.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h2>6. Interview FAQs</h2>
+            
+            <p><strong>Q: Where are static variables stored?</strong><br>
+            A: Prior to Java 8, they were in PermGen (part of Heap). Since Java 8, they are stored in <strong>Metaspace</strong> (native memory outside Heap).</p>
+
+            <p><strong>Q: Can the Stack access the Heap?</strong><br>
+            A: Yes. Stack variables (references) point to Heap objects. But the Heap cannot access the Stack.</p>
+            
+            <p><strong>Q: Does Garbage Collection occur in Stack?</strong><br>
+            A: No. Stack memory is automatically de-allocated when the method thread returns.</p>
+          </div>
+
+          <!-- Tab: JDK, JRE, JVM -->
+          <div id="jdk" class="tab-content">
+            <h1 style="margin-top: 0">JDK, JRE, and JVM ☕</h1>
+            <p>Understanding the internal architecture of Java is the first step to becoming a Java expert. This is a classic "Day 1" interview question.</p>
+
+            <h2>1. The Hierarchy (The Nested Box Model)</h2>
+            <div class="note-block">
+                <strong>JDK</strong> contains <strong>JRE</strong>.<br>
+                <strong>JRE</strong> contains <strong>JVM</strong>.
+            </div>
+            <ul>
+                <li><strong>JDK (Java Development Kit):</strong> The full kit for developers. It includes development tools (compiler <code>javac</code>, debugger) + JRE.</li>
+                <li><strong>JRE (Java Runtime Environment):</strong> The environment required to <em>run</em> Java programs. It includes Libraries (rt.jar) + JVM. You don't need JDK if you only want to run a program.</li>
+                <li><strong>JVM (Java Virtual Machine):</strong> The engine that actually executes the bytecode. It is platform-dependent (there is a different JVM for Windows, Mac, Linux).</li>
+            </ul>
+
+            <h2>2. Deep Dive: JVM Architecture</h2>
+            <p>The JVM is an abstract machine. When you run a program, the JVM performs three main tasks:</p>
+            <ol>
+                <li><strong>Loads code:</strong> The <strong>Class Loader</strong> reads `.class` files and loads them into memory.</li>
+                <li><strong>Verifies code:</strong> The <strong>Bytecode Verifier</strong> checks code for security issues (e.g., jumping to invalid memory).</li>
+                <li><strong>Executes code:</strong> The <strong>Execution Engine</strong> runs the instructions.</li>
+            </ol>
+
+            <h3>The Execution Engine Components:</h3>
+            <ul>
+                <li><strong>Interpreter:</strong> Reads bytecode line by line and converts to machine code. Fast to start, but slow execution.</li>
+                <li><strong>JIT (Just-In-Time) Compiler:</strong> Performance booster! It detects "hot spots" (frequently used code) and compiles them to native machine code so they don't need to be interpreted again.</li>
+                <li><strong>Garbage Collector:</strong> Automatically reclaims memory from unused objects.</li>
+            </ul>
+
+            <h2>3. Bytecode & "Write Once, Run Anywhere"</h2>
+            <p><strong>Question:</strong> Why is Java platform independent?</p>
+            <p><strong>Answer:</strong> Because of Bytecode.</p>
+            
+            <h3>The Process:</h3>
+            <ol>
+                <li><strong>Source Code (.java):</strong> You write human-readable code.</li>
+                <li><strong>Compilation (javac):</strong> The compiler translates it into <strong>Bytecode (.class)</strong>. This code is <em>not</em> for your CPU; it's for the JVM.</li>
+                <li><strong>Execution (java):</strong> The JVM on the specific OS (Windows/Mac) translates Bytecode into native Machine Code (0s and 1s) that the CPU understands.</li>
+            </ol>
+            
+            <div class="note-block">
+                <strong>Key Takeaway:</strong><br>
+                Java is <strong>Platform Independent</strong> (Bytecode runs everywhere).<br>
+                JVM is <strong>Platform Dependent</strong> (You instal a different JVM for Windows vs Mac).
+            </div>
+
+            <h2>4. Interview Cheat Sheet</h2>
+            <table>
+                <thead>
+                    <tr><th>Acronym</th><th>Full Form</th><th>Role</th><th>Contains</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>JVM</strong></td><td>Java Virtual Machine</td><td>Runs the code (translates bytecode).</td><td>Execution Engine etc.</td></tr>
+                    <tr><td><strong>JRE</strong></td><td>Java Runtime Env.</td><td>Environment to RUN apps.</td><td>JVM + Libraries.</td></tr>
+                    <tr><td><strong>JDK</strong></td><td>Java Development Kit</td><td>Environment to DEV apps.</td><td>JRE + Tools (javac).</td></tr>
+                </tbody>
+            </table>
+          </div>
+
+          <!-- Tab 13: Test -->
+          <div id="test" class="tab-content">
+            <h1 style="margin-top: 0">Test: Static vs Instance Execution Flow</h1>
+            <p><strong>Instructions:</strong> Analyze the code below and write down the predicted output before running it. Pay attention to the order of execution for static blocks, instance blocks, constructors, and method calls.</p>
+            
+            <pre><code class="language-java">public class CrazyCode {
+
+    static int x = 10;
+    static int y = 20;
+    
+    static {
+        System.out.println("Static block 1");
+        x = 50;
+        y = 60;
+    }
+    
+    {
+        System.out.println("Instance block 1");
+        x = 100;
+    }
+
+    static {
+        System.out.println("Static block 2");
+        y = 120;
+    }
+
+    public CrazyCode() {
+        System.out.println("Constructor");
+        x = 150;
+        y = 180;
+    }
+    
+    static void staticMethod() {
+        System.out.println("Static method");
+        x = 200;
+    }
+
+    public void instanceMethod() {
+        System.out.println("Instance method");
+        x = 250;
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Main method");
+        CrazyCode obj1 = new CrazyCode();  // Creating the first object
+        obj1.instanceMethod();  // Calling instance method
+        staticMethod();  // Calling static method
+        CrazyCode obj2 = new CrazyCode();  // Creating second object
+    }
+}</code></pre>
+            
+            <div class="note-block">
+                <strong>Challenge:</strong> Write down the output line by line on a piece of paper, then compile and run the code to verify your understanding of Java's initialization order.
+            </div>
           </div>
         </div>
       </div>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trees - Study Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <svg
+        height="32"
+        viewBox="0 0 16 16"
+        version="1.1"
+        width="32"
+        aria-hidden="true"
+        fill="white"
+      >
+        <path
+          d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.27-1.48-.55-1.94 2.7-.3 5.5-1.32 5.5-5.92 0-1.31-.46-2.38-1.23-3.26.12-.32.53-1.52-.12-3.26 0 0-1.01-.32-3.3 1.23A11.52 11.52 0 0 0 8 2.3c-1.01 0-2.01.14-2.85.41-2.29-1.55-3.3-1.23-3.3-1.23-.65 1.74-.24 2.94-.12 3.26-.77.88-1.23 1.95-1.23 3.26 0 4.58 2.8 5.62 5.5 5.92-.27.46-.55 1.17-.55 1.94 0 1.25.01 2.37.01 2.54 0 .21-.15.46-.55.38A8.013 8.013 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
+        ></path>
+      </svg>
+      <h1>My Study Progress</h1>
+    </header>
+    <div class="container">
+      <a href="problem_solving.html" class="back-link"
+        >&larr; Back into Problem Solving</a
+      >
+      <div class="page-header">
+        <h1 style="color: var(--color-text)">Tree Traversal</h1>
+      </div>
+
+      <div class="split-layout">
+        <div class="sidebar">
+          <button class="tab-btn active" onclick="openTab(event, 'bst')">
+            BST
+          </button>
+        </div>
+
+        <div class="tab-content-container">
+          <!-- BST -->
+          <div id="bst" class="tab-content active">
+            <div class="content-area">
+              <h2>Binary Search Tree (BST)</h2>
+              <p>
+                <strong>Properties:</strong> Left child &lt; Parent &lt; Right
+                child. Used in AVL trees, Red-Black trees, Set/Map
+                implementations.
+              </p>
+              <p>
+                <strong>Complexity:</strong>
+                Search/Insert/Delete: Worst O(h) (O(n) skewed), Average O(log
+                n). Height: Average O(log n), Worst O(n).
+              </p>
+              <h3>Code</h3>
+              <pre><code>#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+struct Node
+{
+    int data;
+    Node *left;
+    Node *right;
+    Node(int val) : data(val), left(nullptr), right(nullptr) {}
+};
+
+// Worst: O(h), Avg: O(log n)
+Node *insert(Node *root, int val)
+{
+    if (root == NULL)
+        return new Node(val);
+    if (val &lt; root-&gt;data)
+        root-&gt;left = insert(root-&gt;left, val);
+    else
+        root-&gt;right = insert(root-&gt;right, val);
+    return root;
+}
+
+// Worst: O(h), Avg: O(log n)
+bool search(Node *root, int val)
+{
+    if (root == NULL)
+        return false;
+    if (root-&gt;data == val)
+        return true;
+    if (val &lt; root-&gt;data)
+        return search(root-&gt;left, val);
+    else
+        return search(root-&gt;right, val);
+}
+
+void deleteNode(Node *root, int val)
+{
+    if (root == NULL)
+        return;
+    if (val &lt; root-&gt;data)
+        deleteNode(root-&gt;left, val);
+    else if (val &gt; root-&gt;data)
+        deleteNode(root-&gt;right, val);
+    else
+    {
+        // Node with only one child or no child
+        if (root-&gt;left == NULL)
+        {
+            Node *temp = root-&gt;right;
+            delete root;
+            root = temp;
+        }
+        else if (root-&gt;right == NULL)
+        {
+            Node *temp = root-&gt;left;
+            delete root;
+            root = temp;
+        }
+        else
+        {
+            // VVI****
+            // Node with two children: Get the inorder successor (smallest in the right subtree)
+            Node *temp = root-&gt;right;
+            while (temp && temp-&gt;left != NULL)
+                temp = temp-&gt;left;
+            // Copy the inorder successor's content to this node
+            root-&gt;data = temp-&gt;data;
+            // *** Remember to delete from right subtree
+            deleteNode(root-&gt;right, temp-&gt;data);
+        }
+    }
+}</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        function openTab(evt, tabName) {
+          var i, tabcontent, tablinks;
+          tabcontent = document.getElementsByClassName("tab-content");
+          for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].classList.remove("active");
+          }
+          tablinks = document.getElementsByClassName("tab-btn");
+          for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+          }
+          document.getElementById(tabName).classList.add("active");
+          evt.currentTarget.classList.add("active");
+        }
+      </script>
+    </div>
+    <footer>&copy; 2026 Study Tracker.</footer>
+  </body>
+</html>

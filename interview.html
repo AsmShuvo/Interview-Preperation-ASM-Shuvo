@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -35,6 +35,9 @@
           <button class="tab-btn" onclick="openTab(event, 'samsung')">
             Samsung
           </button>
+          <button class="tab-btn" onclick="openTab(event, 'bkash')">
+            Bkash
+          </button>
         </div>
 
         <div class="tab-content-container">
@@ -56,13 +59,18 @@
           <div id="samsung" class="tab-content">
             <div class="content-area">
               <h1>Samsung Problems</h1>
-              
+
               <!-- Problem 1 -->
               <div class="problem-block" id="problem-1">
-                 <h2>Problem 1: Bipartite Graph Coloring</h2>
-                 <p><strong>Description:</strong> Given an undirected graph, determine if it is bipartite. If it is bipartite, print one of the two sets of vertices that form the bipartition. If the graph is not bipartite, print "-1".</p>
-                 <h3>Code (C++)</h3>
-                 <pre><code>
+                <h2>Problem 1: Bipartite Graph Coloring</h2>
+                <p>
+                  <strong>Description:</strong> Given an undirected graph,
+                  determine if it is bipartite. If it is bipartite, print one of
+                  the two sets of vertices that form the bipartition. If the
+                  graph is not bipartite, print "-1".
+                </p>
+                <h3>Code (C++)</h3>
+                <pre><code>
                   #include &lt;bits/stdc++.h&gt;
 using namespace std;
 
@@ -132,24 +140,39 @@ int main()
 }</code></pre>
               </div>
 
-              <hr>
+              <hr />
 
               <!-- Problem 2 -->
               <div class="problem-block" id="problem-2">
-                 <h2>Problem 2: Balloon Bursting</h2>
-                 <p><strong>Description:</strong> There are n balloons and n bullets. Each balloon is assigned a particular number of points. whenever a particular balloon is shot the no of points increases by 1.the multiplication of point assigned to balloon on left and that of right side. 2. point assigned to left if no right exists. 3. point assigned to right if no left exists. 4. the point assigned to itself if no other balloon exists. You have to find the sequence of bursting balloons that maximizes the total points obtained.</p>
-                 <h3>Code</h3>
-                 <p><em></em></p>
+                <h2>Problem 2: Balloon Bursting</h2>
+                <p>
+                  <strong>Description:</strong> There are n balloons and n
+                  bullets. Each balloon is assigned a particular number of
+                  points. whenever a particular balloon is shot the no of points
+                  increases by 1.the multiplication of point assigned to balloon
+                  on left and that of right side. 2. point assigned to left if
+                  no right exists. 3. point assigned to right if no left exists.
+                  4. the point assigned to itself if no other balloon exists.
+                  You have to find the sequence of bursting balloons that
+                  maximizes the total points obtained.
+                </p>
+                <h3>Code</h3>
+                <p><em></em></p>
               </div>
 
-              <hr>
+              <hr />
 
               <!-- Problem 3 -->
               <div class="problem-block" id="problem-3">
-                 <h2>Problem 3: Catch the Stationary Piece (Knight's Move)</h2>
-                 <p><strong>Description:</strong> There is a mobile piece and a stationary piece on an N x M chessboard. You need to capture the stationary piece by moving the mobile piece with the minimum number of moves. The mobile piece moves like a Knight.</p>
-                 <h3>Code (cpp)</h3>
-                 <pre>
+                <h2>Problem 3: Catch the Stationary Piece (Knight's Move)</h2>
+                <p>
+                  <strong>Description:</strong> There is a mobile piece and a
+                  stationary piece on an N x M chessboard. You need to capture
+                  the stationary piece by moving the mobile piece with the
+                  minimum number of moves. The mobile piece moves like a Knight.
+                </p>
+                <h3>Code (cpp)</h3>
+                <pre>
 <code>
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
@@ -201,24 +224,35 @@ int main()
 </pre>
               </div>
 
-              <hr>
+              <hr />
 
               <!-- Problem 4 -->
               <div class="problem-block" id="problem-4">
-                 <h2>Problem 4: Convex Hull</h2>
-                 <p><strong>Description:</strong> Given a set of random points in a 2-D plane, construct a convex polygon with the minimum area of covering that encompasses all the given points (Convex Hull). Output the vertices of this polygon.</p>
-                 <h3>Code</h3>
-                 <p><em>No solution code available.</em></p>
+                <h2>Problem 4: Convex Hull</h2>
+                <p>
+                  <strong>Description:</strong> Given a set of random points in
+                  a 2-D plane, construct a convex polygon with the minimum area
+                  of covering that encompasses all the given points (Convex
+                  Hull). Output the vertices of this polygon.
+                </p>
+                <h3>Code</h3>
+                <p><em>No solution code available.</em></p>
               </div>
 
-              <hr>
+              <hr />
 
               <!-- Problem 5 -->
               <div class="problem-block" id="problem-5">
-                 <h2>Problem 5: Crow and Overflowing Pots</h2>
-                 <p><strong>Description:</strong> There are N pots. Every pot has some water in it and is associated with an overflow number O_i. The crow wants to overflow at least K pots. Find the minimum number of stones the crow needs to use to guarantee that K pots overflow in the worst-case scenario.</p>
-                 <h3>Code (C++)</h3>
-                 <pre><code>#include &lt;bits/stdc++.h&gt;
+                <h2>Problem 5: Crow and Overflowing Pots</h2>
+                <p>
+                  <strong>Description:</strong> There are N pots. Every pot has
+                  some water in it and is associated with an overflow number
+                  O_i. The crow wants to overflow at least K pots. Find the
+                  minimum number of stones the crow needs to use to guarantee
+                  that K pots overflow in the worst-case scenario.
+                </p>
+                <h3>Code (C++)</h3>
+                <pre><code>#include &lt;bits/stdc++.h&gt;
 using namespace std;
 
 int main()
@@ -282,14 +316,20 @@ int main()
 }</code></pre>
               </div>
 
-              <hr>
+              <hr />
 
               <!-- Problem 6 -->
               <div class="problem-block" id="problem-6">
-                 <h2>Problem 6: Doctor Probability</h2>
-                 <p><strong>Description:</strong> A Doctor travels between divisions (nodes) in a directed graph where edge weights are probabilities. He stays 10 mins at each division. Given time T, find the division with the highest probability where he will be staying.</p>
-                 <h3>Code (C++)</h3>
-                 <pre><code>#include &lt;iostream&gt;
+                <h2>Problem 6: Doctor Probability</h2>
+                <p>
+                  <strong>Description:</strong> A Doctor travels between
+                  divisions (nodes) in a directed graph where edge weights are
+                  probabilities. He stays 10 mins at each division. Given time
+                  T, find the division with the highest probability where he
+                  will be staying.
+                </p>
+                <h3>Code (C++)</h3>
+                <pre><code>#include &lt;iostream&gt;
 #include &lt;vector&gt;
 #include &lt;iomanip&gt;
 
@@ -354,6 +394,284 @@ int main() {
     return 0;
 }</code></pre>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="bkash" class="tab-content">
+          <div class="content-area">
+            <h1>Bkash Interview Preparation</h1>
+
+            <div class="problem-block">
+              <h2>Problem 1: Remove Duplicates from a Linked List</h2>
+              <p>
+                <strong>Description:</strong> Remove all duplicate elements from
+                a singly linked list such that each value appears only once.
+              </p>
+              <h3>Code (C++)</h3>
+              <pre><code>/*
+✅ Problem Statement: Remove Duplicates from a Linked List
+
+You are given the head of a singly linked list.
+The linked list may contain duplicate values.
+
+Your task is to remove all duplicate elements such that each value appears only once in the linked list.
+
+After removing duplicates, return the head of the modified linked list.
+*/
+Node* RemoveDuplicates(Node* head){
+    unordered_set&lt;int&gt; seen;
+
+    Node* dummy = new Node(0);
+    dummy->next = head;
+
+    Node* prev = dummy;
+    Node* cur  = head;
+
+    while(cur){
+        if(seen.count(cur->val)){
+            prev->next = cur->next;
+            Node* tmp = cur;
+            cur = cur->next;
+            delete tmp;
+        } else {
+            seen.insert(cur->val);
+            prev = cur;
+            cur = cur->next;
+        }
+    }
+
+    Node* ans = dummy->next;
+    delete dummy;
+    return ans;
+}</code></pre>
+            </div>
+
+            <hr />
+
+            <div class="problem-block">
+              <h2>LeetCode Problems</h2>
+              <ul style="color: var(--color-text)">
+                <li>
+                  <a
+                    href="https://leetcode.com/problems/valid-parentheses/description/"
+                    target="_blank"
+                    style="color: #64ffda"
+                    >Valid Parentheses</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://leetcode.com/problems/two-sum/description/"
+                    target="_blank"
+                    style="color: #64ffda"
+                    >Two Sum</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://leetcode.com/problems/reverse-linked-list/description/"
+                    target="_blank"
+                    style="color: #64ffda"
+                    >Reverse Linked List</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <hr />
+
+            <div class="problem-block">
+              <h2>General Technical Questions (Q&A)</h2>
+
+              <details>
+                <summary>
+                  <strong>1. What is Concurrency Control in Databases?</strong>
+                </summary>
+                <p>
+                  Concurrency control manages simultaneous operations on a
+                  database without them conflicting with each other. It ensures
+                  that database transactions are performed concurrently without
+                  violating data integrity. Key concepts include ACID
+                  properties, Locking (Shared/Exclusive), and Isolation Levels
+                  (Read Committed, Serializable, etc.).
+                </p>
+              </details>
+
+              <details>
+                <summary>
+                  <strong
+                    >2. What is function overriding in OOP? How is it different
+                    from overloading?</strong
+                  >
+                </summary>
+                <p>
+                  <strong>Overriding:</strong> Occurs when a derived class
+                  provides a specific implementation of a method that is already
+                  defined in its base class. It is a runtime polymorphism
+                  feature (same signature).
+                </p>
+                <p>
+                  <strong>Overloading:</strong> Occurs when multiple methods in
+                  the same class have the same name but different parameters
+                  (different signature). It is a compile-time feature.
+                </p>
+              </details>
+
+              <details>
+                <summary>
+                  <strong>3. What is inheritance in OOP?</strong>
+                </summary>
+                <p>
+                  Inheritance is a mechanism where a new class (child/derived)
+                  acquires the properties and behaviors (fields and methods) of
+                  an existing class (parent/base). It promotes code reusability
+                  and establishes an "Is-A" relationship.
+                </p>
+              </details>
+
+              <details>
+                <summary>
+                  <strong
+                    >4. What is database normalization? Benefits and common
+                    forms?</strong
+                  >
+                </summary>
+                <p>
+                  Normalization is the process of organizing data in a database
+                  to reduce redundancy and improve data integrity.
+                </p>
+                <ul>
+                  <li>
+                    <strong>1NF:</strong> Atomic values (no repeating groups).
+                  </li>
+                  <li><strong>2NF:</strong> 1NF + No partial dependency.</li>
+                  <li><strong>3NF:</strong> 2NF + No transitive dependency.</li>
+                  <li><strong>BCNF:</strong> A stricter version of 3NF.</li>
+                </ul>
+                <p>
+                  <strong>Benefits:</strong> Minimal data duplication, easier
+                  maintenance, and smaller database size.
+                </p>
+              </details>
+
+              <details>
+                <summary>
+                  <strong
+                    >5. How can you generate random numbers in C++?</strong
+                  >
+                </summary>
+                <p>
+                  Using the <code>&lt;random&gt;</code> library is the modern
+                  way: <code>std::mt19937</code> generator and distributions
+                  like <code>std::uniform_int_distribution</code>. The legacy
+                  way is using `rand()` and `srand(time(0))`, but it has lower
+                  quality randomness.
+                </p>
+              </details>
+
+              <details>
+                <summary>
+                  <strong>6. Basic Linux commands and use cases?</strong>
+                </summary>
+                <ul>
+                  <li><code>ls</code>: List directory contents.</li>
+                  <li><code>cd</code>: Change directory.</li>
+                  <li><code>grep</code>: Search for patterns in files.</li>
+                  <li><code>chmod</code>: Change file permissions.</li>
+                  <li><code>ps</code>: Display currently running processes.</li>
+                  <li>
+                    <code>top</code>: Display real-time system resource usage.
+                  </li>
+                </ul>
+              </details>
+
+              <details>
+                <summary>
+                  <strong>7. What is a deadlock? How to prevent it?</strong>
+                </summary>
+                <p>
+                  A deadlock is a situation where two or more processes are
+                  unable to proceed because each is waiting for the other to
+                  release a resource. <br /><strong>Prevention:</strong> Ensure
+                  at least one of the 4 Coffman conditions cannot hold (Mutual
+                  Exclusion, Hold and Wait, No Preemption, Circular Wait). For
+                  example, imposing a strict ordering on resource acquisition
+                  prevents Circular Wait.
+                </p>
+              </details>
+
+              <details>
+                <summary>
+                  <strong
+                    >8. How to compare two text files to see if they are
+                    identical?</strong
+                  >
+                </summary>
+                <p>
+                  <strong>Command Line:</strong> Use `diff file1.txt file2.txt`
+                  or `cmp file1.txt file2.txt` in Linux/Unix. In Windows, use
+                  `FC file1.txt file2.txt`. <br /><strong
+                    >Programmatically:</strong
+                  >
+                  Read both files byte-by-byte or line-by-line. If any byte/line
+                  differs, they are not identical. Alternatively, compute and
+                  compare their hash checksums (MD5/SHA256).
+                </p>
+              </details>
+
+              <details>
+                <summary>
+                  <strong
+                    >9. What happens when you type google.com and press
+                    enter?</strong
+                  >
+                </summary>
+                <ol>
+                  <li>
+                    <strong>DNS Query:</strong> Browser checks cache, then asks
+                    DNS server for IP of google.com.
+                  </li>
+                  <li>
+                    <strong>TCP Handshake:</strong> Browser establishes a TCP
+                    connection with the server (SYN, SYN-ACK, ACK).
+                  </li>
+                  <li>
+                    <strong>HTTP Request:</strong> Browser sends a GET request
+                    to the server.
+                  </li>
+                  <li>
+                    <strong>Server Processing:</strong> Server processes request
+                    and sends back an HTTP response (HTML).
+                  </li>
+                  <li>
+                    <strong>Rendering:</strong> Browser parses HTML, CSS, JS and
+                    renders the page.
+                  </li>
+                </ol>
+              </details>
+
+              <details>
+                <summary>
+                  <strong
+                    >10. What happens when you copy a file? Are they the
+                    same?</strong
+                  >
+                </summary>
+                <p>
+                  The operating system reads the data bits from the source
+                  location on the storage medium and writes an identical
+                  sequence of bits to the destination location. It also creates
+                  a new directory entry for the copy.
+                </p>
+                <p>
+                  <strong>Are they the same?</strong> The <em>content</em> is
+                  bit-for-bit identical. However, file
+                  <em>metadata</em> (creation time, file path, owner,
+                  permissions) will usually differ.
+                </p>
+              </details>
+            </div>
           </div>
         </div>
       </div>
@@ -374,12 +692,15 @@ int main() {
         }
 
         // Syntax Highlighting for Comments
-        document.addEventListener("DOMContentLoaded", function() {
-          const codeBlocks = document.querySelectorAll('pre code');
-          codeBlocks.forEach(block => {
+        document.addEventListener("DOMContentLoaded", function () {
+          const codeBlocks = document.querySelectorAll("pre code");
+          codeBlocks.forEach((block) => {
             let html = block.innerHTML;
             // Regex to capture // comments
-            html = html.replace(/(\/\/[^\n]*)/g, '<span class="comment">$1</span>');
+            html = html.replace(
+              /(\/\/[^\n]*)/g,
+              '<span class="comment">$1</span>',
+            );
             block.innerHTML = html;
           });
         });

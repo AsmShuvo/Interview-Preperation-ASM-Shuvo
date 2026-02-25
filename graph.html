@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Graph Algorithms - Study Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <svg
+        height="32"
+        viewBox="0 0 16 16"
+        version="1.1"
+        width="32"
+        aria-hidden="true"
+        fill="white"
+      >
+        <path
+          d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.27-1.48-.55-1.94 2.7-.3 5.5-1.32 5.5-5.92 0-1.31-.46-2.38-1.23-3.26.12-.32.53-1.52-.12-3.26 0 0-1.01-.32-3.3 1.23A11.52 11.52 0 0 0 8 2.3c-1.01 0-2.01.14-2.85.41-2.29-1.55-3.3-1.23-3.3-1.23-.65 1.74-.24 2.94-.12 3.26-.77.88-1.23 1.95-1.23 3.26 0 4.58 2.8 5.62 5.5 5.92-.27.46-.55 1.17-.55 1.94 0 1.25.01 2.37.01 2.54 0 .21-.15.46-.55.38A8.013 8.013 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
+        ></path>
+      </svg>
+      <h1>My Study Progress</h1>
+    </header>
+    <div class="container">
+      <a href="problem_solving.html" class="back-link"
+        >&larr; Back into Problem Solving</a
+      >
+      <div class="page-header">
+        <h1 style="color: var(--color-text)">Graph Algorithms</h1>
+      </div>
+
+      <div class="split-layout">
+        <div class="sidebar">
+          <button class="tab-btn active" onclick="openTab(event, 'cycle')">
+            Cycle Finding
+          </button>
+          <button class="tab-btn" onclick="openTab(event, 'dijkstra')">
+            Dijkstra
+          </button>
+          <button class="tab-btn" onclick="openTab(event, 'bellman')">
+            Bellman Ford
+          </button>
+          <button class="tab-btn" onclick="openTab(event, 'floyd')">
+            Floyd Warshall
+          </button>
+          <button class="tab-btn" onclick="openTab(event, 'topo')">
+            Topological Sort
+          </button>
+        </div>
+
+        <div class="tab-content-container">
+          <!-- Cycle Finding -->
+          <div id="cycle" class="tab-content active">
+            <div class="content-area">
+              <h2>Cycle finding in Directed graph</h2>
+              <p>
+                <strong>Theory:</strong> Uses DFS. A cycle exists if we
+                encounter a node that is currently in the recursion stack
+                (visited status = 1). We maintain visited array with states: 0
+                (unvisited), 1 (visiting), 2 (visited).
+              </p>
+              <p><strong>Complexity:</strong> Time: O(V + E), Space: O(V)</p>
+              <h3>Code</h3>
+              <pre><code>#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+vector&lt;vector&lt;int&gt;&gt; g;
+vector&lt;int&gt; vis;
+vector&lt;int&gt; path, par;
+
+void dfs(int v, int p)
+{
+    vis[v] = 1;
+    for (auto u : g[v])
+    {
+        if (vis[u] == 1)
+        {
+            // cycle found
+            int cur = v;
+            path.push_back(u);
+            while (cur != u)
+            {
+                path.push_back(cur);
+                cur = par[cur];
+            }
+            path.push_back(u);
+            reverse(path.begin(), path.end());
+            return;
+        }
+        if (!vis[u])
+        {
+            par[u] = v;
+            dfs(u, v);
+            if (path.size())
+                return;
+        }
+    }
+    vis[v] = 2;
+}
+
+int main()
+{
+    int n, m;
+    cin &gt;&gt; n &gt;&gt; m;
+    g.resize(n + 1);
+    par.resize(n + 1, -1);
+    vis.resize(n + 1);
+    for (int i = 0; i &lt; m; i++)
+    {
+        int u, v;
+        cin &gt;&gt; u &gt;&gt; v;
+        g[u].push_back(v);
+    }
+
+    for (int i = 1; i &lt;= n; i++)
+    {
+        if (!vis[i] && path.size() == 0)
+            dfs(i, -1);
+    }
+    if (path.size())
+    {
+        cout &lt;&lt; path.size() &lt;&lt; endl;
+        for (auto it : path)
+            cout &lt;&lt; it &lt;&lt; " ";
+        cout &lt;&lt; endl;
+    }
+    else
+        cout &lt;&lt; "IMPOSSIBLE" &lt;&lt; endl;
+}</code></pre>
+            </div>
+          </div>
+
+          <!-- Dijkstra -->
+          <div id="dijkstra" class="tab-content">
+            <div class="content-area">
+              <h2>Shortest Path - Dijkstra</h2>
+              <p>
+                <strong>Theory:</strong> Finds shortest paths from a source node
+                to all other nodes in a graph with non-negative edge weights.
+                Validated using a greedy approach with a priority queue.
+              </p>
+              <p>
+                <strong>Complexity:</strong> Time: O((V + E) log V), Space: O(V
+                + E)
+              </p>
+              <h3>Code</h3>
+              <pre><code>#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+class Solution
+{
+public:
+    int dijkstra(vector&lt;vector&lt;pair&lt;int, int&gt;&gt;&gt; &g, int n, int src)
+    {
+        vector&lt;int&gt; dist(n + 1, INT_MAX);
+        priority_queue&lt;pair&lt;int, int&gt;, vector&lt;pair&lt;int, int&gt;&gt;,
+                       greater&lt;pair&lt;int, int&gt;&gt;&gt;
+            pq;
+        pq.push({0, src});
+        dist[src] = 0;
+        while (!pq.empty())
+        {
+            auto it = pq.top();
+            pq.pop();
+            int u = it.second, d = it.first;
+            if (dist[u] &lt; d)
+                continue;
+            for (auto node : g[u])
+            {
+                int v = node.first;
+                int wt = node.second;
+                if (dist[u] + wt &lt; dist[v])
+                {
+                    dist[v] = dist[u] + wt;
+                    pq.push({dist[v], v});
+                }
+            }
+        }
+        int ans = -1;
+        for (int i = 1; i &lt;= n; i++)
+        {
+            if (dist[i] == INT_MAX)
+                return -1;
+            ans = max(ans, dist[i]);
+        }
+        return ans;
+    }
+    int networkDelayTime(vector&lt;vector&lt;int&gt;&gt; &edges, int n, int k)
+    {
+        vector&lt;vector&lt;pair&lt;int, int&gt;&gt;&gt; g(n + 1);
+        for (auto e : edges)
+        {
+            int u = e[0], v = e[1], w = e[2];
+            g[u].push_back({v, w});
+        }
+        return dijkstra(g, n, k);
+    }
+};</code></pre>
+            </div>
+          </div>
+
+          <!-- Bellman Ford -->
+          <div id="bellman" class="tab-content">
+            <div class="content-area">
+              <h2>Shortest Path - Bellman Ford</h2>
+              <p>
+                <strong>Theory:</strong> Computes shortest paths from a single
+                source to all other vertices. Can handle negative weights. Can
+                detect negative weight cycles.
+              </p>
+              <p><strong>Complexity:</strong> Time: O(VE), Space: O(V)</p>
+              <h3>Code</h3>
+              <pre><code>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;climits&gt;
+
+using namespace std;
+
+struct Edge {
+    int src, dest, weight;
+};
+
+void bellmanFord(int V, int E, int source, vector&lt;Edge&gt;&edges) {
+    // Step 1: Initialize distances from source to all other vertices as infinite
+    vector&lt;int&gt; dist(V, INT_MAX);
+    dist[source] = 0;
+
+    // Step 2: Relax all edges |V| - 1 times
+    for (int i = 1; i &lt;= V - 1; i++) {
+        for (int j = 0; j &lt; E; j++) {
+            int u = edges[j].src;
+            int v = edges[j].dest;
+            int weight = edges[j].weight;
+            if (dist[u] != INT_MAX && dist[u] + weight &lt; dist[v]) {
+                dist[v] = dist[u] + weight;
+            }
+        }
+    }
+
+    // Step 3: Check for negative-weight cycles
+    for (int j = 0; j &lt; E; j++) {
+        int u = edges[j].src;
+        int v = edges[j].dest;
+        int weight = edges[j].weight;
+        if (dist[u] != INT_MAX && dist[u] + weight &lt; dist[v]) {
+            cout &lt;&lt; "Graph contains a negative weight cycle!" &lt;&lt; endl;
+            return;
+        }
+    }
+
+    // Print the results
+    cout &lt;&lt; "Vertex Distance from Source:" &lt;&lt; endl;
+    for (int i = 0; i &lt; V; i++) {
+        cout &lt;&lt; i &lt;&lt; "\t\t" &lt;&lt; dist[i] &lt;&lt; endl;
+    }
+}
+
+int main() {
+    int V = 5; // Number of vertices
+    int E = 8; // Number of edges
+    vector&lt;Edge&gt; edges = {
+        {0, 1, -1}, {0, 2, 4}, {1, 2, 3}, {1, 3, 2},
+        {1, 4, 2}, {3, 2, 5}, {3, 1, 1}, {4, 3, -3}
+    };
+
+    bellmanFord(V, E, 0, edges);
+
+    return 0;
+}</code></pre>
+            </div>
+          </div>
+
+          <!-- Floyd Warshall -->
+          <div id="floyd" class="tab-content">
+            <div class="content-area">
+              <h2>Shortest Path - Floyd Warshall</h2>
+              <p>
+                <strong>Theory:</strong> All-pairs shortest path algorithm. Uses
+                dynamic programming to iteratively improve paths using
+                intermediate vertices.
+              </p>
+              <p><strong>Complexity:</strong> Time: O(V^3), Space: O(V^2)</p>
+              <h3>Code</h3>
+              <pre><code>#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+#define INF 99999
+
+void floydWarshall(vector&lt;vector&lt;int&gt;&gt; &dist, int V) {
+    for (int k = 0; k &lt; V; k++) {
+        for (int i = 0; i &lt; V; i++) {
+            for (int j = 0; j &lt; V; j++) {
+                if (dist[i][k] + dist[k][j] &lt; dist[i][j])
+                    dist[i][j] = dist[i][k] + dist[k][j];
+            }
+        }
+    }
+    
+    // Print solution
+    for (int i = 0; i &lt; V; i++) {
+        for (int j = 0; j &lt; V; j++) {
+            if (dist[i][j] == INF)
+                cout &lt;&lt; "INF ";
+            else
+                cout &lt;&lt; dist[i][j] &lt;&lt; "   ";
+        }
+        cout &lt;&lt; endl;
+    }
+}
+
+int main() {
+    int V = 4;
+    vector&lt;vector&lt;int&gt;&gt; graph = {
+        {0, 5, INF, 10},
+        {INF, 0, 3, INF},
+        {INF, INF, 0, 1},
+        {INF, INF, INF, 0}
+    };
+    
+    floydWarshall(graph, V);
+    return 0;
+}</code></pre>
+            </div>
+          </div>
+
+          <!-- Topological Sort -->
+          <div id="topo" class="tab-content">
+            <div class="content-area">
+              <h2>Topological Sort</h2>
+              <p>
+                <strong>Theory:</strong> Linear ordering of vertices such that
+                for every directed edge u -> v, vertex u comes before v. Only
+                possible for DAGs.
+              </p>
+              <p>
+                <strong>Complexity:</strong> Time: O(V + E), Space: O(V + E)
+              </p>
+
+              <h3>Kahn's Algorithm (BFS)</h3>
+              <pre><code>#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+vector&lt;int&gt; List;
+bool kahnToposort(int n, vector&lt;vector&lt;int&gt;&gt; &g)
+{
+    vector&lt;int&gt; ind(n, 0);
+    queue&lt;int&gt; q;
+    // Note: O(n+e) not O(n*e)
+    for (int i = 0; i &lt; n; i++)
+    {
+        for (auto v : g[i])
+        {
+            ind[v]++;
+        }
+    }
+    for (int i = 0; i &lt; n; i++)
+    {
+        if (ind[i] == 0)
+            q.push(i);
+    }
+    // we are pushing n nodes and checking all edges for each node only once 
+    // so O(n+e)
+    while (!q.empty())
+    {
+        int u = q.front();
+        q.pop();
+        List.push_back(u);
+        for (auto v : g[u])
+        {
+            ind[v]--;
+            if (ind[v] == 0)
+            {
+                q.push(v);
+            }
+        }
+    }
+    if (List.size() == n)
+        return true;
+    return false;
+}
+
+int main()
+{
+    int n, m;
+    cin &gt;&gt; n &gt;&gt; m;
+    vector&lt;vector&lt;int&gt;&gt; edges(n);
+    vector&lt;vector&lt;int&gt;&gt; g(n);
+    for (int i = 0; i &lt; m; i++)
+    {
+        int u, v;
+        cin &gt;&gt; u &gt;&gt; v;
+        edges[u].push_back(v);
+        g[v].push_back(u);
+    }
+    if (kahnToposort(n, edges))
+    {
+        cout &lt;&lt; "POSSIBLE" &lt;&lt; endl;
+        for (auto it : List)
+            cout &lt;&lt; it &lt;&lt; " ";
+        cout &lt;&lt; endl;
+    }
+    else
+        cout &lt;&lt; "IMPOSSIBLE, Cycle Detected" &lt;&lt; endl;
+    return 0;
+}</code></pre>
+
+              <h3>DFS Algorithm</h3>
+              <pre><code>#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+class Solution {
+public:
+    vector&lt;int&gt; List; // To store the topological order
+    vector&lt;bool&gt; visited; // To track visited nodes
+    vector&lt;bool&gt; inStack; // To detect cycles (for cycle detection)
+    
+    bool dfs(int node, vector&lt;vector&lt;int&gt;&gt;& g) {
+        // If the node is in the recursion stack, a cycle is detected
+        if (inStack[node]) 
+            return false; // There's a cycle, so topological sort is not possible
+        
+        // If the node has been visited already, no need to explore it again
+        if (visited[node])
+            return true;
+        
+        // Mark the node as visited and add it to the recursion stack
+        visited[node] = true;
+        inStack[node] = true;
+        
+        // Visit all the adjacent nodes
+        for (auto v : g[node]) {
+            if (!dfs(v, g)) // If any neighbor causes a cycle, return false
+                return false;
+        }
+        
+        // Once all the neighbors of the current node are processed, add to the topological order
+        inStack[node] = false; // Remove from recursion stack
+        List.push_back(node); // Add the node to the topological sort list
+        
+        return true;
+    }
+    
+    bool canFinish(int n, vector&lt;vector&lt;int&gt;&gt;& edges) {
+        vector&lt;vector&lt;int&gt;&gt; g(n); // Graph represented as an adjacency list
+        
+        // Build the graph
+        for (auto& edge : edges) {
+            int u = edge[0], v = edge[1];
+            g[u].push_back(v);
+        }
+        
+        visited.resize(n, false); // To track visited nodes
+        inStack.resize(n, false); // To track nodes in the recursion stack
+        
+        // Perform DFS on all nodes
+        for (int i = 0; i &lt; n; i++) {
+            if (!visited[i]) {
+                if (!dfs(i, g)) {
+                    return false; // If a cycle is detected, return false
+                }
+            }
+        }
+        
+        // If no cycle is found, return true and List contains the topological order
+        reverse(List.begin(), List.end()); // Reverse the list to get the correct order
+        return true;
+    }
+};</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        function openTab(evt, tabName) {
+          var i, tabcontent, tablinks;
+          tabcontent = document.getElementsByClassName("tab-content");
+          for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].classList.remove("active");
+          }
+          tablinks = document.getElementsByClassName("tab-btn");
+          for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+          }
+          document.getElementById(tabName).classList.add("active");
+          evt.currentTarget.classList.add("active");
+        }
+      </script>
+    </div>
+    <footer>&copy; 2026 Study Tracker.</footer>
+  </body>
+</html>
